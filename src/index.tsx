@@ -1,9 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import Routes from './Routes'
+
+import './assets/sass/global.sass'
+
 ReactDOM.render(
 	<React.StrictMode>
-		<div>Hello</div>
+		<Routes />
 	</React.StrictMode>,
 	document.getElementById('root')
 )
