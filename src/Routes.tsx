@@ -6,7 +6,7 @@ import {
 	Navigate,
 } from 'react-router-dom'
 
-import { routesList } from './types/routes'
+import { routesList } from './utils/data/routes'
 
 const Routes: FC = () => {
 	return (

@@ -1,0 +1,5 @@
+export enum userActionTypes {
+	SIGN_IN_REQUEST = 'SIGN_IN_REQUEST',
+	SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS',
+	SIGN_IN_ERROR = 'SIGN_IN_ERROR',
+}

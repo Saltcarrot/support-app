@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import cn from 'classnames'
 
-import { IInputProps } from '../../../../../types/input'
+import { IInputProps } from '../../../../../utils/types/input'
 
 import styles from './styles.module.sass'
 
