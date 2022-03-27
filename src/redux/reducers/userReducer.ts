@@ -28,6 +28,16 @@ export const userReducer = handleActions<any, IAuth | UserInfo | string>(
       error: payload,
       user: null,
     }),
+    [UserActions.types.AUTH_REQUEST]: (state) => ({
+      ...state,
+    }),
+    [UserActions.types.AUTH_SUCCESS]: (state) => ({
+      initialState,
+    }),
+    [UserActions.types.AUTH_ERROR]: (state, { payload }) => ({
+      ...state,
+      error: payload,
+    }),
   },
   initialState
 )

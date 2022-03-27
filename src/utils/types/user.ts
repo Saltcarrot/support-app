@@ -1,4 +1,4 @@
-import { User } from 'firebase/auth'
+import { UserInfo } from 'firebase/auth'
 
 export interface IAuth {
   email: string
@@ -8,5 +8,5 @@ export interface IAuth {
 export interface IUserState {
   loading: boolean
   error: string | null
-  user: User | null
+  user: UserInfo | null
 }

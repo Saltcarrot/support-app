@@ -17,6 +17,14 @@ const signIn = async ({ email, password }: IAuth) => {
   return user
 }
 
+const checkAuth = async () => {
+  const auth = firebase.auth()
+
+  const isUser = await auth.onAuthStateChanged((user) => !!user)
+
+  return isUser
+}
+
 function* signInWithDataWorker({
   payload: { email, password },
 }: Action<IAuth>) {
@@ -32,6 +40,18 @@ function* signInWithDataWorker({
   }
 }
 
+function* checkAuthWorker() {
+  try {
+    const user: firebase.Unsubscribe = yield call(checkAuth)
+    if (!user) {
+      yield put(UserActions.auth.success())
+    }
+  } catch (error: any) {
+    yield put(UserActions.auth.error(convertError(error)))
+  }
+}
+
 export function* userSaga() {
   yield takeLatest(UserActions.types.SIGN_IN_REQUEST, signInWithDataWorker)
+  yield takeLatest(UserActions.types.AUTH_REQUEST, checkAuthWorker)
 }

@@ -3,7 +3,7 @@ import SearchDialogues from './SearchDialogues/SearchDialogues'
 
 const Dialogues = {
   Search: SearchDialogues,
-  Groupe: GroupedDialogues,
+  Group: GroupedDialogues,
 }
 
 export default Dialogues

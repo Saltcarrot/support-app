@@ -13,6 +13,10 @@ const signInSuccessAction = createAction<UserInfo>(
 )
 const signInErrorAction = createAction<string>(userActionTypes.SIGN_IN_ERROR)
 
+const authRequestAction = createAction(userActionTypes.AUTH_REQUEST)
+const authSuccessAction = createAction(userActionTypes.AUTH_SUCCESS)
+const authErrorAction = createAction<string>(userActionTypes.AUTH_ERROR)
+
 export const UserActions = {
   types: userActionTypes,
 
@@ -20,5 +24,10 @@ export const UserActions = {
     request: signInRequestAction,
     success: signInSuccessAction,
     error: signInErrorAction,
+  },
+  auth: {
+    request: authRequestAction,
+    success: authSuccessAction,
+    error: authErrorAction,
   },
 }
