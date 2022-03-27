@@ -5,7 +5,7 @@ import {
 	UseFormHandleSubmit,
 	UseFormRegister,
 } from 'react-hook-form'
-import { IInput } from '../../../../types/input'
+import { IInput } from '../../../../utils/types/input'
 
 import FormHeader from './FormHeader/FormHeader'
 import FormGroup from './FormGroup/FormGroup'
