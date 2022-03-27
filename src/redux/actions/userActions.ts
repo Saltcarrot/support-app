@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions'
-import { userActionTypes } from '../../utils/enums/user'
 import { UserInfo } from 'firebase/auth'
+
+import { userActionTypes } from '../../utils/enums/user'
 import { IAuth } from '../../utils/types/user'
 
 // Аналогично

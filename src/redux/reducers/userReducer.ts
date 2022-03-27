@@ -1,6 +1,5 @@
 import { handleActions } from 'redux-actions'
-import { UserInfo } from 'firebase/auth'
-import { IAuth, IUserState } from '../../utils/types/user'
+import { IUserState } from '../../utils/types/user'
 import { UserActions } from '../actions/userActions'
 
 const initialState: IUserState = {
@@ -11,8 +10,8 @@ const initialState: IUserState = {
 
 // Т.к. конкретный экшен в userActions принимает конкретный тип пеилоада,
 // TS будет ругаться на <IUserState, IAuth | UserInfo | string>,
-// потому что payload всегда будет IAuth | UserInfo | string
-export const userReducer = handleActions<any, IAuth | UserInfo | string>(
+// потому что payload во всех кейсах будет IAuth | UserInfo | string
+export const userReducer = handleActions<IUserState, any>(
   {
     [UserActions.types.SIGN_IN_REQUEST]: (state) => ({
       ...state,
@@ -31,8 +30,8 @@ export const userReducer = handleActions<any, IAuth | UserInfo | string>(
     [UserActions.types.AUTH_REQUEST]: (state) => ({
       ...state,
     }),
-    [UserActions.types.AUTH_SUCCESS]: (state) => ({
-      initialState,
+    [UserActions.types.AUTH_SUCCESS]: () => ({
+      ...initialState,
     }),
     [UserActions.types.AUTH_ERROR]: (state, { payload }) => ({
       ...state,
