@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useTypeSelector } from './hooks/userTypedSelector'
-import { UserActions } from './redux/actions/userActions'
 
 import Pages from './components/pages'
+import { userActions } from './redux/actions/userActions'
 
 const Routes: FC = () => {
   const { user } = useTypeSelector((state) => state.user)
@@ -17,7 +17,7 @@ const Routes: FC = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(UserActions.auth.request())
+      dispatch(userActions.auth.request())
     }
   }, [dispatch, user])
 

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { UserActions } from '../../../../redux/actions/userActions'
+import { userActions } from '../../../../redux/actions/userActions'
 import { IInput } from '../../../../utils/types/input'
 
 import AuthLayout from '../../../common/Layout/AuthLayout/AuthLayout'
@@ -27,7 +27,7 @@ const Authorization: FC = () => {
   const dispatch = useDispatch()
 
   const onSubmit = (data: any) => {
-    dispatch(UserActions.signIn.request(data))
+    dispatch(userActions.signIn.request(data))
     reset()
   }
 

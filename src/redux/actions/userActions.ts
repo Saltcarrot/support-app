@@ -1,34 +1,41 @@
-import { createAction } from 'redux-actions'
-import { UserInfo } from 'firebase/auth'
+import * as ac from '../../utils/types/actionCreators/userActionCreators'
+import { userActionTypes as types } from '../../utils/enums/user'
 
-import { userActionTypes } from '../../utils/enums/user'
-import { IAuth } from '../../utils/types/user'
+// SIGN IN
+const signInRequest: ac.signInRequestActionCreator = ({ email, password }) => ({
+  type: types.SIGN_IN_REQUEST,
+  payload: { email, password },
+})
+const signInSuccess: ac.signInSuccessActionCreator = (user) => ({
+  type: types.SIGN_IN_SUCCESS,
+  payload: user,
+})
+const signInError: ac.signInErrorActionCreator = (message) => ({
+  type: types.SIGN_IN_ERROR,
+  payload: message,
+})
 
-// Аналогично
-// const signInRequestAction = ({email, password}) => ({type: userActionTypes.SIGN_IN_REQUEST, payload: {email, password}})
-// IAuth - payload
-// userActionTypes.SIGN_IN_REQUEST - type
-const signInRequestAction = createAction<IAuth>(userActionTypes.SIGN_IN_REQUEST)
-const signInSuccessAction = createAction<UserInfo>(
-  userActionTypes.SIGN_IN_SUCCESS
-)
-const signInErrorAction = createAction<string>(userActionTypes.SIGN_IN_ERROR)
+// AUTH
+const authRequest: ac.authRequestActionCreator = () => ({
+  type: types.AUTH_REQUEST,
+})
+const authReset: ac.authSuccessActionCreator = () => ({
+  type: types.AUTH_RESET,
+})
+const authError: ac.authErrorActionCreator = (message) => ({
+  type: types.AUTH_ERROR,
+  payload: message,
+})
 
-const authRequestAction = createAction(userActionTypes.AUTH_REQUEST)
-const authSuccessAction = createAction(userActionTypes.AUTH_SUCCESS)
-const authErrorAction = createAction<string>(userActionTypes.AUTH_ERROR)
-
-export const UserActions = {
-  types: userActionTypes,
-
+export const userActions = {
   signIn: {
-    request: signInRequestAction,
-    success: signInSuccessAction,
-    error: signInErrorAction,
+    request: signInRequest,
+    success: signInSuccess,
+    error: signInError,
   },
   auth: {
-    request: authRequestAction,
-    success: authSuccessAction,
-    error: authErrorAction,
+    request: authRequest,
+    reset: authReset,
+    error: authError,
   },
 }
