@@ -1,10 +1,11 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
-import { Action } from 'redux-actions'
 import { call, put, takeLatest } from 'redux-saga/effects'
 
+import { userActionTypes } from '../../utils/enums/user'
+import { userActions } from '../actions/userActions'
+import * as actions from '../../utils/types/actionTypes/userActionTypes'
 import { IAuth } from '../../utils/types/user'
-import { UserActions } from '../actions/userActions'
 import { convertError } from '../../utils/helpers/convertError'
 
 const signIn = async ({ email, password }: IAuth) => {
@@ -26,31 +27,33 @@ const checkAuth = async () => {
 
 function* signInWithDataWorker({
   payload: { email, password },
-}: Action<IAuth>) {
+}: actions.SignInRequestAction) {
   try {
-    const user: firebase.User = yield call(signIn, {
+    const {
+      multiFactor: { user },
+    } = yield call(signIn, {
       email,
       password,
     })
-    yield put(UserActions.signIn.success(user))
+    yield put(userActions.signIn.success(user))
   } catch (error: any) {
     // По дефолту возвращает unknown
-    yield put(UserActions.signIn.error(convertError(error)))
+    yield put(userActions.signIn.error(convertError(error)))
   }
 }
 
 function* checkAuthWorker() {
   try {
-    const user: firebase.Unsubscribe = yield call(checkAuth)
+    const user: boolean = yield call(checkAuth)
     if (!user) {
-      yield put(UserActions.auth.success())
+      yield put(userActions.auth.reset())
     }
   } catch (error: any) {
-    yield put(UserActions.auth.error(convertError(error)))
+    yield put(userActions.auth.error(convertError(error)))
   }
 }
 
 export function* userSaga() {
-  yield takeLatest(UserActions.types.SIGN_IN_REQUEST, signInWithDataWorker)
-  yield takeLatest(UserActions.types.AUTH_REQUEST, checkAuthWorker)
+  yield takeLatest(userActionTypes.SIGN_IN_REQUEST, signInWithDataWorker)
+  yield takeLatest(userActionTypes.AUTH_REQUEST, checkAuthWorker)
 }
