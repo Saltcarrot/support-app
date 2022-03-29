@@ -6,13 +6,13 @@ import {
   Navigate,
 } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useTypeSelector } from './hooks/userTypedSelector'
+import { useTypedSelector } from './hooks/useTypedSelector'
 
 import Pages from './components/pages'
 import { userActions } from './redux/actions/userActions'
 
 const Routes: FC = () => {
-  const { user } = useTypeSelector((state) => state.user)
+  const { user } = useTypedSelector((state) => state.user)
   const dispatch = useDispatch()
 
   useEffect(() => {
