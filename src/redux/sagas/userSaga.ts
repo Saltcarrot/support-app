@@ -2,13 +2,21 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import { call, put, takeLatest } from 'redux-saga/effects'
 
-import { userActionTypes } from '../../utils/enums/user'
+import { userActionTypes as types } from '../../utils/enums/user'
 import { userActions } from '../actions/userActions'
 import * as actions from '../../utils/types/actionTypes/userActionTypes'
 import { IAuth } from '../../utils/types/user'
 import { convertError } from '../../utils/helpers/convertError'
 
-const signIn = async ({ email, password, isRemember }: IAuth) => {
+const fetchCheckAuth = async () => {
+  const auth = firebase.auth()
+
+  const isUser = await auth.onAuthStateChanged((user) => !!user)
+
+  return isUser
+}
+
+const fetchSignIn = async ({ email, password, isRemember }: IAuth) => {
   const auth = firebase.auth()
 
   await auth.setPersistence(
@@ -22,12 +30,23 @@ const signIn = async ({ email, password, isRemember }: IAuth) => {
   return user
 }
 
-const checkAuth = async () => {
+const fetchSignUp = async ({ email, password }: IAuth) => {
   const auth = firebase.auth()
 
-  const isUser = await auth.onAuthStateChanged((user) => !!user)
+  const { user } = await auth.createUserWithEmailAndPassword(email, password)
 
-  return isUser
+  return user
+}
+
+function* checkAuthWorker() {
+  try {
+    const user: boolean = yield call(fetchCheckAuth)
+    if (!user) {
+      yield put(userActions.authCheck.reset())
+    }
+  } catch (error: any) {
+    yield put(userActions.authCheck.error(convertError(error)))
+  }
 }
 
 function* signInWithDataWorker({
@@ -36,7 +55,7 @@ function* signInWithDataWorker({
   try {
     const {
       multiFactor: { user },
-    } = yield call(signIn, {
+    } = yield call(fetchSignIn, {
       email,
       password,
       isRemember,
@@ -48,18 +67,24 @@ function* signInWithDataWorker({
   }
 }
 
-function* checkAuthWorker() {
+function* signUpWorker({
+  payload: { email, password },
+}: actions.SignUpRequestAction) {
   try {
-    const user: boolean = yield call(checkAuth)
-    if (!user) {
-      yield put(userActions.auth.reset())
-    }
+    const {
+      multiFactor: { user },
+    } = yield call(fetchSignUp, {
+      email: email,
+      password: password,
+    })
+    yield put(userActions.signUp.success(user))
   } catch (error: any) {
-    yield put(userActions.auth.error(convertError(error)))
+    yield put(userActions.signUp.error(convertError(error)))
   }
 }
 
 export function* userSaga() {
-  yield takeLatest(userActionTypes.SIGN_IN_REQUEST, signInWithDataWorker)
-  yield takeLatest(userActionTypes.AUTH_REQUEST, checkAuthWorker)
+  yield takeLatest(types.SIGN_IN_REQUEST, signInWithDataWorker)
+  yield takeLatest(types.AUTH_CHECK_REQUEST, checkAuthWorker)
+  yield takeLatest(types.SIGN_UP_REQUEST, signUpWorker)
 }

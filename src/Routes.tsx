@@ -17,7 +17,7 @@ const Routes: FC = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(userActions.auth.request())
+      dispatch(userActions.authCheck.request())
     }
   }, [dispatch, user])
 
