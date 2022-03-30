@@ -46,6 +46,7 @@ const Authorization: FC = () => {
     {
       label: 'Введите пароль',
       name: 'password',
+      type: 'password',
       placement: 'auth',
       placeholder: 'Пароль',
     },
