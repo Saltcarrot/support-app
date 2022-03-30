@@ -1,8 +1,10 @@
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { userActions } from '../../../../redux/actions/userActions'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { IInput } from '../../../../utils/types/input'
+import { authSchema } from '../../../../utils/helpers/validationSchemas'
+import { userActions } from '../../../../redux/actions/userActions'
 
 import AuthLayout from '../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../common/Container/Container'
@@ -23,6 +25,7 @@ const Authorization: FC = () => {
     reset,
   } = useForm({
     mode: 'onSubmit',
+    resolver: yupResolver(authSchema),
   })
   const dispatch = useDispatch()
 
@@ -39,41 +42,26 @@ const Authorization: FC = () => {
       name: 'email',
       placement: 'auth',
       placeholder: 'example@example.com',
-      required: 'Email не может быть пустым',
-      pattern: {
-        value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-        message: 'Email должен иметь общепринятый вид адреса электронной почты',
-      },
     },
     {
       label: 'Введите пароль',
       name: 'password',
       placement: 'auth',
       placeholder: 'Пароль',
-      required: 'Пароль не может быть пустым',
-      // minLength: {
-      //   value: 8,
-      //   message: 'Пароль должен состоять из 8 символов и более',
-      // },
-      // pattern: {
-      //   value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
-      //   message:
-      //     'Пароль должен содержать как минимум одну цифру, а также иметь буквы в верхнем и нижнем регистре',
-      // },
     },
   ]
 
   return (
     <AuthLayout>
-      <Container content="auth">
+      <Container content='auth'>
         <Form
-          title="Авторизация"
-          tip="Заполните все поля для авторизации"
+          title='Авторизация'
+          tip='Заполните все поля для авторизации'
           register={register}
           errors={errors}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
-          inputArr={AuthInputs}
+          inputs={AuthInputs}
           bottom={
             <>
               <div className={styles.wrapper}>
@@ -85,10 +73,10 @@ const Authorization: FC = () => {
               </div>
               <div className={styles.wrapper_btns}>
                 <GoogleAuth onClick={() => {}} />
-                <AuthLink path="/registration" title="Зарегистрироваться" />
+                <AuthLink path='/registration' title='Зарегистрироваться' />
               </div>
               <div className={styles.wrapper_submit}>
-                <SubmitBtn text="Войти" />
+                <SubmitBtn text='Войти' />
               </div>
             </>
           }

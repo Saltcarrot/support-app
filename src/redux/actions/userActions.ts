@@ -2,9 +2,13 @@ import * as ac from '../../utils/types/actionCreators/userActionCreators'
 import { userActionTypes as types } from '../../utils/enums/user'
 
 // SIGN IN
-const signInRequest: ac.signInRequestActionCreator = ({ email, password }) => ({
+const signInRequest: ac.signInRequestActionCreator = ({
+  email,
+  password,
+  isRemember,
+}) => ({
   type: types.SIGN_IN_REQUEST,
-  payload: { email, password },
+  payload: { email, password, isRemember },
 })
 const signInSuccess: ac.signInSuccessActionCreator = (user) => ({
   type: types.SIGN_IN_SUCCESS,

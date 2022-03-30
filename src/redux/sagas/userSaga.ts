@@ -8,9 +8,14 @@ import * as actions from '../../utils/types/actionTypes/userActionTypes'
 import { IAuth } from '../../utils/types/user'
 import { convertError } from '../../utils/helpers/convertError'
 
-const signIn = async ({ email, password }: IAuth) => {
+const signIn = async ({ email, password, isRemember }: IAuth) => {
   const auth = firebase.auth()
 
+  await auth.setPersistence(
+    isRemember
+      ? firebase.auth.Auth.Persistence.LOCAL
+      : firebase.auth.Auth.Persistence.SESSION
+  )
   const provider = firebase.auth.EmailAuthProvider.credential(email, password)
   const { user } = await auth.signInWithCredential(provider)
 
@@ -26,7 +31,7 @@ const checkAuth = async () => {
 }
 
 function* signInWithDataWorker({
-  payload: { email, password },
+  payload: { email, password, isRemember },
 }: actions.SignInRequestAction) {
   try {
     const {
@@ -34,6 +39,7 @@ function* signInWithDataWorker({
     } = yield call(signIn, {
       email,
       password,
+      isRemember,
     })
     yield put(userActions.signIn.success(user))
   } catch (error: any) {
