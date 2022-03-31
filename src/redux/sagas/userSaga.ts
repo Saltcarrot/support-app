@@ -42,10 +42,10 @@ function* checkAuthWorker() {
   try {
     const user: boolean = yield call(fetchCheckAuth)
     if (!user) {
-      yield put(userActions.authCheck.reset())
+      yield put(userActions.checkAuth.reset())
     }
   } catch (error: any) {
-    yield put(userActions.authCheck.error(convertError(error)))
+    yield put(userActions.checkAuth.error(convertError(error)))
   }
 }
 
@@ -85,6 +85,6 @@ function* signUpWorker({
 
 export function* userSaga() {
   yield takeLatest(types.SIGN_IN_REQUEST, signInWithDataWorker)
-  yield takeLatest(types.AUTH_CHECK_REQUEST, checkAuthWorker)
+  yield takeLatest(types.CHECK_AUTH_REQUEST, checkAuthWorker)
   yield takeLatest(types.SIGN_UP_REQUEST, signUpWorker)
 }

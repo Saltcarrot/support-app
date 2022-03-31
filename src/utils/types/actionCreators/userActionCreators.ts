@@ -3,11 +3,11 @@ import * as actions from '../actionTypes/userActionTypes'
 import { UserInfo } from 'firebase/auth'
 
 // AUTH
-export type authCheckRequestActionCreator = () => actions.AuthCheckRequestAction
-export type authCheckSuccessActionCreator = () => actions.AuthCheckResetAction
-export type authCheckErrorActionCreator = (
+export type checkAuthRequestActionCreator = () => actions.CheckAuthRequestAction
+export type checkAuthSuccessActionCreator = () => actions.CheckAuthResetAction
+export type checkAuthErrorActionCreator = (
   message: string
-) => actions.AuthCheckErrorAction
+) => actions.CheckAuthErrorAction
 
 // SIGN IN
 export type signInRequestActionCreator = ({

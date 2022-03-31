@@ -13,14 +13,14 @@ import Pages from './components/pages'
 const Routes: FC = () => {
   const { user } = useTypedSelector((state) => state.user)
   const {
-    user: { authCheck },
+    user: { checkAuth },
   } = useActions()
 
   useEffect(() => {
     if (user) {
-      authCheck()
+      checkAuth()
     }
-  }, [authCheck, user])
+  }, [checkAuth, user])
 
   return (
     <Router>

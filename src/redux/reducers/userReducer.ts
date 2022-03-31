@@ -15,11 +15,11 @@ export const userReducer: Reducer<IUserState, UserActions> = (
 ) => {
   switch (type) {
     // AUTH
-    case types.AUTH_CHECK_REQUEST:
+    case types.CHECK_AUTH_REQUEST:
       return { ...state }
-    case types.AUTH_CHECK_RESET:
+    case types.CHECK_AUTH_RESET:
       return initialState
-    case types.AUTH_CHECK_ERROR:
+    case types.CHECK_AUTH_ERROR:
       return { ...state, error: payload }
     // SIGN IN
     case types.SIGN_IN_REQUEST:

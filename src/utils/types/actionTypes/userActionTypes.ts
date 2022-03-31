@@ -3,16 +3,16 @@ import { IAuth } from '../user'
 import { UserInfo } from 'firebase/auth'
 
 // AUTH
-export interface AuthCheckRequestAction {
-  type: types.AUTH_CHECK_REQUEST
+export interface CheckAuthRequestAction {
+  type: types.CHECK_AUTH_REQUEST
   payload?: undefined
 }
-export interface AuthCheckResetAction {
-  type: types.AUTH_CHECK_RESET
+export interface CheckAuthResetAction {
+  type: types.CHECK_AUTH_RESET
   payload?: undefined
 }
-export interface AuthCheckErrorAction {
-  type: types.AUTH_CHECK_ERROR
+export interface CheckAuthErrorAction {
+  type: types.CHECK_AUTH_ERROR
   payload: string
 }
 
@@ -45,9 +45,9 @@ export interface SignUpErrorAction {
 }
 
 export type UserActions =
-  | AuthCheckRequestAction
-  | AuthCheckResetAction
-  | AuthCheckErrorAction
+  | CheckAuthRequestAction
+  | CheckAuthResetAction
+  | CheckAuthErrorAction
   | SignInRequestAction
   | SignInSuccessAction
   | SignInErrorAction

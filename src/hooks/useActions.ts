@@ -9,7 +9,7 @@ export const useActions = () => {
 
   return {
     user: {
-      authCheck: () => dispatch(userActions.authCheck.request()),
+      checkAuth: () => dispatch(userActions.checkAuth.request()),
       signIn: (payload: IAuth) => dispatch(userActions.signIn.request(payload)),
       signUp: (payload: IAuth) => dispatch(userActions.signUp.request(payload)),
     },

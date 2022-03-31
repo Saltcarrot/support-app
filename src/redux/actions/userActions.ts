@@ -2,14 +2,14 @@ import * as ac from '../../utils/types/actionCreators/userActionCreators'
 import { userActionTypes as types } from '../../utils/enums/user'
 
 // AUTH
-const authCheckRequest: ac.authCheckRequestActionCreator = () => ({
-  type: types.AUTH_CHECK_REQUEST,
+const authCheckRequest: ac.checkAuthRequestActionCreator = () => ({
+  type: types.CHECK_AUTH_REQUEST,
 })
-const authCheckReset: ac.authCheckSuccessActionCreator = () => ({
-  type: types.AUTH_CHECK_RESET,
+const authCheckReset: ac.checkAuthSuccessActionCreator = () => ({
+  type: types.CHECK_AUTH_RESET,
 })
-const authCheckError: ac.authCheckErrorActionCreator = (message) => ({
-  type: types.AUTH_CHECK_ERROR,
+const authCheckError: ac.checkAuthErrorActionCreator = (message) => ({
+  type: types.CHECK_AUTH_ERROR,
   payload: message,
 })
 
@@ -46,7 +46,7 @@ const signUpError: ac.signUpErrorActionCreator = (message) => ({
 })
 
 export const userActions = {
-  authCheck: {
+  checkAuth: {
     request: authCheckRequest,
     reset: authCheckReset,
     error: authCheckError,
