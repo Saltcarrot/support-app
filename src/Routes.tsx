@@ -5,21 +5,22 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useActions } from './hooks/useActions'
 import { useTypedSelector } from './hooks/useTypedSelector'
-import { userActions } from './redux/actions/userActions'
 
 import Pages from './components/pages'
 
 const Routes: FC = () => {
   const { user } = useTypedSelector((state) => state.user)
-  const dispatch = useDispatch()
+  const {
+    user: { authCheck },
+  } = useActions()
 
   useEffect(() => {
     if (user) {
-      dispatch(userActions.authCheck.request())
+      authCheck()
     }
-  }, [dispatch, user])
+  }, [authCheck, user])
 
   return (
     <Router>
