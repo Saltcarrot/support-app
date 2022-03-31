@@ -1,10 +1,9 @@
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useActions } from '../../../../hooks/useActions'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { IInput } from '../../../../utils/types/input'
 import { signInSchema } from '../../../../utils/helpers/validationSchemas'
-import { userActions } from '../../../../redux/actions/userActions'
 
 import AuthLayout from '../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../common/Container/Container'
@@ -17,17 +16,19 @@ const Authorization: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(signInSchema),
   })
+
   const [isRemember, setIsRemember] = useState<boolean>(false)
-  const dispatch = useDispatch()
+
+  const {
+    user: { signIn },
+  } = useActions()
 
   const onSubmit = (data: any) => {
-    dispatch(userActions.signIn.request(data))
-    reset()
+    signIn(data)
   }
 
   const signInInputs: IInput[] = [

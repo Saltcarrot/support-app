@@ -1,10 +1,9 @@
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useActions } from '../../../../hooks/useActions'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { IInput } from '../../../../utils/types/input'
 import { signUpSchema } from '../../../../utils/helpers/validationSchemas'
-import { userActions } from '../../../../redux/actions/userActions'
 
 import AuthLayout from '../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../common/Container/Container'
@@ -17,16 +16,17 @@ const Registration: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(signUpSchema),
   })
-  const dispatch = useDispatch()
+
+  const {
+    user: { signUp },
+  } = useActions()
 
   const onSubmit = (data: any) => {
-    dispatch(userActions.signUp.request(data))
-    reset()
+    signUp(data)
   }
 
   const signUpInputs: IInput[] = [
