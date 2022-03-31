@@ -7,10 +7,7 @@ import {
 } from 'react-hook-form'
 import { IInput } from '../../../../utils/types/input'
 
-import FormHeader from './FormHeader/FormHeader'
-import FormGroup from './FormGroup/FormGroup'
-import Label from './Label/Label'
-import Input from './Input/Input'
+import { CustomForm } from './index'
 import Alert from '../Alert/Alert'
 
 import styles from './styles.module.sass'
@@ -25,22 +22,22 @@ interface IFormProps {
   handleSubmit: UseFormHandleSubmit<FieldValues>
   onSubmit: SubmitHandler<FieldValues>
   inputs: IInput[]
-  bottom: ReactNode
+  bottom?: ReactNode
 }
 
 const Form: FC<IFormProps> = (props: IFormProps) => {
   return (
     <form className={styles.form} onSubmit={props.handleSubmit(props.onSubmit)}>
-      <FormHeader title={props.title} tip={props.tip} />
+      <CustomForm.Header title={props.title} tip={props.tip} />
       {props.inputs.map((el) => {
         return (
-          <FormGroup key={el.name}>
-            <Label for={el.name} text={el.label} />
-            <Input register={props.register} {...el} />
+          <CustomForm.Group key={el.name}>
+            <CustomForm.Label for={el.name} text={el.label} />
+            <CustomForm.Input register={props.register} {...el} />
             {props.errors[el.name] && (
               <Alert type='error' message={props.errors[el.name].message} />
             )}
-          </FormGroup>
+          </CustomForm.Group>
         )
       })}
       <div className={styles.bottom}>{props.bottom}</div>
