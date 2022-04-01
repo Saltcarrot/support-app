@@ -9,7 +9,7 @@ import AuthLayout from '../../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../../common/Container/Container'
 import { CustomForm as Form } from '../../../../common/UI/Form'
 
-import styles from '../../styles.module.sass'
+import styles from '../../Auth.module.sass'
 
 const PasswordRecovery: FC = () => {
   const {

@@ -2,7 +2,7 @@ import { FC, MouseEvent } from 'react'
 
 import { FaGoogle } from 'react-icons/fa'
 
-import styles from './styles.module.sass'
+import styles from './GoogleAuth.module.sass'
 
 interface IGoogleAuthProps {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void

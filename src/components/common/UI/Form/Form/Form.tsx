@@ -4,7 +4,7 @@ import { CustomForm } from '../index'
 
 import Alert from '../../Alert/Alert'
 
-import styles from '../styles.module.sass'
+import styles from './Form.module.sass'
 
 const Form: FC<FormPropTypes> = (props: FormPropTypes) => {
   return (
