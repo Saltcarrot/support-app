@@ -5,15 +5,15 @@ import { FaGoogle } from 'react-icons/fa'
 import styles from './styles.module.sass'
 
 interface IGoogleAuthProps {
-	onClick: (event: MouseEvent<HTMLButtonElement>) => void
+  onClick: (event: MouseEvent<HTMLButtonElement>) => void
 }
 
 const GoogleAuth: FC<IGoogleAuthProps> = ({ onClick }: IGoogleAuthProps) => {
-	return (
-		<button className={styles.google} type='button' onClick={onClick}>
-			Авторизоваться с помощью <FaGoogle />
-		</button>
-	)
+  return (
+    <button className={styles.google} type='button' onClick={onClick}>
+      Авторизоваться через <FaGoogle />
+    </button>
+  )
 }
 
 export default GoogleAuth

@@ -9,7 +9,7 @@ import AuthLayout from '../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../common/Container/Container'
 import { CustomForm as Form } from '../../../common/UI/Form'
 
-import styles from '../Authorization/styles.module.sass'
+import styles from '../styles.module.sass'
 
 const Registration: FC = () => {
   const {
