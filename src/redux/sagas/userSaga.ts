@@ -8,6 +8,8 @@ import * as actions from '../../utils/types/actionTypes/userActionTypes'
 import { IAuth } from '../../utils/types/user'
 import { convertError } from '../../utils/helpers/convertError'
 
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
+
 const fetchCheckAuth = async () => {
   const auth = firebase.auth()
 
@@ -36,6 +38,11 @@ const fetchSignUp = async ({ email, password }: IAuth) => {
   const { user } = await auth.createUserWithEmailAndPassword(email, password)
 
   return user
+}
+
+const fetchRecoverPassword = async (email: string) => {
+  const auth = firebase.auth()
+  await auth.sendPasswordResetEmail(email)
 }
 
 function* checkAuthWorker() {
@@ -83,8 +90,26 @@ function* signUpWorker({
   }
 }
 
+function* recoverPasswordWorker({
+  payload: email,
+}: actions.RecoverPasswordRequestAction) {
+  try {
+    yield call(fetchRecoverPassword, email)
+    yield put(
+      userActions.recoverPassword.success(
+        'Ссылка для восстановления пароля отправлена на указанный email'
+      )
+    )
+    yield call(delay, 5000)
+    yield put(userActions.resetMessages())
+  } catch (error: any) {
+    yield put(userActions.recoverPassword.error(convertError(error)))
+  }
+}
+
 export function* userSaga() {
   yield takeLatest(types.SIGN_IN_REQUEST, signInWithDataWorker)
   yield takeLatest(types.CHECK_AUTH_REQUEST, checkAuthWorker)
   yield takeLatest(types.SIGN_UP_REQUEST, signUpWorker)
+  yield takeLatest(types.RECOVER_PASSWORD_REQUEST, recoverPasswordWorker)
 }

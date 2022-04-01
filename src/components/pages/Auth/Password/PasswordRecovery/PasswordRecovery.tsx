@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { useActions } from '../../../../../hooks/useActions'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { IInput } from '../../../../../utils/types/input'
 import { recoverySchema } from '../../../../../utils/helpers/validationSchemas'
@@ -20,8 +21,12 @@ const PasswordRecovery: FC = () => {
     resolver: yupResolver(recoverySchema),
   })
 
-  const onSubmit = (data: any) => {
-    console.log(data)
+  const {
+    user: { recoverPassword },
+  } = useActions()
+
+  const onSubmit = ({ email }: any) => {
+    recoverPassword(email)
   }
 
   const emailInput: IInput[] = [

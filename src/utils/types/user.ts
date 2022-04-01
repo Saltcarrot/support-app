@@ -9,5 +9,6 @@ export interface IAuth {
 export interface IUserState {
   loading: boolean
   error: string | null
+  success: string | null
   user: UserInfo | null
 }

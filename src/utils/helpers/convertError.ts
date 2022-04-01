@@ -4,6 +4,7 @@ export const convertError = (error: {
   code: string
   message: string
 }): string => {
+  console.log(error.code)
   switch (error.code) {
     case errors.EMAIL_EXISTS:
       return 'Пользователь с этим email уже существует'

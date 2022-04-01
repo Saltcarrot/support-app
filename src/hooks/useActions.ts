@@ -12,6 +12,8 @@ export const useActions = () => {
       checkAuth: () => dispatch(userActions.checkAuth.request()),
       signIn: (payload: IAuth) => dispatch(userActions.signIn.request(payload)),
       signUp: (payload: IAuth) => dispatch(userActions.signUp.request(payload)),
+      recoverPassword: (payload: string) =>
+        dispatch(userActions.recoverPassword.request(payload)),
     },
   }
 }
