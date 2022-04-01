@@ -1,19 +1,19 @@
 import { FC } from 'react'
 
-import styles from './styles.module.sass'
+import styles from './FormHeader.module.sass'
 
 interface IFormHeaderProps {
-	title: string
-	tip: string
+  title: string
+  tip: string
 }
 
 const FormHeader: FC<IFormHeaderProps> = (props: IFormHeaderProps) => {
-	return (
-		<div className={styles.top}>
-			<h1 className={styles.title}>{props.title}</h1>
-			<p>{props.tip}</p>
-		</div>
-	)
+  return (
+    <div className={styles.header}>
+      <h1 className={styles.title}>{props.title}</h1>
+      <p className={styles.tip}>{props.tip}</p>
+    </div>
+  )
 }
 
 export default FormHeader

@@ -9,13 +9,14 @@ import AuthLayout from '../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../common/Container/Container'
 import { CustomForm as Form } from '../../../common/UI/Form'
 
-import styles from '../Authorization/styles.module.sass'
+import styles from '../Auth.module.sass'
 
 const Registration: FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(signUpSchema),
@@ -27,6 +28,7 @@ const Registration: FC = () => {
 
   const onSubmit = (data: any) => {
     signUp(data)
+    reset()
   }
 
   const signUpInputs: IInput[] = [

@@ -1,6 +1,11 @@
 import * as ac from '../../utils/types/actionCreators/userActionCreators'
 import { userActionTypes as types } from '../../utils/enums/user'
 
+// RESET MESSAGES
+const resetMessages: ac.resetMessagesActionCreator = () => ({
+  type: types.RESET_MESSAGES,
+})
+
 // AUTH
 const checkAuthRequest: ac.checkAuthRequestActionCreator = () => ({
   type: types.CHECK_AUTH_REQUEST,
@@ -45,7 +50,48 @@ const signUpError: ac.signUpErrorActionCreator = (message) => ({
   payload: message,
 })
 
+// RECOVER PASSWORD
+const recoverPasswordRequest: ac.recoverPasswordRequestActionCreator = (
+  email
+) => ({
+  type: types.RECOVER_PASSWORD_REQUEST,
+  payload: email,
+})
+const recoverPasswordSuccess: ac.recoverPasswordSuccessActionCreator = (
+  message: string
+) => ({
+  type: types.RECOVER_PASSWORD_SUCCESS,
+  payload: message,
+})
+const recoverPasswordError: ac.recoverPasswordErrorActionCreator = (
+  message: string
+) => ({
+  type: types.RECOVER_PASSWORD_ERROR,
+  payload: message,
+})
+
+// CONFIRM PASSWORD
+const confirmPasswordRequest: ac.confirmPasswordRequestActionCreator = (
+  data
+) => ({
+  type: types.CONFIRM_PASSWORD_REQUEST,
+  payload: data,
+})
+const confirmPasswordSuccess: ac.confirmPasswordSuccessActionCreator = (
+  message
+) => ({
+  type: types.CONFIRM_PASSWORD_SUCCESS,
+  payload: message,
+})
+const confirmPasswordError: ac.confirmPasswordErrorActionCreator = (
+  message
+) => ({
+  type: types.CONFIRM_PASSWORD_ERROR,
+  payload: message,
+})
+
 export const userActions = {
+  resetMessages,
   checkAuth: {
     request: checkAuthRequest,
     reset: checkAuthReset,
@@ -60,5 +106,15 @@ export const userActions = {
     request: signUpRequest,
     success: signUpSuccess,
     error: signUpError,
+  },
+  recoverPassword: {
+    request: recoverPasswordRequest,
+    success: recoverPasswordSuccess,
+    error: recoverPasswordError,
+  },
+  confirmPassword: {
+    request: confirmPasswordRequest,
+    success: confirmPasswordSuccess,
+    error: confirmPasswordError,
   },
 }

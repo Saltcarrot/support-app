@@ -1,6 +1,9 @@
-import { IAuth } from '../user'
+import { IAuth, IConfPass } from '../user'
 import * as actions from '../actionTypes/userActionTypes'
 import { UserInfo } from 'firebase/auth'
+
+// RESET MESSAGES
+export type resetMessagesActionCreator = () => actions.ResetMessagesAction
 
 // AUTH
 export type checkAuthRequestActionCreator = () => actions.CheckAuthRequestAction
@@ -32,3 +35,25 @@ export type signUpSuccessActionCreator = (
 export type signUpErrorActionCreator = (
   message: string
 ) => actions.SignUpErrorAction
+
+// RECOVER PASSWORD
+export type recoverPasswordRequestActionCreator = (
+  email: string
+) => actions.RecoverPasswordRequestAction
+export type recoverPasswordSuccessActionCreator = (
+  message: string
+) => actions.RecoverPasswordSuccessAction
+export type recoverPasswordErrorActionCreator = (
+  message: string
+) => actions.RecoverPasswordErrorAction
+
+// CONFIRM PASSWORD
+export type confirmPasswordRequestActionCreator = (
+  data: IConfPass
+) => actions.ConfirmPasswordRequestAction
+export type confirmPasswordSuccessActionCreator = (
+  message: string
+) => actions.ConfirmPasswordSuccessAction
+export type confirmPasswordErrorActionCreator = (
+  message: string
+) => actions.ConfirmPasswordErrorAction

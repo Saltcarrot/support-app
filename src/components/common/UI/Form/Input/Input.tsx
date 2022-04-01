@@ -3,7 +3,7 @@ import cn from 'classnames'
 
 import { InputPropTypes } from './InputPropTypes'
 
-import styles from './styles.module.sass'
+import styles from './Input.module.sass'
 
 const Input: FC<InputPropTypes> = (props: InputPropTypes) => {
   return (

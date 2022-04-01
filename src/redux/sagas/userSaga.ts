@@ -5,8 +5,11 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { userActionTypes as types } from '../../utils/enums/user'
 import { userActions } from '../actions/userActions'
 import * as actions from '../../utils/types/actionTypes/userActionTypes'
-import { IAuth } from '../../utils/types/user'
+import { IAuth, IConfPass } from '../../utils/types/user'
 import { convertError } from '../../utils/helpers/convertError'
+import { errors } from '../../utils/enums/errors'
+
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
 const fetchCheckAuth = async () => {
   const auth = firebase.auth()
@@ -36,6 +39,18 @@ const fetchSignUp = async ({ email, password }: IAuth) => {
   const { user } = await auth.createUserWithEmailAndPassword(email, password)
 
   return user
+}
+
+const fetchRecoverPassword = async (email: string) => {
+  const auth = firebase.auth()
+  await auth.sendPasswordResetEmail(email)
+}
+
+const fetchConfirmPassword = async ({ oobCode, password }: IConfPass) => {
+  const auth = firebase.auth()
+  if (oobCode != null) {
+    await auth.confirmPasswordReset(oobCode, password)
+  }
 }
 
 function* checkAuthWorker() {
@@ -83,8 +98,54 @@ function* signUpWorker({
   }
 }
 
+function* recoverPasswordWorker({
+  payload: email,
+}: actions.RecoverPasswordRequestAction) {
+  try {
+    yield call(fetchRecoverPassword, email)
+    yield put(
+      userActions.recoverPassword.success(
+        'Ссылка для восстановления пароля отправлена на указанный email'
+      )
+    )
+  } catch (error: any) {
+    yield put(userActions.recoverPassword.error(convertError(error)))
+  } finally {
+    yield call(delay, 5000)
+    yield put(userActions.resetMessages())
+  }
+}
+
+function* confirmPasswordWorker({
+  payload: { oobCode, password },
+}: actions.ConfirmPasswordRequestAction) {
+  try {
+    if (oobCode !== null) {
+      yield call(fetchConfirmPassword, { oobCode, password })
+      yield put(
+        userActions.confirmPassword.success(
+          'Пароль обновлен, перенаправляем на страницу авторизации'
+        )
+      )
+    } else {
+      yield put(
+        userActions.confirmPassword.error(
+          convertError({ code: errors.INVALID_ACTION_CODE, message: '' })
+        )
+      )
+    }
+  } catch (error: any) {
+    yield put(userActions.confirmPassword.error(convertError(error)))
+  } finally {
+    yield call(delay, 5000)
+    yield put(userActions.resetMessages())
+  }
+}
+
 export function* userSaga() {
   yield takeLatest(types.SIGN_IN_REQUEST, signInWithDataWorker)
   yield takeLatest(types.CHECK_AUTH_REQUEST, checkAuthWorker)
   yield takeLatest(types.SIGN_UP_REQUEST, signUpWorker)
+  yield takeLatest(types.RECOVER_PASSWORD_REQUEST, recoverPasswordWorker)
+  yield takeLatest(types.CONFIRM_PASSWORD_REQUEST, confirmPasswordWorker)
 }

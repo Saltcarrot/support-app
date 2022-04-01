@@ -1,6 +1,12 @@
 import { userActionTypes as types } from '../../enums/user'
-import { IAuth } from '../user'
+import { IAuth, IConfPass } from '../user'
 import { UserInfo } from 'firebase/auth'
+
+// RESET MESSAGES
+export interface ResetMessagesAction {
+  type: types.RESET_MESSAGES
+  payload?: undefined
+}
 
 // AUTH
 export interface CheckAuthRequestAction {
@@ -44,7 +50,36 @@ export interface SignUpErrorAction {
   payload: string
 }
 
+// RECOVER PASSWORD
+export interface RecoverPasswordRequestAction {
+  type: types.RECOVER_PASSWORD_REQUEST
+  payload: string
+}
+export interface RecoverPasswordSuccessAction {
+  type: types.RECOVER_PASSWORD_SUCCESS
+  payload: string
+}
+export interface RecoverPasswordErrorAction {
+  type: types.RECOVER_PASSWORD_ERROR
+  payload: string
+}
+
+// CONFIRM PASSWORD
+export interface ConfirmPasswordRequestAction {
+  type: types.CONFIRM_PASSWORD_REQUEST
+  payload: IConfPass
+}
+export interface ConfirmPasswordSuccessAction {
+  type: types.CONFIRM_PASSWORD_SUCCESS
+  payload: string
+}
+export interface ConfirmPasswordErrorAction {
+  type: types.CONFIRM_PASSWORD_ERROR
+  payload: string
+}
+
 export type UserActions =
+  | ResetMessagesAction
   | CheckAuthRequestAction
   | CheckAuthResetAction
   | CheckAuthErrorAction
@@ -54,3 +89,9 @@ export type UserActions =
   | SignUpRequestAction
   | SignUpSuccessAction
   | SignUpErrorAction
+  | RecoverPasswordRequestAction
+  | RecoverPasswordSuccessAction
+  | RecoverPasswordErrorAction
+  | ConfirmPasswordRequestAction
+  | ConfirmPasswordSuccessAction
+  | ConfirmPasswordErrorAction

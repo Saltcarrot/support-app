@@ -13,6 +13,8 @@ export const convertError = (error: {
       return 'Неверный пароль'
     case errors.CLOSED_POPUP:
       return 'Вы закрыли окно авторизации через Google, попробуйте еще раз'
+    case errors.INVALID_ACTION_CODE:
+      return 'Неверный код активации, попробуйте еще раз или запросите ссылку для сброса пароля заново'
     default:
       return `Error: ${error.code} - ${error.message}`
   }

@@ -6,6 +6,7 @@ import { userActionTypes as types } from '../../utils/enums/user'
 const initialState: IUserState = {
   loading: false,
   error: null,
+  success: null,
   user: null,
 }
 
@@ -14,6 +15,9 @@ export const userReducer: Reducer<IUserState, UserActions> = (
   { type, payload }
 ) => {
   switch (type) {
+    // RESET MESSAGES
+    case types.RESET_MESSAGES:
+      return { ...state, success: null, error: null }
     // AUTH
     case types.CHECK_AUTH_REQUEST:
       return { ...state }
@@ -34,6 +38,20 @@ export const userReducer: Reducer<IUserState, UserActions> = (
     case types.SIGN_UP_SUCCESS:
       return { ...state, loading: false, user: payload }
     case types.SIGN_UP_ERROR:
+      return { ...state, loading: false, error: payload }
+    // RECOVER PASSWORD
+    case types.RECOVER_PASSWORD_REQUEST:
+      return { ...state, loading: true }
+    case types.RECOVER_PASSWORD_SUCCESS:
+      return { ...state, loading: false, success: payload }
+    case types.RECOVER_PASSWORD_ERROR:
+      return { ...state, loading: false, error: payload }
+    // CONFIRM PASSWORD
+    case types.CONFIRM_PASSWORD_REQUEST:
+      return { ...state, loading: true }
+    case types.CONFIRM_PASSWORD_SUCCESS:
+      return { ...state, loading: false, success: payload }
+    case types.CONFIRM_PASSWORD_ERROR:
       return { ...state, loading: false, error: payload }
     default:
       return state
