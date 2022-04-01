@@ -1,31 +1,12 @@
-import { FC, ReactNode } from 'react'
-import {
-  FieldValues,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from 'react-hook-form'
-import { IInput } from '../../../../utils/types/input'
+import { FC } from 'react'
+import { FormPropTypes } from './FormPropTypes'
+import { CustomForm } from '../index'
 
-import { CustomForm } from './index'
-import Alert from '../Alert/Alert'
+import Alert from '../../Alert/Alert'
 
-import styles from './styles.module.sass'
+import styles from '../styles.module.sass'
 
-interface IFormProps {
-  title: string
-  tip: string
-  register: UseFormRegister<FieldValues>
-  errors: {
-    [x: string]: any
-  }
-  handleSubmit: UseFormHandleSubmit<FieldValues>
-  onSubmit: SubmitHandler<FieldValues>
-  inputs: IInput[]
-  bottom?: ReactNode
-}
-
-const Form: FC<IFormProps> = (props: IFormProps) => {
+const Form: FC<FormPropTypes> = (props: FormPropTypes) => {
   return (
     <form className={styles.form} onSubmit={props.handleSubmit(props.onSubmit)}>
       <CustomForm.Header title={props.title} tip={props.tip} />

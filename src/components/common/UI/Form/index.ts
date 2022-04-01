@@ -1,4 +1,4 @@
-import Form from './Form'
+import Form from './Form/Form'
 import FormHeader from './FormHeader/FormHeader'
 import FormGroup from './FormGroup/FormGroup'
 import Label from './Label/Label'
