@@ -6,6 +6,11 @@ export interface IAuth {
   isRemember?: boolean
 }
 
+export interface IConfPass {
+  oobCode: string | null
+  password: string
+}
+
 export interface IUserState {
   loading: boolean
   error: string | null

@@ -1,5 +1,7 @@
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { useActions } from '../../../../../hooks/useActions'
+import { useLocation } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { IInput } from '../../../../../utils/types/input'
 import { updatePasswordSchema } from '../../../../../utils/helpers/validationSchemas'
@@ -11,17 +13,26 @@ import { CustomForm as Form } from '../../../../common/UI/Form'
 import styles from '../../styles.module.sass'
 
 const PasswordConfirm: FC = () => {
+  const { search } = useLocation()
+  const oobCode = new URLSearchParams(search).get('oobCode')
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(updatePasswordSchema),
   })
 
-  const onSubmit = (data: any) => {
-    console.log(data)
+  const {
+    user: { confirmPassword },
+  } = useActions()
+
+  const onSubmit = ({ password }: any) => {
+    confirmPassword({ oobCode, password })
+    reset()
   }
 
   const confPassInputs: IInput[] = [

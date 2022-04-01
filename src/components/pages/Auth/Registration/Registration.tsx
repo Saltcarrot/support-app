@@ -16,6 +16,7 @@ const Registration: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(signUpSchema),
@@ -27,6 +28,7 @@ const Registration: FC = () => {
 
   const onSubmit = (data: any) => {
     signUp(data)
+    reset()
   }
 
   const signUpInputs: IInput[] = [

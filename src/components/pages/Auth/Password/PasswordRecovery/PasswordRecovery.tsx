@@ -16,6 +16,7 @@ const PasswordRecovery: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(recoverySchema),
@@ -27,6 +28,7 @@ const PasswordRecovery: FC = () => {
 
   const onSubmit = ({ email }: any) => {
     recoverPassword(email)
+    reset()
   }
 
   const emailInput: IInput[] = [

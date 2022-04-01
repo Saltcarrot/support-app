@@ -16,6 +16,7 @@ const Authorization: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(signInSchema),
@@ -29,6 +30,7 @@ const Authorization: FC = () => {
 
   const onSubmit = (data: any) => {
     signIn(data)
+    reset()
   }
 
   const signInInputs: IInput[] = [

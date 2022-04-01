@@ -46,6 +46,13 @@ export const userReducer: Reducer<IUserState, UserActions> = (
       return { ...state, loading: false, success: payload }
     case types.RECOVER_PASSWORD_ERROR:
       return { ...state, loading: false, error: payload }
+    // CONFIRM PASSWORD
+    case types.CONFIRM_PASSWORD_REQUEST:
+      return { ...state, loading: true }
+    case types.CONFIRM_PASSWORD_SUCCESS:
+      return { ...state, loading: false, success: payload }
+    case types.CONFIRM_PASSWORD_ERROR:
+      return { ...state, loading: false, error: payload }
     default:
       return state
   }

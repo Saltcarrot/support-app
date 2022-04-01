@@ -70,6 +70,26 @@ const recoverPasswordError: ac.recoverPasswordErrorActionCreator = (
   payload: message,
 })
 
+// CONFIRM PASSWORD
+const confirmPasswordRequest: ac.confirmPasswordRequestActionCreator = (
+  data
+) => ({
+  type: types.CONFIRM_PASSWORD_REQUEST,
+  payload: data,
+})
+const confirmPasswordSuccess: ac.confirmPasswordSuccessActionCreator = (
+  message
+) => ({
+  type: types.CONFIRM_PASSWORD_SUCCESS,
+  payload: message,
+})
+const confirmPasswordError: ac.confirmPasswordErrorActionCreator = (
+  message
+) => ({
+  type: types.CONFIRM_PASSWORD_ERROR,
+  payload: message,
+})
+
 export const userActions = {
   resetMessages,
   checkAuth: {
@@ -91,5 +111,10 @@ export const userActions = {
     request: recoverPasswordRequest,
     success: recoverPasswordSuccess,
     error: recoverPasswordError,
+  },
+  confirmPassword: {
+    request: confirmPasswordRequest,
+    success: confirmPasswordSuccess,
+    error: confirmPasswordError,
   },
 }

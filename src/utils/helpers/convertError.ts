@@ -4,7 +4,6 @@ export const convertError = (error: {
   code: string
   message: string
 }): string => {
-  console.log(error.code)
   switch (error.code) {
     case errors.EMAIL_EXISTS:
       return 'Пользователь с этим email уже существует'
@@ -14,6 +13,8 @@ export const convertError = (error: {
       return 'Неверный пароль'
     case errors.CLOSED_POPUP:
       return 'Вы закрыли окно авторизации через Google, попробуйте еще раз'
+    case errors.INVALID_ACTION_CODE:
+      return 'Неверный код активации, попробуйте еще раз или запросите ссылку для сброса пароля заново'
     default:
       return `Error: ${error.code} - ${error.message}`
   }
