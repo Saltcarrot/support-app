@@ -1,17 +1,13 @@
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { userActions } from '../../../../redux/actions/userActions'
+import { useActions } from '../../../../hooks/useActions'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { IInput } from '../../../../utils/types/input'
+import { signInSchema } from '../../../../utils/helpers/validationSchemas'
 
 import AuthLayout from '../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../common/Container/Container'
-import Form from '../../../common/UI/Form/Form'
-import CheckBox from '../../../common/UI/Form/CheckBox/CheckBox'
-import ForgotPassLink from '../../../common/UI/Form/Link/ForgotPassLink/ForgotPassLink'
-import GoogleAuth from '../../../common/UI/Form/Button/GoogleAuth/GoogleAuth'
-import AuthLink from '../../../common/UI/Form/Link/AuthLink/AuthLink'
-import SubmitBtn from '../../../common/UI/Form/Button/SubmitBtn/SubmitBtn'
+import { CustomForm as Form } from '../../../common/UI/Form'
 
 import styles from './styles.module.sass'
 
@@ -20,75 +16,66 @@ const Authorization: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     mode: 'onSubmit',
+    resolver: yupResolver(signInSchema),
   })
-  const dispatch = useDispatch()
-
-  const onSubmit = (data: any) => {
-    dispatch(userActions.signIn.request(data))
-    reset()
-  }
 
   const [isRemember, setIsRemember] = useState<boolean>(false)
 
-  const AuthInputs: IInput[] = [
+  const {
+    user: { signIn },
+  } = useActions()
+
+  const onSubmit = (data: any) => {
+    signIn(data)
+  }
+
+  const signInInputs: IInput[] = [
     {
       label: 'Введите Email',
       name: 'email',
       placement: 'auth',
       placeholder: 'example@example.com',
-      required: 'Email не может быть пустым',
-      pattern: {
-        value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-        message: 'Email должен иметь общепринятый вид адреса электронной почты',
-      },
     },
     {
       label: 'Введите пароль',
+      type: 'password',
       name: 'password',
       placement: 'auth',
       placeholder: 'Пароль',
-      required: 'Пароль не может быть пустым',
-      // minLength: {
-      //   value: 8,
-      //   message: 'Пароль должен состоять из 8 символов и более',
-      // },
-      // pattern: {
-      //   value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
-      //   message:
-      //     'Пароль должен содержать как минимум одну цифру, а также иметь буквы в верхнем и нижнем регистре',
-      // },
     },
   ]
 
   return (
     <AuthLayout>
-      <Container content="auth">
-        <Form
-          title="Авторизация"
-          tip="Заполните все поля для авторизации"
+      <Container content='auth'>
+        <Form.Container
+          title='Авторизация'
+          tip='Заполните все поля для авторизации'
           register={register}
           errors={errors}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
-          inputArr={AuthInputs}
+          inputs={signInInputs}
           bottom={
             <>
               <div className={styles.wrapper}>
-                <CheckBox
+                <Form.CheckBox
                   isChecked={isRemember}
                   onClick={() => setIsRemember(!isRemember)}
                 />
-                <ForgotPassLink />
+                <Form.Link.ForgotPassword />
               </div>
               <div className={styles.wrapper_btns}>
-                <GoogleAuth onClick={() => {}} />
-                <AuthLink path="/registration" title="Зарегистрироваться" />
+                <Form.Button.Google onClick={() => {}} />
+                <Form.Link.Redirect
+                  path='/registration'
+                  title='Зарегистрироваться'
+                />
               </div>
               <div className={styles.wrapper_submit}>
-                <SubmitBtn text="Войти" />
+                <Form.Button.Submit text='Войти' />
               </div>
             </>
           }

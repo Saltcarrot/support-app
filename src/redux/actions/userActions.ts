@@ -1,10 +1,26 @@
 import * as ac from '../../utils/types/actionCreators/userActionCreators'
 import { userActionTypes as types } from '../../utils/enums/user'
 
+// AUTH
+const checkAuthRequest: ac.checkAuthRequestActionCreator = () => ({
+  type: types.CHECK_AUTH_REQUEST,
+})
+const checkAuthReset: ac.checkAuthSuccessActionCreator = () => ({
+  type: types.CHECK_AUTH_RESET,
+})
+const checkAuthError: ac.checkAuthErrorActionCreator = (message) => ({
+  type: types.CHECK_AUTH_ERROR,
+  payload: message,
+})
+
 // SIGN IN
-const signInRequest: ac.signInRequestActionCreator = ({ email, password }) => ({
+const signInRequest: ac.signInRequestActionCreator = ({
+  email,
+  password,
+  isRemember,
+}) => ({
   type: types.SIGN_IN_REQUEST,
-  payload: { email, password },
+  payload: { email, password, isRemember },
 })
 const signInSuccess: ac.signInSuccessActionCreator = (user) => ({
   type: types.SIGN_IN_SUCCESS,
@@ -15,27 +31,34 @@ const signInError: ac.signInErrorActionCreator = (message) => ({
   payload: message,
 })
 
-// AUTH
-const authRequest: ac.authRequestActionCreator = () => ({
-  type: types.AUTH_REQUEST,
+// SIGN UP
+const signUpRequest: ac.signUpRequestActionCreator = ({ email, password }) => ({
+  type: types.SIGN_UP_REQUEST,
+  payload: { email, password },
 })
-const authReset: ac.authSuccessActionCreator = () => ({
-  type: types.AUTH_RESET,
+const signUpSuccess: ac.signUpSuccessActionCreator = (user) => ({
+  type: types.SIGN_UP_SUCCESS,
+  payload: user,
 })
-const authError: ac.authErrorActionCreator = (message) => ({
-  type: types.AUTH_ERROR,
+const signUpError: ac.signUpErrorActionCreator = (message) => ({
+  type: types.SIGN_UP_ERROR,
   payload: message,
 })
 
 export const userActions = {
+  checkAuth: {
+    request: checkAuthRequest,
+    reset: checkAuthReset,
+    error: checkAuthError,
+  },
   signIn: {
     request: signInRequest,
     success: signInSuccess,
     error: signInError,
   },
-  auth: {
-    request: authRequest,
-    reset: authReset,
-    error: authError,
+  signUp: {
+    request: signUpRequest,
+    success: signUpSuccess,
+    error: signUpError,
   },
 }

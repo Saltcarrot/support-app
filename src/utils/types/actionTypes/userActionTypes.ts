@@ -2,6 +2,20 @@ import { userActionTypes as types } from '../../enums/user'
 import { IAuth } from '../user'
 import { UserInfo } from 'firebase/auth'
 
+// AUTH
+export interface CheckAuthRequestAction {
+  type: types.CHECK_AUTH_REQUEST
+  payload?: undefined
+}
+export interface CheckAuthResetAction {
+  type: types.CHECK_AUTH_RESET
+  payload?: undefined
+}
+export interface CheckAuthErrorAction {
+  type: types.CHECK_AUTH_ERROR
+  payload: string
+}
+
 // SIGN IN
 export interface SignInRequestAction {
   type: types.SIGN_IN_REQUEST
@@ -16,24 +30,27 @@ export interface SignInErrorAction {
   payload: string
 }
 
-// AUTH
-export interface AuthRequestAction {
-  type: types.AUTH_REQUEST
-  payload?: undefined
+// SIGN UP
+export interface SignUpRequestAction {
+  type: types.SIGN_UP_REQUEST
+  payload: IAuth
 }
-export interface AuthResetAction {
-  type: types.AUTH_RESET
-  payload?: undefined
+export interface SignUpSuccessAction {
+  type: types.SIGN_UP_SUCCESS
+  payload: UserInfo
 }
-export interface AuthErrorAction {
-  type: types.AUTH_ERROR
+export interface SignUpErrorAction {
+  type: types.SIGN_UP_ERROR
   payload: string
 }
 
 export type UserActions =
+  | CheckAuthRequestAction
+  | CheckAuthResetAction
+  | CheckAuthErrorAction
   | SignInRequestAction
   | SignInSuccessAction
   | SignInErrorAction
-  | AuthRequestAction
-  | AuthResetAction
-  | AuthErrorAction
+  | SignUpRequestAction
+  | SignUpSuccessAction
+  | SignUpErrorAction
