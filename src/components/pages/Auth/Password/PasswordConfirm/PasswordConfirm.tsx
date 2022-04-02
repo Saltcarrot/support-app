@@ -10,8 +10,6 @@ import AuthLayout from '../../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../../common/Container/Container'
 import { CustomForm as Form } from '../../../../common/UI/Form'
 
-import styles from '../../Auth.module.sass'
-
 const PasswordConfirm: FC = () => {
   const { search } = useLocation()
   const oobCode = new URLSearchParams(search).get('oobCode')
@@ -64,18 +62,14 @@ const PasswordConfirm: FC = () => {
           onSubmit={onSubmit}
           inputs={confPassInputs}
           bottom={
-            <>
-              <div className={styles.wrapper_btns}>
-                <Form.Button.Google onClick={() => {}} />
-                <Form.Link.Redirect
-                  path='/authorization'
-                  title='Авторизоваться'
-                />
-              </div>
-              <div className={styles.wrapper_submit}>
-                <Form.Button.Submit text='Задать новый пароль' />
-              </div>
-            </>
+            <Form.FormBottom>
+              <Form.BottomBtns
+                googleOnClick={() => {}}
+                linkPath='/authorization'
+                linkTitle='Авторизоваться'
+              />
+              <Form.Button.Submit text='Задать новый пароль' />
+            </Form.FormBottom>
           }
         />
       </Container>

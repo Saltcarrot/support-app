@@ -1,9 +1,13 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
-import styles from './FormGroup.module.sass'
+import Div from './FormGroup.style'
 
-const FormGroup: FC = ({ children }) => {
-  return <div className={styles.form_group}>{children}</div>
+interface FormGroupPropTypes {
+  children: ReactNode
+}
+
+const FormGroup: FC<FormGroupPropTypes> = ({ children }) => {
+  return <Div>{children}</Div>
 }
 
 export default FormGroup

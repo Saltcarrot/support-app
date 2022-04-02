@@ -1,18 +1,18 @@
 import { FC } from 'react'
 
-import styles from './FormHeader.module.sass'
+import Div from './FormHeader.style'
 
 interface IFormHeaderProps {
   title: string
   tip: string
 }
 
-const FormHeader: FC<IFormHeaderProps> = (props: IFormHeaderProps) => {
+const FormHeader: FC<IFormHeaderProps> = ({ title, tip }) => {
   return (
-    <div className={styles.header}>
-      <h1 className={styles.title}>{props.title}</h1>
-      <p className={styles.tip}>{props.tip}</p>
-    </div>
+    <Div>
+      <h1 className='title'>{title}</h1>
+      <p className='tip'>{tip}</p>
+    </Div>
   )
 }
 

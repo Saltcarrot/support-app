@@ -1,13 +1,13 @@
 import { FC, ReactNode } from 'react'
 
-import styles from './AuthLayout.module.sass'
+import Section from './AuthLayout.style'
 
 interface IAuthLayoutProps {
   children: ReactNode
 }
 
-const AuthLayout: FC<IAuthLayoutProps> = ({ children }: IAuthLayoutProps) => {
-  return <section className={styles.auth_layout}>{children}</section>
+const AuthLayout: FC<IAuthLayoutProps> = ({ children }) => {
+  return <Section>{children}</Section>
 }
 
 export default AuthLayout

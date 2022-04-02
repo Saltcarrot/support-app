@@ -8,6 +8,9 @@ import ForgotPassLink from './Link/ForgotPassLink/ForgotPassLink'
 import CheckBox from './CheckBox/CheckBox'
 import GoogleAuth from './Button/GoogleAuth/GoogleAuth'
 import SubmitBtn from './Button/SubmitBtn/SubmitBtn'
+import CheckBoxAndLink from './FormBottom/CheckBoxAndLink/CheckBoxAndLink'
+import BottomBtns from './FormBottom/BottomBtns/BottomBtns'
+import FormBottom from './FormBottom/FormBottom'
 
 export const CustomForm = {
   Container: Form,
@@ -20,8 +23,11 @@ export const CustomForm = {
     ForgotPassword: ForgotPassLink,
   },
   CheckBox,
+  CheckBoxAndLink,
   Button: {
     Google: GoogleAuth,
     Submit: SubmitBtn,
   },
+  BottomBtns,
+  FormBottom,
 }

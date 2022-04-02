@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import styles from './SubmitBtn.module.sass'
+import Div from './SubmitBtn.style'
 
 interface ISubmitBtnProps {
   text: string
@@ -8,9 +8,9 @@ interface ISubmitBtnProps {
 
 const SubmitBtn: FC<ISubmitBtnProps> = ({ text }) => {
   return (
-    <button className={styles.submit} type='submit'>
-      {text}
-    </button>
+    <Div>
+      <button type='submit'>{text}</button>
+    </Div>
   )
 }
 

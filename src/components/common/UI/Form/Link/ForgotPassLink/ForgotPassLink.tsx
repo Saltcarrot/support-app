@@ -1,14 +1,9 @@
 import { FC } from 'react'
-import { Link } from 'react-router-dom'
 
-import styles from './ForgotLink.module.sass'
+import LinkComponent from './ForgotPassLink.style'
 
 const ForgotPassLink: FC = () => {
-  return (
-    <Link className={styles.link} to='/password_recovery'>
-      Забыли пароль?
-    </Link>
-  )
+  return <LinkComponent to='/password_recovery'>Забыли пароль?</LinkComponent>
 }
 
 export default ForgotPassLink

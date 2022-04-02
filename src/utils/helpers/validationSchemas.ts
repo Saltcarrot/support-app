@@ -15,14 +15,14 @@ export const signUpSchema = Yup.object().shape({
       'Email должен иметь общепринятый вид адреса электронной почты'
     )
     .required('Email должен быть введен'),
-  passwordRecoveringSchema: Yup.string()
+  password: Yup.string()
     .min(8, 'Пароль должен состоять из 8 символов и более')
     .matches(
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
       'Пароль должен содержать как минимум одну цифру, а также иметь буквы в верхнем и нижнем регистре'
     )
     .required('Пароль должен быть введен'),
-  passwordConfirmingSchema: Yup.string().when('password', {
+  confirmPassword: Yup.string().when('password', {
     is: (val: string) => !!(val && val.length > 0),
     then: Yup.string()
       .oneOf([Yup.ref('password')], 'Пароли не совпадают')

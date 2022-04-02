@@ -9,8 +9,6 @@ import AuthLayout from '../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../common/Container/Container'
 import { CustomForm as Form } from '../../../common/UI/Form'
 
-import styles from '../Auth.module.sass'
-
 const Registration: FC = () => {
   const {
     register,
@@ -66,18 +64,14 @@ const Registration: FC = () => {
           onSubmit={onSubmit}
           inputs={signUpInputs}
           bottom={
-            <>
-              <div className={styles.wrapper_btns}>
-                <Form.Button.Google onClick={() => {}} />
-                <Form.Link.Redirect
-                  path='/authorization'
-                  title='Авторизоваться'
-                />
-              </div>
-              <div className={styles.wrapper_submit}>
-                <Form.Button.Submit text='Зарегистрироваться' />
-              </div>
-            </>
+            <Form.FormBottom>
+              <Form.BottomBtns
+                googleOnClick={() => {}}
+                linkPath='/authorization'
+                linkTitle='Авторизоваться'
+              />
+              <Form.Button.Submit text='Зарегистрироваться' />
+            </Form.FormBottom>
           }
         />
       </Container>

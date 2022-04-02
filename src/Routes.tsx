@@ -20,7 +20,7 @@ const Routes: FC = () => {
     if (user) {
       checkAuth()
     }
-  }, [checkAuth, user])
+  }, [user])
 
   return (
     <Router>
