@@ -5,7 +5,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { IInput } from '../../../../utils/types/input'
 import { signUpSchema } from '../../../../utils/helpers/validationSchemas'
 
-import AuthLayout from '../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../common/Container/Container'
 import { CustomForm as Form } from '../../../common/UI/Form'
 
@@ -33,49 +32,44 @@ const Registration: FC = () => {
     {
       label: 'Введите Email',
       name: 'email',
-      placement: 'auth',
       placeholder: 'example@example.com',
     },
     {
       label: 'Введите пароль',
       type: 'password',
       name: 'password',
-      placement: 'auth',
       placeholder: 'Пароль',
     },
     {
       label: 'Повторите пароль',
       type: 'password',
       name: 'confirmPassword',
-      placement: 'auth',
       placeholder: 'Пароль',
     },
   ]
 
   return (
-    <AuthLayout>
-      <Container content='auth'>
-        <Form.Container
-          title='Регистрация'
-          tip='Для регистрации заполните все поля'
-          register={register}
-          errors={errors}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-          inputs={signUpInputs}
-          bottom={
-            <Form.FormBottom>
-              <Form.BottomBtns
-                googleOnClick={() => {}}
-                linkPath='/authorization'
-                linkTitle='Авторизоваться'
-              />
-              <Form.Button.Submit text='Зарегистрироваться' />
-            </Form.FormBottom>
-          }
-        />
-      </Container>
-    </AuthLayout>
+    <Container content='auth'>
+      <Form.Container
+        title='Регистрация'
+        tip='Для регистрации заполните все поля'
+        register={register}
+        errors={errors}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        inputs={signUpInputs}
+        bottom={
+          <Form.FormBottom>
+            <Form.BottomBtns
+              googleOnClick={() => {}}
+              linkPath='/authorization'
+              linkTitle='Войти'
+            />
+            <Form.Button.Submit text='Зарегистрироваться' />
+          </Form.FormBottom>
+        }
+      />
+    </Container>
   )
 }
 

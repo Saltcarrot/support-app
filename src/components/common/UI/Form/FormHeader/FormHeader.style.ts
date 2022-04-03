@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Div = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 
   text-align: center;
 

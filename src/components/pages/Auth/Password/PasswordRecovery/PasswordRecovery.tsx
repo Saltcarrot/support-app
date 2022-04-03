@@ -5,7 +5,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { IInput } from '../../../../../utils/types/input'
 import { recoverySchema } from '../../../../../utils/helpers/validationSchemas'
 
-import AuthLayout from '../../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../../common/Container/Container'
 import { CustomForm as Form } from '../../../../common/UI/Form'
 
@@ -33,35 +32,32 @@ const PasswordRecovery: FC = () => {
     {
       label: 'Введите Email',
       name: 'email',
-      placement: 'auth',
       placeholder: 'example@example.com',
     },
   ]
 
   return (
-    <AuthLayout>
-      <Container content='auth'>
-        <Form.Container
-          title='Восстановление пароля'
-          tip='Введите Email, на который должна прийти ссылка для восстановления пароля'
-          register={register}
-          errors={errors}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-          inputs={emailInput}
-          bottom={
-            <Form.FormBottom>
-              <Form.BottomBtns
-                googleOnClick={() => {}}
-                linkPath='/authorization'
-                linkTitle='Авторизоваться'
-              />
-              <Form.Button.Submit text='Получить ссылку' />
-            </Form.FormBottom>
-          }
-        />
-      </Container>
-    </AuthLayout>
+    <Container content='auth'>
+      <Form.Container
+        title='Восстановление пароля'
+        tip='Введите Email, на который должна прийти ссылка для восстановления пароля'
+        register={register}
+        errors={errors}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        inputs={emailInput}
+        bottom={
+          <Form.FormBottom>
+            <Form.BottomBtns
+              googleOnClick={() => {}}
+              linkPath='/authorization'
+              linkTitle='Авторизоваться'
+            />
+            <Form.Button.Submit text='Получить ссылку' />
+          </Form.FormBottom>
+        }
+      />
+    </Container>
   )
 }
 

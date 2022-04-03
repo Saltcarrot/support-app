@@ -28,8 +28,8 @@ body {
 	min-width: 375px;
 	width: 100%;
 
-	background-color: #fff;
-	color: var(--dark-grey);
+	background-color: var(--light-lavender);
+	color: var(--grey-blue);
 
 	font-family: var(--font-roboto);
 	font-weight: 400;
@@ -41,19 +41,25 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: var(--font-nunito);
+	color: var(--dark-blue);
 }
 
 input, button {
 	font-size: inherit;
 
 	background-color: transparent;
+	color: inherit;
 
 	border: 1px solid transparent;
 	border-radius: 5px;
+
+	transition: border-color .15s ease;
 }
 
 button {
 	height: 40px;
+
+	font-weight: bold;
 
 	cursor: pointer;
 }

@@ -8,23 +8,18 @@ const Input = styled.input`
 
   font-size: inherit;
 
-  background-color: transparent;
+  background-color: var(--light-lavender);
 
   border: 1px solid transparent;
   border-radius: 5px;
 
-  &.auth {
-    background-color: var(--white-opacity-2);
-    color: #fff;
+  &::placeholder {
+    color: var(--purple-opacity-3);
+  }
 
-    &::placeholder {
-      color: var(--white-opacity-3);
-    }
-
-    &:hover,
-    &:focus {
-      background-color: var(--white-opacity-3);
-    }
+  &:focus,
+  &:active {
+    border-color: var(--purple-opacity-3);
   }
 `
 

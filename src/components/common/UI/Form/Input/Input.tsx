@@ -4,16 +4,11 @@ import { InputPropTypes } from './InputPropTypes'
 
 import { default as InputComponent } from './Input.style'
 
-const Input: FC<InputPropTypes> = ({
-  type = 'text',
-  placement = 'common',
-  ...rest
-}) => {
+const Input: FC<InputPropTypes> = ({ type = 'text', ...rest }) => {
   return (
     <InputComponent
       {...rest.register(rest.name)}
       type={type}
-      className={placement}
       placeholder={rest.placeholder ? rest.placeholder : ''}
     />
   )

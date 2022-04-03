@@ -7,7 +7,7 @@ import { persistor, store } from './redux/store'
 
 import Routes from './Routes'
 
-import './assets/sass/global.scss'
+import './assets/scss/global.scss'
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,

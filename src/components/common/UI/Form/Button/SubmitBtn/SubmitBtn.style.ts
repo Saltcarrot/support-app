@@ -11,12 +11,11 @@ const Div = styled.div`
     height: 50px;
     width: 200px;
 
-    border-color: #fff;
+    background-color: var(--purple);
     color: #fff;
 
     &:hover {
-      background-color: #fff;
-      color: var(--dark-grey);
+      background-color: var(--purple-opacity-6);
     }
   }
 `

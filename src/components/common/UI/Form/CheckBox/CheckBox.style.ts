@@ -14,14 +14,7 @@ const Div = styled.div`
     width: 20px;
     height: 20px;
 
-    background-color: var(--white-opacity-2);
-    color: #fff;
-
-    transition: background-color 0.4s ease, color 0.4s ease;
-
-    &:hover {
-      background-color: var(--white-opacity-3);
-    }
+    background-color: var(--light-lavender);
 
     > svg {
       width: 13px;

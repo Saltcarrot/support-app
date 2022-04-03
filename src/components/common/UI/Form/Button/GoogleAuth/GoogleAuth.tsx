@@ -11,7 +11,7 @@ interface IGoogleAuthProps {
 const GoogleAuth: FC<IGoogleAuthProps> = ({ onClick }) => {
   return (
     <Button type='button' onClick={onClick}>
-      Авторизоваться через <FaGoogle />
+      Войти через <FaGoogle />
     </Button>
   )
 }

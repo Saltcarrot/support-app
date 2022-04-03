@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { IInput } from '../../../../../utils/types/input'
 import { updatePasswordSchema } from '../../../../../utils/helpers/validationSchemas'
 
-import AuthLayout from '../../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../../common/Container/Container'
 import { CustomForm as Form } from '../../../../common/UI/Form'
 
@@ -38,42 +37,38 @@ const PasswordConfirm: FC = () => {
       label: 'Введите пароль',
       type: 'password',
       name: 'password',
-      placement: 'auth',
       placeholder: 'Пароль',
     },
     {
       label: 'Повторите пароль',
       type: 'password',
       name: 'confirmPassword',
-      placement: 'auth',
       placeholder: 'Повторите пароль',
     },
   ]
 
   return (
-    <AuthLayout>
-      <Container content='auth'>
-        <Form.Container
-          title='Обновление пароля'
-          tip='Задайте новый пароль для своей учетной записи'
-          register={register}
-          errors={errors}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-          inputs={confPassInputs}
-          bottom={
-            <Form.FormBottom>
-              <Form.BottomBtns
-                googleOnClick={() => {}}
-                linkPath='/authorization'
-                linkTitle='Авторизоваться'
-              />
-              <Form.Button.Submit text='Задать новый пароль' />
-            </Form.FormBottom>
-          }
-        />
-      </Container>
-    </AuthLayout>
+    <Container content='auth'>
+      <Form.Container
+        title='Обновление пароля'
+        tip='Задайте новый пароль для своей учетной записи'
+        register={register}
+        errors={errors}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        inputs={confPassInputs}
+        bottom={
+          <Form.FormBottom>
+            <Form.BottomBtns
+              googleOnClick={() => {}}
+              linkPath='/authorization'
+              linkTitle='Авторизоваться'
+            />
+            <Form.Button.Submit text='Задать новый пароль' />
+          </Form.FormBottom>
+        }
+      />
+    </Container>
   )
 }
 

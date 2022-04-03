@@ -9,13 +9,13 @@ const Div = styled.div`
   text-align: center;
 
   &.success {
-    background-color: green;
+    background-color: var(--success);
   }
   &.error {
-    background-color: pink;
+    background-color: var(--error);
   }
   &.info {
-    background-color: cyan;
+    background-color: var(--info);
   }
 `
 
