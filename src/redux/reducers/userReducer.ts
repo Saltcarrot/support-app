@@ -1,16 +1,16 @@
 import { Reducer } from 'react'
-import { IUserState } from '../../utils/types/user'
+import { UserState } from '../../utils/types/user'
 import { UserActions } from '../../utils/types/actionTypes/userActionTypes'
 import { userActionTypes as types } from '../../utils/enums/user'
 
-const initialState: IUserState = {
+const initialState: UserState = {
   loading: false,
   error: null,
   success: null,
   user: null,
 }
 
-export const userReducer: Reducer<IUserState, UserActions> = (
+export const userReducer: Reducer<UserState, UserActions> = (
   state = initialState,
   { type, payload }
 ) => {

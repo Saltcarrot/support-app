@@ -2,20 +2,25 @@ import { useDispatch } from 'react-redux'
 import { Dispatch } from 'react'
 import { UserActions } from '../utils/types/actionTypes/userActionTypes'
 import { userActions } from '../redux/actions/userActions'
-import { IAuth, IConfPass } from '../utils/types/user'
+import { Auth, ConfPass } from '../utils/types/user'
+import { DialogueActions } from '../utils/types/actionTypes/dialogueActionTypes'
+import { dialogueActions } from '../redux/actions/dialogueActions'
 
 export const useActions = () => {
-  const dispatch = useDispatch<Dispatch<UserActions>>()
+  const dispatch = useDispatch<Dispatch<UserActions | DialogueActions>>()
 
   return {
     user: {
       checkAuth: () => dispatch(userActions.checkAuth.request()),
-      signIn: (payload: IAuth) => dispatch(userActions.signIn.request(payload)),
-      signUp: (payload: IAuth) => dispatch(userActions.signUp.request(payload)),
+      signIn: (payload: Auth) => dispatch(userActions.signIn.request(payload)),
+      signUp: (payload: Auth) => dispatch(userActions.signUp.request(payload)),
       recoverPassword: (email: string) =>
         dispatch(userActions.recoverPassword.request(email)),
-      confirmPassword: (payload: IConfPass) =>
+      confirmPassword: (payload: ConfPass) =>
         dispatch(userActions.confirmPassword.request(payload)),
+    },
+    dialogue: {
+      getDialogues: () => dispatch(dialogueActions.getDialogues.request()),
     },
   }
 }

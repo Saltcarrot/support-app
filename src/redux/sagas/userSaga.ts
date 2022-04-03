@@ -5,9 +5,9 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { userActionTypes as types } from '../../utils/enums/user'
 import { userActions } from '../actions/userActions'
 import * as actions from '../../utils/types/actionTypes/userActionTypes'
-import { IAuth, IConfPass } from '../../utils/types/user'
+import { Auth, ConfPass } from '../../utils/types/user'
 import { convertError } from '../../utils/helpers/convertError'
-import { errors } from '../../utils/enums/errors'
+import { Errors } from '../../utils/enums/errors'
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
@@ -19,7 +19,7 @@ const fetchCheckAuth = async () => {
   return isUser
 }
 
-const fetchSignIn = async ({ email, password, isRemember }: IAuth) => {
+const fetchSignIn = async ({ email, password, isRemember }: Auth) => {
   const auth = firebase.auth()
 
   await auth.setPersistence(
@@ -33,7 +33,7 @@ const fetchSignIn = async ({ email, password, isRemember }: IAuth) => {
   return user
 }
 
-const fetchSignUp = async ({ email, password }: IAuth) => {
+const fetchSignUp = async ({ email, password }: Auth) => {
   const auth = firebase.auth()
 
   const { user } = await auth.createUserWithEmailAndPassword(email, password)
@@ -46,7 +46,7 @@ const fetchRecoverPassword = async (email: string) => {
   await auth.sendPasswordResetEmail(email)
 }
 
-const fetchConfirmPassword = async ({ oobCode, password }: IConfPass) => {
+const fetchConfirmPassword = async ({ oobCode, password }: ConfPass) => {
   const auth = firebase.auth()
   if (oobCode != null) {
     await auth.confirmPasswordReset(oobCode, password)
@@ -130,7 +130,7 @@ function* confirmPasswordWorker({
     } else {
       yield put(
         userActions.confirmPassword.error(
-          convertError({ code: errors.INVALID_ACTION_CODE, message: '' })
+          convertError({ code: Errors.INVALID_ACTION_CODE, message: '' })
         )
       )
     }

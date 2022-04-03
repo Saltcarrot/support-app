@@ -4,7 +4,7 @@ const Form = styled.form`
   max-width: 500px;
   width: 100%;
 
-  padding: 10px;
+  padding: 20px;
 
   border-radius: 10px;
 

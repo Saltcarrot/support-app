@@ -1,17 +1,17 @@
 import { UserInfo } from 'firebase/auth'
 
-export interface IAuth {
+export interface Auth {
   email: string
   password: string
   isRemember?: boolean
 }
 
-export interface IConfPass {
+export interface ConfPass {
   oobCode: string | null
   password: string
 }
 
-export interface IUserState {
+export interface UserState {
   loading: boolean
   error: string | null
   success: string | null
