@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-// import { config } from 'dotenv'
 import firebase from 'firebase/compat/app'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -8,7 +7,7 @@ import { persistor, store } from './redux/store'
 
 import Routes from './Routes'
 
-import './assets/sass/global.sass'
+import './assets/scss/global.scss'
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,

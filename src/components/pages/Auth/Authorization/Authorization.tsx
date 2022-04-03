@@ -5,11 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { IInput } from '../../../../utils/types/input'
 import { signInSchema } from '../../../../utils/helpers/validationSchemas'
 
-import AuthLayout from '../../../common/Layout/AuthLayout/AuthLayout'
 import Container from '../../../common/Container/Container'
 import { CustomForm as Form } from '../../../common/UI/Form'
-
-import styles from '../Auth.module.sass'
 
 const Authorization: FC = () => {
   const {
@@ -37,53 +34,42 @@ const Authorization: FC = () => {
     {
       label: 'Введите Email',
       name: 'email',
-      placement: 'auth',
       placeholder: 'example@example.com',
     },
     {
       label: 'Введите пароль',
       type: 'password',
       name: 'password',
-      placement: 'auth',
       placeholder: 'Пароль',
     },
   ]
 
   return (
-    <AuthLayout>
-      <Container content='auth'>
-        <Form.Container
-          title='Авторизация'
-          tip='Заполните все поля для авторизации'
-          register={register}
-          errors={errors}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-          inputs={signInInputs}
-          bottom={
-            <>
-              <div className={styles.wrapper}>
-                <Form.CheckBox
-                  isChecked={isRemember}
-                  onClick={() => setIsRemember(!isRemember)}
-                />
-                <Form.Link.ForgotPassword />
-              </div>
-              <div className={styles.wrapper_btns}>
-                <Form.Button.Google onClick={() => {}} />
-                <Form.Link.Redirect
-                  path='/registration'
-                  title='Зарегистрироваться'
-                />
-              </div>
-              <div className={styles.wrapper_submit}>
-                <Form.Button.Submit text='Войти' />
-              </div>
-            </>
-          }
-        />
-      </Container>
-    </AuthLayout>
+    <Container content='auth'>
+      <Form.Container
+        title='Авторизация'
+        tip='Заполните все поля для авторизации'
+        register={register}
+        errors={errors}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        inputs={signInInputs}
+        bottom={
+          <Form.FormBottom>
+            <Form.CheckBoxAndLink
+              isRemember={isRemember}
+              setIsRemember={setIsRemember}
+            />
+            <Form.BottomBtns
+              googleOnClick={() => {}}
+              linkPath='/registration'
+              linkTitle='Регистрация'
+            />
+            <Form.Button.Submit text='Войти' />
+          </Form.FormBottom>
+        }
+      />
+    </Container>
   )
 }
 

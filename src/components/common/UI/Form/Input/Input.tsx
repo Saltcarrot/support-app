@@ -1,20 +1,15 @@
 import { FC } from 'react'
-import cn from 'classnames'
 
 import { InputPropTypes } from './InputPropTypes'
 
-import styles from './Input.module.sass'
+import { default as InputComponent } from './Input.style'
 
-const Input: FC<InputPropTypes> = (props: InputPropTypes) => {
+const Input: FC<InputPropTypes> = ({ type = 'text', ...rest }) => {
   return (
-    <input
-      {...props.register(props.name)}
-      type={props.type ? props.type : 'text'}
-      className={cn(styles.input, {
-        [styles.auth]: props.placement === 'auth',
-        [styles.common]: props.placement === 'common' || !props.placement,
-      })}
-      placeholder={props.placeholder ? props.placeholder : ''}
+    <InputComponent
+      {...rest.register(rest.name)}
+      type={type}
+      placeholder={rest.placeholder ? rest.placeholder : ''}
     />
   )
 }

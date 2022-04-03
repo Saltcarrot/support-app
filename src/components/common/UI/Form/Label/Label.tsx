@@ -1,18 +1,14 @@
 import { FC } from 'react'
 
-import styles from './Label.module.sass'
+import { default as LabelComponent } from './Label.style'
 
 interface ILabelProps {
-  for: string
+  forHtml: string
   text: string
 }
 
-const Label: FC<ILabelProps> = (props: ILabelProps) => {
-  return (
-    <label className={styles.label} htmlFor={props.for}>
-      {props.text}
-    </label>
-  )
+const Label: FC<ILabelProps> = ({ forHtml, text }) => {
+  return <LabelComponent htmlFor={forHtml}>{text}</LabelComponent>
 }
 
 export default Label

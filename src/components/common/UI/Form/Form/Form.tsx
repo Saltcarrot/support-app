@@ -4,16 +4,16 @@ import { CustomForm } from '../index'
 
 import Alert from '../../Alert/Alert'
 
-import styles from './Form.module.sass'
+import { default as FormComponent } from './Form.style'
 
-const Form: FC<FormPropTypes> = (props: FormPropTypes) => {
+const Form: FC<FormPropTypes> = (props) => {
   return (
-    <form className={styles.form} onSubmit={props.handleSubmit(props.onSubmit)}>
+    <FormComponent onSubmit={props.handleSubmit(props.onSubmit)}>
       <CustomForm.Header title={props.title} tip={props.tip} />
       {props.inputs.map((el) => {
         return (
           <CustomForm.Group key={el.name}>
-            <CustomForm.Label for={el.name} text={el.label} />
+            <CustomForm.Label forHtml={el.name} text={el.label} />
             <CustomForm.Input register={props.register} {...el} />
             {props.errors[el.name] && (
               <Alert type='error' message={props.errors[el.name].message} />
@@ -21,8 +21,8 @@ const Form: FC<FormPropTypes> = (props: FormPropTypes) => {
           </CustomForm.Group>
         )
       })}
-      <div className={styles.bottom}>{props.bottom}</div>
-    </form>
+      <div>{props.bottom}</div>
+    </FormComponent>
   )
 }
 

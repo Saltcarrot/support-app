@@ -1,25 +1,14 @@
 import { FC } from 'react'
-import cn from 'classnames'
 
-import styles from './styles.module.sass'
+import Div from './Alert.style'
 
 interface IAlertProps {
-	type?: string
-	message: string
+  type?: string
+  message: string
 }
 
 const Alert: FC<IAlertProps> = ({ type = 'success', message }) => {
-	return (
-		<div
-			className={cn(styles.alert, {
-				[styles.success]: type === 'success',
-				[styles.error]: type === 'error',
-				[styles.info]: type === 'info',
-			})}
-		>
-			{message}
-		</div>
-	)
+  return <Div className={type}>{message}</Div>
 }
 
 export default Alert

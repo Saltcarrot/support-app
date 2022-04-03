@@ -1,19 +1,14 @@
 import { FC } from 'react'
-import { Link } from 'react-router-dom'
 
-import styles from './AuthLink.module.sass'
+import LinkComponent from './AuthLink.style'
 
 interface ILinkProps {
   title: string
   path: string
 }
 
-const AuthLink: FC<ILinkProps> = (props: ILinkProps) => {
-  return (
-    <Link className={styles.link} to={props.path}>
-      {props.title}
-    </Link>
-  )
+const AuthLink: FC<ILinkProps> = ({ title, path }) => {
+  return <LinkComponent to={path}>{title}</LinkComponent>
 }
 
 export default AuthLink

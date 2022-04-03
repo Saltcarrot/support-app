@@ -1,25 +1,21 @@
 import { FC, MouseEvent } from 'react'
 import { FaCheck } from 'react-icons/fa'
 
-import styles from './CheckBox.module.sass'
+import Div from './CheckBox.style'
 
 interface ICheckBoxProps {
   isChecked: boolean
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
 }
 
-const CheckBox: FC<ICheckBoxProps> = (props: ICheckBoxProps) => {
+const CheckBox: FC<ICheckBoxProps> = ({ isChecked, onClick }) => {
   return (
-    <div className={styles.checkbox}>
-      <button
-        className={styles.check_btn}
-        onClick={props.onClick}
-        type='button'
-      >
-        {props.isChecked && <FaCheck />}
+    <Div>
+      <button onClick={onClick} type='button'>
+        {isChecked && <FaCheck />}
       </button>
       <p>Запомнить меня</p>
-    </div>
+    </Div>
   )
 }
 
