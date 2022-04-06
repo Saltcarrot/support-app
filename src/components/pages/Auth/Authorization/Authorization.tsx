@@ -2,11 +2,11 @@ import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useActions } from '../../../../hooks/useActions'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IInput } from '../../../../utils/types/input'
+import { Input } from '../../../../utils/types/input'
 import { signInSchema } from '../../../../utils/helpers/validationSchemas'
 
-import Container from '../../../common/Container/Container'
-import { CustomForm as Form } from '../../../common/UI/Form'
+import Layout from '../../../common/Layout/Layout'
+import CustomForm from '../../../common/UI/Form'
 
 const Authorization: FC = () => {
   const {
@@ -30,7 +30,7 @@ const Authorization: FC = () => {
     reset()
   }
 
-  const signInInputs: IInput[] = [
+  const signInInputs: Input[] = [
     {
       label: 'Введите Email',
       name: 'email',
@@ -45,8 +45,8 @@ const Authorization: FC = () => {
   ]
 
   return (
-    <Container content='auth'>
-      <Form.Container
+    <Layout content='auth'>
+      <CustomForm.Container
         title='Авторизация'
         tip='Заполните все поля для авторизации'
         register={register}
@@ -55,21 +55,21 @@ const Authorization: FC = () => {
         onSubmit={onSubmit}
         inputs={signInInputs}
         bottom={
-          <Form.FormBottom>
-            <Form.CheckBoxAndLink
+          <CustomForm.FormBottom>
+            <CustomForm.CheckBoxAndLink
               isRemember={isRemember}
               setIsRemember={setIsRemember}
             />
-            <Form.BottomBtns
+            <CustomForm.BottomBtns
               googleOnClick={() => {}}
               linkPath='/registration'
               linkTitle='Регистрация'
             />
-            <Form.Button.Submit text='Войти' />
-          </Form.FormBottom>
+            <CustomForm.Button.Submit text='Войти' />
+          </CustomForm.FormBottom>
         }
       />
-    </Container>
+    </Layout>
   )
 }
 

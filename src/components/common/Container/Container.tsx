@@ -1,14 +1,10 @@
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
+import { ContainerPropTypes } from './ContainerPropTypes'
 
-import Div from './Container.style'
+import ContainerWrapper from './Container.style'
 
-interface IContainerProps {
-  content?: string
-  children: ReactNode
-}
-
-const Container: FC<IContainerProps> = ({ children }) => {
-  return <Div className='auth'>{children}</Div>
+const Container: FC<ContainerPropTypes> = ({ children }) => {
+  return <ContainerWrapper className='common'>{children}</ContainerWrapper>
 }
 
 export default Container

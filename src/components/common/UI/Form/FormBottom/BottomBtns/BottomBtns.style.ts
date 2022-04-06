@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Div = styled.div`
+const BottomBtnsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,4 +12,4 @@ const Div = styled.div`
   }
 `
 
-export default Div
+export default BottomBtnsWrapper

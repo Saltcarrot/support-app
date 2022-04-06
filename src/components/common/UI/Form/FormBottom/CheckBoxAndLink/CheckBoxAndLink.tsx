@@ -1,25 +1,21 @@
-import { Dispatch, FC, SetStateAction } from 'react'
-import { CustomForm as Form } from '../../index'
+import { FC } from 'react'
+import CustomForm from '../../index'
 
-import Div from './CheckBoxAndLink.style'
-
-interface CheckBoxAndLinkPropTypes {
-  isRemember: boolean
-  setIsRemember: Dispatch<SetStateAction<boolean>>
-}
+import CheckBoxAndLinkWrapper from './CheckBoxAndLink.style'
+import { CheckBoxAndLinkPropTypes } from './CheckBoxAndLinkPropTypes'
 
 const CheckBoxAndLink: FC<CheckBoxAndLinkPropTypes> = ({
   isRemember,
   setIsRemember,
-}: CheckBoxAndLinkPropTypes) => {
+}) => {
   return (
-    <Div>
-      <Form.CheckBox
+    <CheckBoxAndLinkWrapper>
+      <CustomForm.CheckBox
         isChecked={isRemember}
         onClick={() => setIsRemember(!isRemember)}
       />
-      <Form.Link.ForgotPassword />
-    </Div>
+      <CustomForm.Link.ForgotPassword />
+    </CheckBoxAndLinkWrapper>
   )
 }
 

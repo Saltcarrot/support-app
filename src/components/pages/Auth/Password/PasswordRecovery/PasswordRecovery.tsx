@@ -2,11 +2,11 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useActions } from '../../../../../hooks/useActions'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IInput } from '../../../../../utils/types/input'
+import { Input } from '../../../../../utils/types/input'
 import { recoverySchema } from '../../../../../utils/helpers/validationSchemas'
 
-import Container from '../../../../common/Container/Container'
-import { CustomForm as Form } from '../../../../common/UI/Form'
+import Layout from '../../../../common/Layout/Layout'
+import CustomForm from '../../../../common/UI/Form'
 
 const PasswordRecovery: FC = () => {
   const {
@@ -28,7 +28,7 @@ const PasswordRecovery: FC = () => {
     reset()
   }
 
-  const emailInput: IInput[] = [
+  const emailInput: Input[] = [
     {
       label: 'Введите Email',
       name: 'email',
@@ -37,8 +37,8 @@ const PasswordRecovery: FC = () => {
   ]
 
   return (
-    <Container content='auth'>
-      <Form.Container
+    <Layout content='auth'>
+      <CustomForm.Container
         title='Восстановление пароля'
         tip='Введите Email, на который должна прийти ссылка для восстановления пароля'
         register={register}
@@ -47,17 +47,17 @@ const PasswordRecovery: FC = () => {
         onSubmit={onSubmit}
         inputs={emailInput}
         bottom={
-          <Form.FormBottom>
-            <Form.BottomBtns
+          <CustomForm.FormBottom>
+            <CustomForm.BottomBtns
               googleOnClick={() => {}}
               linkPath='/authorization'
               linkTitle='Авторизоваться'
             />
-            <Form.Button.Submit text='Получить ссылку' />
-          </Form.FormBottom>
+            <CustomForm.Button.Submit text='Получить ссылку' />
+          </CustomForm.FormBottom>
         }
       />
-    </Container>
+    </Layout>
   )
 }
 

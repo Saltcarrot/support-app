@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Input = styled.input`
+const InputWrapper = styled.input`
   height: 40px;
   width: 100%;
 
@@ -23,4 +23,4 @@ const Input = styled.input`
   }
 `
 
-export default Input
+export default InputWrapper

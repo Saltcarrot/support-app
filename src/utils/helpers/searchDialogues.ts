@@ -10,7 +10,10 @@ export const searchData = async (ref: firebase.database.Reference) => {
       if (sn.exists()) {
         sn.forEach((child) => {
           if (data.length !== 5) {
-            data.push({ key: child.key, data: child.val() })
+            data.push({
+              key: child.key ? child.key : data.length.toString(),
+              data: child.val(),
+            })
           }
         })
       }

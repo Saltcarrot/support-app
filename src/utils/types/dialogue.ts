@@ -1,5 +1,11 @@
 type status = 'active' | 'opened' | 'closed'
 
+export interface Chatmate {
+  id: string
+  name: string
+  photoUrl?: string
+}
+
 export interface Message {
   author: string
   content: string
@@ -10,20 +16,14 @@ export interface Message {
 export interface Dialogue {
   title: string
   createdAt: number
-  client: {
-    id: string
-    name: string
-  }
-  operator?: {
-    id: string
-    name: string
-  }
+  client: Chatmate
+  operator?: Chatmate
   messages?: Message[]
   status: status
 }
 
 export interface Data {
-  key: string | null
+  key: string
   data: Dialogue
 }
 

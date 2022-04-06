@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Div = styled.div`
+const FormHeaderWrapper = styled.div`
   margin-bottom: 70px;
 
   text-align: center;
@@ -14,4 +14,4 @@ const Div = styled.div`
   }
 `
 
-export default Div
+export default FormHeaderWrapper

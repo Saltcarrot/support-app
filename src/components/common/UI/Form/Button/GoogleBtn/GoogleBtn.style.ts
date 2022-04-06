@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Button = styled.button`
+const GoogleBtnWrapper = styled.button`
   height: 50px;
 
   padding: 5px;
@@ -23,4 +23,4 @@ const Button = styled.button`
   }
 `
 
-export default Button
+export default GoogleBtnWrapper

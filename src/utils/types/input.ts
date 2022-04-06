@@ -1,4 +1,4 @@
-export interface IInput {
+export interface Input {
   label: string
   name: string
   type?: string

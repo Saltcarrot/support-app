@@ -1,6 +1,6 @@
 import { FieldValues, UseFormRegister } from 'react-hook-form'
-import { IInput } from '../../../../../utils/types/input'
+import { Input } from '../../../../../utils/types/input'
 
-export interface InputPropTypes extends IInput {
+export interface InputPropTypes extends Input {
   register: UseFormRegister<FieldValues>
 }

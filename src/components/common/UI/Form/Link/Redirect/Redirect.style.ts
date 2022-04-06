@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const LinkComponent = styled(Link)`
+const RedirectWrapper = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,4 +17,4 @@ const LinkComponent = styled(Link)`
   }
 `
 
-export default LinkComponent
+export default RedirectWrapper

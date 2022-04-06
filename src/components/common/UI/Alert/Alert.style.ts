@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Div = styled.div`
+const AlertWrapper = styled.div`
   padding: 10px;
   margin-top: 10px;
 
@@ -19,4 +19,4 @@ const Div = styled.div`
   }
 `
 
-export default Div
+export default AlertWrapper

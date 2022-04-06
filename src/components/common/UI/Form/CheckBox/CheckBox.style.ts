@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Div = styled.div`
+const CheckBoxWrapper = styled.div`
   display: flex;
   align-items: center;
 
@@ -23,4 +23,4 @@ const Div = styled.div`
   }
 `
 
-export default Div
+export default CheckBoxWrapper

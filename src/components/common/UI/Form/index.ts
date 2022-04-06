@@ -3,31 +3,25 @@ import FormHeader from './FormHeader/FormHeader'
 import FormGroup from './FormGroup/FormGroup'
 import Label from './Label/Label'
 import Input from './Input/Input'
-import AuthLink from './Link/AuthLink/AuthLink'
-import ForgotPassLink from './Link/ForgotPassLink/ForgotPassLink'
+import Link from './Link'
 import CheckBox from './CheckBox/CheckBox'
-import GoogleAuth from './Button/GoogleAuth/GoogleAuth'
-import SubmitBtn from './Button/SubmitBtn/SubmitBtn'
+import Button from './Button'
 import CheckBoxAndLink from './FormBottom/CheckBoxAndLink/CheckBoxAndLink'
 import BottomBtns from './FormBottom/BottomBtns/BottomBtns'
 import FormBottom from './FormBottom/FormBottom'
 
-export const CustomForm = {
+const CustomForm = {
   Container: Form,
   Header: FormHeader,
   Group: FormGroup,
   Label,
   Input,
-  Link: {
-    Redirect: AuthLink,
-    ForgotPassword: ForgotPassLink,
-  },
+  Link,
   CheckBox,
   CheckBoxAndLink,
-  Button: {
-    Google: GoogleAuth,
-    Submit: SubmitBtn,
-  },
+  Button,
   BottomBtns,
   FormBottom,
 }
+
+export default CustomForm

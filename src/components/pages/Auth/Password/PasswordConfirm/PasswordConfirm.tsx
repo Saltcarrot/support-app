@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form'
 import { useActions } from '../../../../../hooks/useActions'
 import { useLocation } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IInput } from '../../../../../utils/types/input'
+import { Input } from '../../../../../utils/types/input'
 import { updatePasswordSchema } from '../../../../../utils/helpers/validationSchemas'
 
-import Container from '../../../../common/Container/Container'
-import { CustomForm as Form } from '../../../../common/UI/Form'
+import Layout from '../../../../common/Layout/Layout'
+import CustomForm from '../../../../common/UI/Form'
 
 const PasswordConfirm: FC = () => {
   const { search } = useLocation()
@@ -32,7 +32,7 @@ const PasswordConfirm: FC = () => {
     reset()
   }
 
-  const confPassInputs: IInput[] = [
+  const confPassInputs: Input[] = [
     {
       label: 'Введите пароль',
       type: 'password',
@@ -48,8 +48,8 @@ const PasswordConfirm: FC = () => {
   ]
 
   return (
-    <Container content='auth'>
-      <Form.Container
+    <Layout content='auth'>
+      <CustomForm.Container
         title='Обновление пароля'
         tip='Задайте новый пароль для своей учетной записи'
         register={register}
@@ -58,17 +58,17 @@ const PasswordConfirm: FC = () => {
         onSubmit={onSubmit}
         inputs={confPassInputs}
         bottom={
-          <Form.FormBottom>
-            <Form.BottomBtns
+          <CustomForm.FormBottom>
+            <CustomForm.BottomBtns
               googleOnClick={() => {}}
               linkPath='/authorization'
               linkTitle='Авторизоваться'
             />
-            <Form.Button.Submit text='Задать новый пароль' />
-          </Form.FormBottom>
+            <CustomForm.Button.Submit text='Задать новый пароль' />
+          </CustomForm.FormBottom>
         }
       />
-    </Container>
+    </Layout>
   )
 }
 

@@ -4,7 +4,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from 'react-hook-form'
-import { IInput } from '../../../../../utils/types/input'
+import { Input } from '../../../../../utils/types/input'
 import { ReactNode } from 'react'
 
 export interface FormPropTypes {
@@ -16,6 +16,6 @@ export interface FormPropTypes {
   }
   handleSubmit: UseFormHandleSubmit<FieldValues>
   onSubmit: SubmitHandler<FieldValues>
-  inputs: IInput[]
+  inputs: Input[]
   bottom?: ReactNode
 }

@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const LinkComponent = styled(Link)`
+const ForgotPassLinkWrapper = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
 `
 
-export default LinkComponent
+export default ForgotPassLinkWrapper

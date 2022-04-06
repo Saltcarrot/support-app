@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-const Label = styled.label`
+const LabelWrapper = styled.label`
   margin-bottom: 5px;
 `
 
-export default Label
+export default LabelWrapper
