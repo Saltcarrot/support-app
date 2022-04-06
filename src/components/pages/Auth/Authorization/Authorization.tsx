@@ -6,7 +6,7 @@ import { Input } from '../../../../utils/types/input'
 import { signInSchema } from '../../../../utils/helpers/validationSchemas'
 
 import Layout from '../../../common/Layout/Layout'
-import CustomForm from '../../../common/UI/Form'
+import UI from '../../../common/UI'
 
 const Authorization: FC = () => {
   const {
@@ -46,7 +46,7 @@ const Authorization: FC = () => {
 
   return (
     <Layout content='auth'>
-      <CustomForm.Container
+      <UI.Form.Container
         title='Авторизация'
         tip='Заполните все поля для авторизации'
         register={register}
@@ -55,18 +55,18 @@ const Authorization: FC = () => {
         onSubmit={onSubmit}
         inputs={signInInputs}
         bottom={
-          <CustomForm.FormBottom>
-            <CustomForm.CheckBoxAndLink
+          <UI.Form.FormBottom>
+            <UI.Form.CheckBoxAndLink
               isRemember={isRemember}
               setIsRemember={setIsRemember}
             />
-            <CustomForm.BottomBtns
+            <UI.Form.BottomBtns
               googleOnClick={() => {}}
               linkPath='/registration'
               linkTitle='Регистрация'
             />
-            <CustomForm.Button.Submit text='Войти' />
-          </CustomForm.FormBottom>
+            <UI.Form.Button.Submit text='Войти' />
+          </UI.Form.FormBottom>
         }
       />
     </Layout>

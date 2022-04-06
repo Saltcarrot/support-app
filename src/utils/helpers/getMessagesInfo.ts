@@ -11,4 +11,6 @@ export const countImages = (messages: Message[]) => {
       }
     }
   }
+
+  return count
 }

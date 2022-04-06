@@ -7,7 +7,7 @@ import { Input } from '../../../../../utils/types/input'
 import { updatePasswordSchema } from '../../../../../utils/helpers/validationSchemas'
 
 import Layout from '../../../../common/Layout/Layout'
-import CustomForm from '../../../../common/UI/Form'
+import UI from '../../../../common/UI'
 
 const PasswordConfirm: FC = () => {
   const { search } = useLocation()
@@ -49,7 +49,7 @@ const PasswordConfirm: FC = () => {
 
   return (
     <Layout content='auth'>
-      <CustomForm.Container
+      <UI.Form.Container
         title='Обновление пароля'
         tip='Задайте новый пароль для своей учетной записи'
         register={register}
@@ -58,14 +58,14 @@ const PasswordConfirm: FC = () => {
         onSubmit={onSubmit}
         inputs={confPassInputs}
         bottom={
-          <CustomForm.FormBottom>
-            <CustomForm.BottomBtns
+          <UI.Form.FormBottom>
+            <UI.Form.BottomBtns
               googleOnClick={() => {}}
               linkPath='/authorization'
               linkTitle='Авторизоваться'
             />
-            <CustomForm.Button.Submit text='Задать новый пароль' />
-          </CustomForm.FormBottom>
+            <UI.Form.Button.Submit text='Задать новый пароль' />
+          </UI.Form.FormBottom>
         }
       />
     </Layout>

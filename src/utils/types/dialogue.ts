@@ -1,4 +1,4 @@
-type status = 'active' | 'opened' | 'closed'
+export type status = 'active' | 'opened' | 'closed'
 
 export interface Chatmate {
   id: string
@@ -15,6 +15,7 @@ export interface Message {
 
 export interface Dialogue {
   title: string
+  subTitle: string
   createdAt: number
   client: Chatmate
   operator?: Chatmate
@@ -23,8 +24,8 @@ export interface Dialogue {
 }
 
 export interface Data {
-  key: string
-  data: Dialogue
+  itemKey: string
+  itemData: Dialogue
 }
 
 export interface DialogueState {

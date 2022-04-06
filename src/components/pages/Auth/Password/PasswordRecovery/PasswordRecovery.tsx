@@ -6,7 +6,7 @@ import { Input } from '../../../../../utils/types/input'
 import { recoverySchema } from '../../../../../utils/helpers/validationSchemas'
 
 import Layout from '../../../../common/Layout/Layout'
-import CustomForm from '../../../../common/UI/Form'
+import UI from '../../../../common/UI'
 
 const PasswordRecovery: FC = () => {
   const {
@@ -38,7 +38,7 @@ const PasswordRecovery: FC = () => {
 
   return (
     <Layout content='auth'>
-      <CustomForm.Container
+      <UI.Form.Container
         title='Восстановление пароля'
         tip='Введите Email, на который должна прийти ссылка для восстановления пароля'
         register={register}
@@ -47,14 +47,14 @@ const PasswordRecovery: FC = () => {
         onSubmit={onSubmit}
         inputs={emailInput}
         bottom={
-          <CustomForm.FormBottom>
-            <CustomForm.BottomBtns
+          <UI.Form.FormBottom>
+            <UI.Form.BottomBtns
               googleOnClick={() => {}}
               linkPath='/authorization'
               linkTitle='Авторизоваться'
             />
-            <CustomForm.Button.Submit text='Получить ссылку' />
-          </CustomForm.FormBottom>
+            <UI.Form.Button.Submit text='Получить ссылку' />
+          </UI.Form.FormBottom>
         }
       />
     </Layout>

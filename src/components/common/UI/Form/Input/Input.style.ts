@@ -8,7 +8,7 @@ const InputWrapper = styled.input`
 
   font-size: inherit;
 
-  background-color: var(--light-lavender);
+  background-color: var(--light-grey);
 
   border: 1px solid transparent;
   border-radius: 5px;

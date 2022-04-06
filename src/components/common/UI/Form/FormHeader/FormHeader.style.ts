@@ -5,11 +5,11 @@ const FormHeaderWrapper = styled.div`
 
   text-align: center;
 
-  .title {
+  h2 {
     font-size: 36px;
   }
 
-  .tip {
+  p {
     margin-top: 10px;
   }
 `
