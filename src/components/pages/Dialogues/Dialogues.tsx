@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, MouseEvent, useEffect, useState } from 'react'
 import { DialoguesPropTypes } from './DialoguesPropTypes'
 import { useLocation } from 'react-router-dom'
 import { useActions } from '../../../hooks/useActions'

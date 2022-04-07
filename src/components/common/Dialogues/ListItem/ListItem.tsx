@@ -7,7 +7,7 @@ import Item from './ListItem.style'
 
 const ListItem: FC<Data> = ({ itemKey, itemData }) => {
   return (
-    <Item.CardWrapper>
+    <Item.CardWrapper id={itemKey}>
       <Item.HeaderWrapper>
         <UI.ViewBox.Status status={itemData.status} />
         {itemData.status === 'opened' || !itemData.messages ? (
@@ -21,7 +21,7 @@ const ListItem: FC<Data> = ({ itemKey, itemData }) => {
             }
           />
         )}
-        <UI.Button.Ellipsis onClick={() => {}} />
+        <UI.Button.Ellipsis id={itemKey} />
       </Item.HeaderWrapper>
       <Item.ContentWrapper>
         <h2>{itemData.title}</h2>
