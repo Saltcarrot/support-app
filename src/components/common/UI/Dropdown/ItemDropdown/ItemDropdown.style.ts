@@ -10,8 +10,6 @@ const ItemDropdownStyle = styled.div<{ isVisible: boolean }>`
     top: 35px;
     right: 0;
 
-    font-weight: bold;
-
     border-radius: 10px 0 10px 10px;
     background-color: var(--grey-blue);
     color: #fff;

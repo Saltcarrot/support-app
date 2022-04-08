@@ -20,9 +20,6 @@ const ListItemHeader = styled.header`
   justify-content: space-between;
 
   margin-bottom: 10px;
-
-  font-family: var(--font-nunito);
-  font-weight: bold;
 `
 
 const ListItemContentWrapper = styled.div`
@@ -31,7 +28,7 @@ const ListItemContentWrapper = styled.div`
   h2 {
     margin-bottom: 10px;
 
-    font-size: 26px;
+    font-size: 24px;
     font-weight: bold;
   }
 `
