@@ -7,13 +7,7 @@ const List: FC<ListPropTypes> = ({ list }) => {
   return (
     <div>
       {list.map((item) => {
-        return (
-          <ListItem
-            key={item.itemKey}
-            itemKey={item.itemKey}
-            itemData={item.itemData}
-          />
-        )
+        return <ListItem key={item.itemKey} item={item} />
       })}
     </div>
   )

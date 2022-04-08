@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const ListItemWrapper = styled.article`
-  padding: 20px;
+  padding: 10px 15px;
 
   border-radius: 10px;
 
@@ -19,19 +19,19 @@ const ListItemHeader = styled.header`
   align-items: center;
   justify-content: space-between;
 
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   font-family: var(--font-nunito);
   font-weight: bold;
 `
 
 const ListItemContentWrapper = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   h2 {
     margin-bottom: 10px;
 
-    font-size: 30px;
+    font-size: 26px;
     font-weight: bold;
   }
 `
@@ -46,7 +46,7 @@ const ListItemFooterWrapper = styled.footer`
     align-items: center;
 
     > div:not(:last-of-type) {
-      margin-right: 20px;
+      margin-right: 10px;
     }
   }
 `

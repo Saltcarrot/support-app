@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 
 export const useOutsideAlerter = (initialIsVisible: boolean) => {
   const [isComponentVisible, setIsComponentVisible] = useState(initialIsVisible)
-  const ref = useRef<HTMLButtonElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   const handleClickOutside = (event: any) => {
     if (ref.current && !ref.current.contains(event.target)) {

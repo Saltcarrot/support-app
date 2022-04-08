@@ -1,11 +1,11 @@
 import { FC } from 'react'
-import { Data } from '../../../../utils/types/dialogue'
+import { ListItemPropTypes } from './ListItemPropTypes'
 
 import UI from '../../UI'
 
 import Item from './ListItem.style'
 
-const ListItem: FC<Data> = ({ itemKey, itemData }) => {
+const ListItem: FC<ListItemPropTypes> = ({ item: { itemKey, itemData } }) => {
   return (
     <Item.CardWrapper id={itemKey}>
       <Item.HeaderWrapper>
@@ -21,7 +21,7 @@ const ListItem: FC<Data> = ({ itemKey, itemData }) => {
             }
           />
         )}
-        <UI.Button.Ellipsis id={itemKey} />
+        <UI.Dropdown.ItemDropdown id={itemKey} />
       </Item.HeaderWrapper>
       <Item.ContentWrapper>
         <h2>{itemData.title}</h2>

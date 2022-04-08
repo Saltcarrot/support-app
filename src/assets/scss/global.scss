@@ -29,11 +29,19 @@ body {
 	width: 100%;
 
 	background-color: var(--light-grey);
+	background: radial-gradient(circle at 20% 20%, rgb(229, 248, 252) 5%, transparent 20%),
+				radial-gradient(circle at 40% 20%, rgb(253, 246, 234) 5%, transparent 20%),
+				radial-gradient(circle at 20% 40%, rgb(238, 233, 255) 5%, transparent 20%),
+				radial-gradient(circle at 60% 80%, rgb(255, 223, 229) 5%, transparent 20%),
+				radial-gradient(circle at 80% 60%, rgb(239, 235, 255) 5%, transparent 20%),
+				radial-gradient(circle at 80% 80%, rgb(224, 246, 234) 5%, transparent 20%);
+	background-attachment: fixed;
+
 	color: var(--grey-blue);
 
 	font-family: var(--font-roboto);
 	font-weight: 400;
-	font-size: 16px;
+	font-size: 14px;
 	word-wrap: break-word;
 
 	overflow-x: hidden;

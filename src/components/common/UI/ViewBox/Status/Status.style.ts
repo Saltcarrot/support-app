@@ -7,8 +7,8 @@ const StatusWrapper = styled.span`
 
   margin-right: auto;
 
-  height: 40px;
-  width: 40px;
+  height: 35px;
+  width: 35px;
 
   border-radius: 20px;
 

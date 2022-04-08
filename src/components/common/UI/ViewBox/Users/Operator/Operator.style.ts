@@ -9,8 +9,8 @@ const OperatorWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
 
     margin-right: 10px;
 

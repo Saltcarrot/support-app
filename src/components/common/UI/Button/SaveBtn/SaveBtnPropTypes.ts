@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react'
 
-export interface EllipsisBtnPropTypes {
+export interface SaveBtnPropTypes {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
 }
