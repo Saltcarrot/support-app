@@ -1,11 +1,14 @@
 import firebase from 'firebase/compat/app'
 import { Data } from '../types/dialogue'
 
-export const searchData = async (ref: firebase.database.Reference) => {
+export const searchData = async (
+  ref: firebase.database.Reference,
+  key: string
+) => {
   let data: Data[] = []
   await ref
-    // .orderByKey()
-    // .startAfter(key)
+    .orderByKey()
+    .startAfter(key)
     .once('value', (sn) => {
       if (sn.exists()) {
         sn.forEach((child) => {

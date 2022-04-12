@@ -5,6 +5,8 @@ import Form from './Form'
 import Button from './Button'
 import Dropdown from './Dropdown'
 import Link from './Link'
+import Loader from './Loader/Loader'
+import EndList from './EndList/EndList'
 
 const UI = {
   Alert,
@@ -14,6 +16,8 @@ const UI = {
   Button,
   Dropdown,
   Link,
+  Loader,
+  EndList,
 }
 
 export default UI

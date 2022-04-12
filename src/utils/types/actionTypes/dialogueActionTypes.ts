@@ -3,7 +3,7 @@ import { Data } from '../dialogue'
 
 export interface GetDialoguesRequestAction {
   type: types.GET_DIALOGUES_REQUEST
-  payload?: undefined
+  payload: string
 }
 export interface GetDialoguesSuccessAction {
   type: types.GET_DIALOGUES_SUCCESS

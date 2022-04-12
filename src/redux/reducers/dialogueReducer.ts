@@ -1,5 +1,4 @@
 import { DialogueState } from '../../utils/types/dialogue'
-import { Reducer } from 'react'
 import { DialogueActions } from '../../utils/types/actionTypes/dialogueActionTypes'
 import { dialogue as types } from '../../utils/enums/dialogue'
 
@@ -9,10 +8,10 @@ const initialState: DialogueState = {
   dialogues: null,
 }
 
-export const dialogueReducer: Reducer<DialogueState, DialogueActions> = (
-  state = initialState,
-  { type, payload }
-) => {
+export const dialogueReducer = (
+  state: DialogueState = initialState,
+  { type, payload }: DialogueActions
+): DialogueState => {
   switch (type) {
     case types.GET_DIALOGUES_REQUEST:
       return { ...state, loading: true }

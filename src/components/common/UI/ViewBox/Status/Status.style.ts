@@ -12,7 +12,7 @@ const StatusWrapper = styled.span`
 
   border-radius: 20px;
 
-  &.open {
+  &.opened {
     background-color: var(--light-cyan);
     color: var(--cyan);
   }

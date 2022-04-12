@@ -1,4 +1,3 @@
-import { Reducer } from 'react'
 import { UserState } from '../../utils/types/user'
 import { UserActions } from '../../utils/types/actionTypes/userActionTypes'
 import { userActionTypes as types } from '../../utils/enums/user'
@@ -10,10 +9,10 @@ const initialState: UserState = {
   user: null,
 }
 
-export const userReducer: Reducer<UserState, UserActions> = (
-  state = initialState,
-  { type, payload }
-) => {
+export const userReducer = (
+  state: UserState = initialState,
+  { type, payload }: UserActions
+): UserState => {
   switch (type) {
     // RESET MESSAGES
     case types.RESET_MESSAGES:

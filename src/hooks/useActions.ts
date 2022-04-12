@@ -20,7 +20,8 @@ export const useActions = () => {
         dispatch(userActions.confirmPassword.request(payload)),
     },
     dialogue: {
-      getDialogues: () => dispatch(dialogueActions.getDialogues.request()),
+      getDialogues: (payload: string) =>
+        dispatch(dialogueActions.getDialogues.request(payload)),
     },
   }
 }
