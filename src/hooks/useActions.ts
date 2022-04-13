@@ -5,6 +5,7 @@ import { userActions } from '../redux/actions/userActions'
 import { Auth, ConfPass } from '../utils/types/user'
 import { DialogueActions } from '../utils/types/actionTypes/dialogueActionTypes'
 import { dialogueActions } from '../redux/actions/dialogueActions'
+import { SortSettings } from '../utils/types/dialogue'
 
 export const useActions = () => {
   const dispatch = useDispatch<Dispatch<UserActions | DialogueActions>>()
@@ -20,8 +21,8 @@ export const useActions = () => {
         dispatch(userActions.confirmPassword.request(payload)),
     },
     dialogue: {
-      getDialogues: (payload: string) =>
-        dispatch(dialogueActions.getDialogues.request(payload)),
+      getDialogues: ({ group, key, value }: SortSettings) =>
+        dispatch(dialogueActions.getDialogues.request({ group, key, value })),
     },
   }
 }

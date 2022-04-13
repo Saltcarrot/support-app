@@ -1,4 +1,13 @@
 export type status = 'active' | 'opened' | 'closed'
+export type dataSort = 'createdAt' | 'title'
+
+export const PAGE_LIMIT = 5
+
+export interface SortSettings {
+  group: string
+  key: dataSort
+  value: string | number
+}
 
 export interface Chatmate {
   id: string

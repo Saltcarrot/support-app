@@ -1,18 +1,15 @@
 import { FC, useCallback, useEffect, useState } from 'react'
 import { DialoguesPropTypes } from './DialoguesPropTypes'
-import { useLocation } from 'react-router-dom'
 import { debounce } from 'lodash'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useActions } from '../../../hooks/useActions'
-import { Data } from '../../../utils/types/dialogue'
+import { Data, dataSort, SortSettings } from '../../../utils/types/dialogue'
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
 
 import UI from '../../common/UI'
 import List from '../../common/Dialogues/List/List'
-import ListItem from '../../common/Dialogues/ListItem/ListItem'
 
 const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
-  const { pathname } = useLocation()
   const { loading, error, dialogues } = useTypedSelector(
     (state) => state.dialogue
   )
@@ -21,11 +18,16 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   } = useActions()
 
   const [dialoguesList, setDialoguesList] = useState<Data[]>([])
-  const [lastKey, setLastKey] = useState<string>('')
+  const [sortKey, setSortKey] = useState<dataSort>('createdAt')
+  const [sortValue, setSortValue] = useState<number | string>(0)
   const [hasMore, setHasMore] = useState<boolean>(true)
 
   useEffect(() => {
-    getDialogues(lastKey)
+    getDialogues({
+      group,
+      key: sortKey,
+      value: sortValue,
+    })
   }, [])
 
   useEffect(() => {
@@ -46,19 +48,29 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   }, [dialogues])
 
   useEffect(() => {
-    if (dialoguesList.length !== 0)
-      setLastKey(dialoguesList[dialoguesList.length - 1].itemKey)
+    if (dialoguesList.length !== 0) {
+      if (sortKey === 'createdAt') {
+        setSortValue(dialoguesList[dialoguesList.length - 1].itemData.createdAt)
+      }
+      if (sortKey === 'title') {
+        setSortValue(dialoguesList[dialoguesList.length - 1].itemData.title)
+      }
+    }
   }, [dialoguesList])
 
   const searchData = useCallback(
-    debounce((key: string) => {
-      getDialogues(key)
+    debounce(({ group, key, value }: SortSettings) => {
+      getDialogues({ group, key, value })
     }, 500),
     []
   )
 
   const fetchMoreData = () => {
-    searchData(lastKey)
+    searchData({
+      group,
+      key: sortKey,
+      value: sortValue,
+    })
   }
 
   return (
@@ -68,12 +80,11 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
         <div className='tools' style={{ height: '50px' }}>
           tools
         </div>
-        {loading && dialoguesList.length === 0 && <UI.Loader />}
         <InfiniteScroll
           dataLength={dialoguesList.length}
           next={fetchMoreData}
           hasMore={hasMore}
-          loader={dialoguesList.length !== 0 && <UI.Loader />}
+          loader={<UI.Loader />}
           endMessage={<UI.EndList />}
         >
           <List list={dialoguesList} />

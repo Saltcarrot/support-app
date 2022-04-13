@@ -1,26 +1,27 @@
 import firebase from 'firebase/compat/app'
-import { Data } from '../types/dialogue'
+import { Data, dataSort, PAGE_LIMIT } from '../types/dialogue'
 
 export const searchData = async (
   ref: firebase.database.Reference,
-  key: string
+  group: string,
+  orderKey: dataSort,
+  orderValue: string | number
 ) => {
   let data: Data[] = []
+
   await ref
-    .orderByKey()
-    .startAfter(key)
+    .orderByChild(orderKey)
+    .startAfter(orderValue)
+    .limitToFirst(PAGE_LIMIT)
     .once('value', (sn) => {
       if (sn.exists()) {
         sn.forEach((child) => {
-          if (data.length !== 5) {
-            data.push({
-              itemKey: child.key ? child.key : data.length.toString(),
-              itemData: child.val(),
-            })
-          }
+          data.push({
+            itemKey: child.key ? child.key : data.length.toString(),
+            itemData: child.val(),
+          })
         })
       }
     })
-
   return data
 }
