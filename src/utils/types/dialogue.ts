@@ -1,12 +1,17 @@
 export type status = 'active' | 'opened' | 'closed'
-export type dataSort = 'createdAt' | 'title'
+export type group = status | 'all' | 'saved'
+export type filter = 'createdAt' | 'title'
+export type sort = 'asc' | 'desc'
+export type rate = 1 | 2 | 3 | 4 | 5
 
 export const PAGE_LIMIT = 5
 
 export interface SortSettings {
-  group: string
-  key: dataSort
-  value: string | number
+  group: group
+  filter: filter
+  sort: sort
+  lastValue: string | number
+  operatorID?: string
 }
 
 export interface Chatmate {
@@ -30,6 +35,7 @@ export interface Dialogue {
   operator?: Chatmate
   messages?: Message[]
   status: status
+  rate?: rate
 }
 
 export interface Data {

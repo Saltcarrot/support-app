@@ -1,5 +1,5 @@
-type dialoguesGroup = 'all' | 'active' | 'opened' | 'closed' | 'saved'
+import { group } from '../../../utils/types/dialogue'
 
 export interface DialoguesPropTypes {
-  group: dialoguesGroup
+  group: group
 }

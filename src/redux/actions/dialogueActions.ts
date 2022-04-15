@@ -1,13 +1,9 @@
 import * as ac from '../../utils/types/actionCreators/dialogueActionCreators'
 import { dialogue as types } from '../../utils/enums/dialogue'
 
-const getDialoguesRequest: ac.getDialoguesRequestActionCreator = ({
-  group,
-  key,
-  value,
-}) => ({
+const getDialoguesRequest: ac.getDialoguesRequestActionCreator = (args) => ({
   type: types.GET_DIALOGUES_REQUEST,
-  payload: { group, key, value },
+  payload: args,
 })
 const getDialoguesSuccess: ac.getDialoguesSuccessActionCreator = (
   dialogues

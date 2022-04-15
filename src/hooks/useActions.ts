@@ -21,8 +21,8 @@ export const useActions = () => {
         dispatch(userActions.confirmPassword.request(payload)),
     },
     dialogue: {
-      getDialogues: ({ group, key, value }: SortSettings) =>
-        dispatch(dialogueActions.getDialogues.request({ group, key, value })),
+      getDialogues: (args: SortSettings) =>
+        dispatch(dialogueActions.getDialogues.request(args)),
     },
   }
 }

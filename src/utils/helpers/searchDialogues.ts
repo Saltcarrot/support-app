@@ -1,27 +1,72 @@
 import firebase from 'firebase/compat/app'
-import { Data, dataSort, PAGE_LIMIT } from '../types/dialogue'
+import { Data, group, filter, PAGE_LIMIT, sort } from '../types/dialogue'
 
-export const searchData = async (
-  ref: firebase.database.Reference,
-  group: string,
-  orderKey: dataSort,
-  orderValue: string | number
-) => {
-  let data: Data[] = []
+const tuple = <T extends group[]>(...args: T) => args
 
-  await ref
-    .orderByChild(orderKey)
-    .startAfter(orderValue)
-    .limitToFirst(PAGE_LIMIT)
-    .once('value', (sn) => {
-      if (sn.exists()) {
-        sn.forEach((child) => {
-          data.push({
-            itemKey: child.key ? child.key : data.length.toString(),
-            itemData: child.val(),
-          })
-        })
-      }
+interface SearchDialoguesPropTypes {
+  db: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>
+  group: group
+  filter: filter
+  sort: sort
+  operatorID?: string
+}
+
+interface SearchNextDialoguesPropTypes extends SearchDialoguesPropTypes {
+  lastValue: string | number
+}
+
+export const getFirstDialogues = async ({
+  db,
+  group,
+  filter,
+  sort,
+}: SearchDialoguesPropTypes) => {
+  if (group === 'all') {
+    const snapshot = await db.orderBy(filter, sort).limit(PAGE_LIMIT).get()
+
+    return snapshot.docs.map((item) => {
+      return { itemKey: item.id, itemData: item.data() } as Data
     })
-  return data
+  } else {
+    const snapshot = await db
+      .where('status', 'in', tuple(group))
+      .orderBy(filter, sort)
+      .limit(PAGE_LIMIT)
+      .get()
+
+    return snapshot.docs.map((item) => {
+      return { itemKey: item.id, itemData: item.data() } as Data
+    })
+  }
+}
+
+export const getNextDialogues = async ({
+  db,
+  group,
+  filter,
+  sort,
+  lastValue,
+}: SearchNextDialoguesPropTypes) => {
+  if (group === 'all') {
+    const snapshot = await db
+      .orderBy(filter, sort)
+      .startAfter(lastValue)
+      .limit(PAGE_LIMIT)
+      .get()
+
+    return snapshot.docs.map((item) => {
+      return { itemKey: item.id, itemData: item.data() } as Data
+    })
+  } else {
+    const snapshot = await db
+      .where('status', 'in', tuple(group))
+      .orderBy(filter, sort)
+      .startAfter(lastValue)
+      .limit(PAGE_LIMIT)
+      .get()
+
+    return snapshot.docs.map((item) => {
+      return { itemKey: item.id, itemData: item.data() } as Data
+    })
+  }
 }

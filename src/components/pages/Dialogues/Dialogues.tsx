@@ -3,7 +3,7 @@ import { DialoguesPropTypes } from './DialoguesPropTypes'
 import { debounce } from 'lodash'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useActions } from '../../../hooks/useActions'
-import { Data, dataSort, SortSettings } from '../../../utils/types/dialogue'
+import { Data, filter, sort, SortSettings } from '../../../utils/types/dialogue'
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
 
 import UI from '../../common/UI'
@@ -18,15 +18,17 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   } = useActions()
 
   const [dialoguesList, setDialoguesList] = useState<Data[]>([])
-  const [sortKey, setSortKey] = useState<dataSort>('createdAt')
-  const [sortValue, setSortValue] = useState<number | string>(0)
+  const [filter, setFilter] = useState<filter>('createdAt')
+  const [sort, setSort] = useState<sort>('desc')
+  const [lastValue, setLastValue] = useState<string | number>(0)
   const [hasMore, setHasMore] = useState<boolean>(true)
 
   useEffect(() => {
     getDialogues({
       group,
-      key: sortKey,
-      value: sortValue,
+      filter,
+      sort,
+      lastValue,
     })
   }, [])
 
@@ -42,25 +44,21 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
         ) {
           setDialoguesList([...dialoguesList, ...dialogues])
         }
+
+        if (filter === 'createdAt') {
+          setLastValue(dialogues[dialogues.length - 1].itemData.createdAt)
+        }
+        if (filter === 'title') {
+          setLastValue(dialogues[dialogues.length - 1].itemData.title)
+        }
       }
       if (dialogues.length < 5) setHasMore(false)
     }
   }, [dialogues])
 
-  useEffect(() => {
-    if (dialoguesList.length !== 0) {
-      if (sortKey === 'createdAt') {
-        setSortValue(dialoguesList[dialoguesList.length - 1].itemData.createdAt)
-      }
-      if (sortKey === 'title') {
-        setSortValue(dialoguesList[dialoguesList.length - 1].itemData.title)
-      }
-    }
-  }, [dialoguesList])
-
   const searchData = useCallback(
-    debounce(({ group, key, value }: SortSettings) => {
-      getDialogues({ group, key, value })
+    debounce(({ group, filter, sort, lastValue }: SortSettings) => {
+      getDialogues({ group, filter, sort, lastValue })
     }, 500),
     []
   )
@@ -68,8 +66,9 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   const fetchMoreData = () => {
     searchData({
       group,
-      key: sortKey,
-      value: sortValue,
+      filter,
+      sort,
+      lastValue,
     })
   }
 
