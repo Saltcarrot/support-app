@@ -1,6 +1,6 @@
 import { userActionTypes as types } from '../../enums/user'
-import { Auth, ConfPass } from '../user'
-import { UserInfo } from 'firebase/auth'
+import { Auth, ConfPass, User } from '../user'
+// import { UserInfo } from 'firebase/auth'
 
 // RESET MESSAGES
 export interface ResetMessagesAction {
@@ -29,7 +29,7 @@ export interface SignInRequestAction {
 }
 export interface SignInSuccessAction {
   type: types.SIGN_IN_SUCCESS
-  payload: UserInfo
+  payload: User
 }
 export interface SignInErrorAction {
   type: types.SIGN_IN_ERROR
@@ -43,7 +43,7 @@ export interface SignUpRequestAction {
 }
 export interface SignUpSuccessAction {
   type: types.SIGN_UP_SUCCESS
-  payload: UserInfo
+  payload: User
 }
 export interface SignUpErrorAction {
   type: types.SIGN_UP_ERROR

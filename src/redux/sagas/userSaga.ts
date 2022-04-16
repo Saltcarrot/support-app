@@ -5,7 +5,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { userActionTypes as types } from '../../utils/enums/user'
 import { userActions } from '../actions/userActions'
 import * as actions from '../../utils/types/actionTypes/userActionTypes'
-import { Auth, ConfPass } from '../../utils/types/user'
+import { Auth, ConfPass, User } from '../../utils/types/user'
 import { convertError } from '../../utils/helpers/convertError'
 import { Errors } from '../../utils/enums/errors'
 
@@ -21,6 +21,7 @@ const fetchCheckAuth = async () => {
 
 const fetchSignIn = async ({ email, password, isRemember }: Auth) => {
   const auth = firebase.auth()
+  const db = firebase.firestore().collection('users')
 
   await auth.setPersistence(
     isRemember
@@ -30,13 +31,33 @@ const fetchSignIn = async ({ email, password, isRemember }: Auth) => {
   const provider = firebase.auth.EmailAuthProvider.credential(email, password)
   const { user } = await auth.signInWithCredential(provider)
 
+  if (user) {
+    const snapshot = await db
+      .where(firebase.firestore.FieldPath.documentId(), '==', user.uid)
+      .get()
+    const [role] = snapshot.docs.map((item) => {
+      return item.data()['role']
+    })
+
+    return { user, role }
+  }
+
   return user
 }
 
 const fetchSignUp = async ({ email, password }: Auth) => {
   const auth = firebase.auth()
+  const db = firebase.firestore().collection('users')
 
   const { user } = await auth.createUserWithEmailAndPassword(email, password)
+
+  if (user) {
+    await db.doc(user.uid).set({
+      role: 'user',
+    })
+
+    return { user, role: 'user' }
+  }
 
   return user
 }
@@ -68,9 +89,7 @@ function* signInWithDataWorker({
   payload: { email, password, isRemember },
 }: actions.SignInRequestAction) {
   try {
-    const {
-      multiFactor: { user },
-    } = yield call(fetchSignIn, {
+    const user: User = yield call(fetchSignIn, {
       email,
       password,
       isRemember,
@@ -86,9 +105,7 @@ function* signUpWorker({
   payload: { email, password },
 }: actions.SignUpRequestAction) {
   try {
-    const {
-      multiFactor: { user },
-    } = yield call(fetchSignUp, {
+    const user: User = yield call(fetchSignUp, {
       email: email,
       password: password,
     })

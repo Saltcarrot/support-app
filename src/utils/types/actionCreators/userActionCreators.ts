@@ -1,6 +1,6 @@
-import { Auth, ConfPass } from '../user'
+import { Auth, ConfPass, User } from '../user'
 import * as actions from '../actionTypes/userActionTypes'
-import { UserInfo } from 'firebase/auth'
+// import { UserInfo } from 'firebase/auth'
 
 // RESET MESSAGES
 export type resetMessagesActionCreator = () => actions.ResetMessagesAction
@@ -18,7 +18,7 @@ export type signInRequestActionCreator = ({
   password,
 }: Auth) => actions.SignInRequestAction
 export type signInSuccessActionCreator = (
-  user: UserInfo
+  user: User
 ) => actions.SignInSuccessAction
 export type signInErrorActionCreator = (
   message: string
@@ -30,7 +30,7 @@ export type signUpRequestActionCreator = ({
   password,
 }: Auth) => actions.SignUpRequestAction
 export type signUpSuccessActionCreator = (
-  user: UserInfo
+  user: User
 ) => actions.SignUpSuccessAction
 export type signUpErrorActionCreator = (
   message: string
