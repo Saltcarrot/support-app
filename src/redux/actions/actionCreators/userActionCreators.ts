@@ -6,10 +6,10 @@ export type resetMessagesActionCreator = () => actions.ResetMessagesAction
 
 // AUTH
 export type checkAuthRequestActionCreator = () => actions.CheckAuthRequestAction
-export type checkAuthSuccessActionCreator = () => actions.CheckAuthResetAction
 export type checkAuthErrorActionCreator = (
   message: string
 ) => actions.CheckAuthErrorAction
+export type checkAuthResetActionCreator = () => actions.CheckAuthResetAction
 
 // SIGN IN
 export type signInRequestActionCreator = ({

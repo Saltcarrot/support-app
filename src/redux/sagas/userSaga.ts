@@ -5,7 +5,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { userActionTypes as types } from '../../utils/enums/user'
 import { userActions } from '../actions/userActions'
 import * as actions from '../actions/actionTypes/userActionTypes'
-import { Auth, ConfPass, User } from '../../utils/types/user'
+import { Auth, ConfPass, role } from '../../utils/types/user'
 import { convertError } from '../../utils/helpers/convertError'
 import { Errors } from '../../utils/enums/errors'
 
@@ -21,7 +21,6 @@ const fetchCheckAuth = async () => {
 
 const fetchSignIn = async ({ email, password, isRemember }: Auth) => {
   const auth = firebase.auth()
-  const db = firebase.firestore().collection('users')
 
   await auth.setPersistence(
     isRemember
@@ -31,58 +30,43 @@ const fetchSignIn = async ({ email, password, isRemember }: Auth) => {
   const provider = firebase.auth.EmailAuthProvider.credential(email, password)
 
   const { user } = await auth.signInWithCredential(provider)
-  if (user) {
-    const snapshot = await db
-      .where(firebase.firestore.FieldPath.documentId(), '==', user.uid)
-      .get()
-    const [role] = snapshot.docs.map((item) => {
-      return item.data()['role']
-    })
-    return { user, role }
-  }
 
   return user
 }
 
 const fetchSignInWithGoogle = async () => {
   const provider = new firebase.auth.GoogleAuthProvider()
-  const db = firebase.firestore().collection('users')
 
   const { user } = await firebase.auth().signInWithPopup(provider)
-  if (user) {
-    const snapshot = await db
-      .where(firebase.firestore.FieldPath.documentId(), '==', user.uid)
-      .get()
-    const [role] = snapshot.docs.map((item) => {
-      return item.data()['role']
-    })
-    if (!role) {
-      await db.doc(user.uid).set({
-        role: 'user',
-      })
-      return { user, role: 'user' }
-    } else {
-      return { user, role }
-    }
-  }
 
   return user
 }
 
 const fetchSignUp = async ({ email, password }: Auth) => {
   const auth = firebase.auth()
-  const db = firebase.firestore().collection('users')
 
   const { user } = await auth.createUserWithEmailAndPassword(email, password)
 
-  if (user) {
-    await db.doc(user.uid).set({
+  return user
+}
+
+const fetchUserRole = async (uid: string) => {
+  const db = firebase.firestore().collection('users')
+
+  const snapshot = await db
+    .where(firebase.firestore.FieldPath.documentId(), '==', uid)
+    .get()
+  const [role] = snapshot.docs.map((item) => {
+    return item.data()['role']
+  })
+
+  if (!role) {
+    await db.doc(uid).set({
       role: 'user',
     })
-    return { user, role: 'user' }
   }
 
-  return user
+  return role
 }
 
 const fetchRecoverPassword = async (email: string) => {
@@ -112,12 +96,13 @@ function* signInWithDataWorker({
   payload: { email, password, isRemember },
 }: actions.SignInRequestAction) {
   try {
-    const user: User = yield call(fetchSignIn, {
+    const user: firebase.User = yield call(fetchSignIn, {
       email,
       password,
       isRemember,
     })
-    yield put(userActions.signIn.success(user))
+    const role: role = yield call(fetchUserRole, user.uid)
+    yield put(userActions.signIn.success({ user, role }))
   } catch (error: any) {
     // По дефолту возвращает unknown
     yield put(userActions.signIn.error(convertError(error)))
@@ -126,8 +111,9 @@ function* signInWithDataWorker({
 
 function* signInWithGoogleWorker() {
   try {
-    const user: User = yield call(fetchSignInWithGoogle)
-    yield put(userActions.signIn.success(user))
+    const user: firebase.User = yield call(fetchSignInWithGoogle)
+    const role: role = yield call(fetchUserRole, user.uid)
+    yield put(userActions.signIn.success({ user, role }))
   } catch (error: any) {
     // По дефолту возвращает unknown
     yield put(userActions.signIn.error(convertError(error)))
@@ -138,11 +124,12 @@ function* signUpWorker({
   payload: { email, password },
 }: actions.SignUpRequestAction) {
   try {
-    const user: User = yield call(fetchSignUp, {
+    const user: firebase.User = yield call(fetchSignUp, {
       email: email,
       password: password,
     })
-    yield put(userActions.signUp.success(user))
+    const role: role = yield call(fetchUserRole, user.uid)
+    yield put(userActions.signUp.success({ user, role }))
   } catch (error: any) {
     yield put(userActions.signUp.error(convertError(error)))
   }

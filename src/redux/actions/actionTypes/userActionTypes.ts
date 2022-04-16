@@ -1,6 +1,5 @@
 import { userActionTypes as types } from '../../../utils/enums/user'
 import { Auth, ConfPass, User } from '../../../utils/types/user'
-// import { UserInfo } from 'firebase/auth'
 
 // RESET MESSAGES
 export interface ResetMessagesAction {
@@ -13,13 +12,13 @@ export interface CheckAuthRequestAction {
   type: types.CHECK_AUTH_REQUEST
   payload?: undefined
 }
-export interface CheckAuthResetAction {
-  type: types.CHECK_AUTH_RESET
-  payload?: undefined
-}
 export interface CheckAuthErrorAction {
   type: types.CHECK_AUTH_ERROR
   payload: string
+}
+export interface CheckAuthResetAction {
+  type: types.CHECK_AUTH_RESET
+  payload?: undefined
 }
 
 // SIGN IN
@@ -87,8 +86,8 @@ export interface ConfirmPasswordErrorAction {
 export type UserActions =
   | ResetMessagesAction
   | CheckAuthRequestAction
-  | CheckAuthResetAction
   | CheckAuthErrorAction
+  | CheckAuthResetAction
   | SignInRequestAction
   | SignInSuccessAction
   | SignInErrorAction

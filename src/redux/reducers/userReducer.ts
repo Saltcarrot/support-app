@@ -20,10 +20,10 @@ export const userReducer = (
     // AUTH
     case types.CHECK_AUTH_REQUEST:
       return { ...state }
-    case types.CHECK_AUTH_RESET:
-      return initialState
     case types.CHECK_AUTH_ERROR:
       return { ...state, error: payload }
+    case types.CHECK_AUTH_RESET:
+      return initialState
     // SIGN IN
     case types.SIGN_IN_REQUEST:
       return { ...state, loading: true }

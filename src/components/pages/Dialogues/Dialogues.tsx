@@ -9,6 +9,7 @@ import UI from '../../common/UI'
 import List from '../../common/Dialogues/List/List'
 
 const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
+  const { user } = useTypedSelector((state) => state.user)
   const { error, dialogues } = useTypedSelector((state) => state.dialogue)
 
   const [dialoguesList, setDialoguesList] = useState<Data[]>([])
@@ -17,7 +18,14 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   const [lastValue, setLastValue] = useState<string | number>(0)
   const [hasMore, setHasMore] = useState<boolean>(true)
 
-  const { fetchMoreData } = useSearch({ group, filter, sort, lastValue })
+  const { fetchMoreData } = useSearch({
+    group,
+    filter,
+    sort,
+    lastValue,
+    isOperator: user?.role === 'operator',
+    UID: user?.user.uid,
+  })
 
   useEffect(() => {
     if (dialogues) {
@@ -50,7 +58,13 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
           next={fetchMoreData}
           hasMore={hasMore}
           loader={<UI.Loader />}
-          endMessage={<UI.EndList />}
+          endMessage={
+            dialoguesList.length !== 0 ? (
+              <UI.EndList />
+            ) : (
+              <div>Ой! Кажется, данных нет :с</div>
+            )
+          }
         >
           <List list={dialoguesList} />
         </InfiniteScroll>

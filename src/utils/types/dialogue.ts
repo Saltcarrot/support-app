@@ -11,7 +11,8 @@ export interface SortSettings {
   filter: filter
   sort: sort
   lastValue: string | number
-  operatorID?: string
+  isOperator: boolean
+  UID?: string
 }
 
 export interface Chatmate {

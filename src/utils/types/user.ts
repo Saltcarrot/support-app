@@ -13,7 +13,8 @@ export interface ConfPass {
   password: string
 }
 
-export interface User extends UserInfo {
+export interface User {
+  user: UserInfo
   role: role
 }
 

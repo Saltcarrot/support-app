@@ -10,12 +10,12 @@ const resetMessages: ac.resetMessagesActionCreator = () => ({
 const checkAuthRequest: ac.checkAuthRequestActionCreator = () => ({
   type: types.CHECK_AUTH_REQUEST,
 })
-const checkAuthReset: ac.checkAuthSuccessActionCreator = () => ({
-  type: types.CHECK_AUTH_RESET,
-})
 const checkAuthError: ac.checkAuthErrorActionCreator = (message) => ({
   type: types.CHECK_AUTH_ERROR,
   payload: message,
+})
+const checkAuthReset: ac.checkAuthResetActionCreator = () => ({
+  type: types.CHECK_AUTH_RESET,
 })
 
 // SIGN IN
@@ -100,8 +100,8 @@ export const userActions = {
   resetMessages,
   checkAuth: {
     request: checkAuthRequest,
-    reset: checkAuthReset,
     error: checkAuthError,
+    reset: checkAuthReset,
   },
   signIn: {
     request: signInRequest,
