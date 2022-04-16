@@ -1,7 +1,8 @@
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
-import { useActions } from '../../../../../hooks/useActions'
 import { useLocation } from 'react-router-dom'
+import { useTypedSelector } from '../../../../../hooks/useTypedSelector'
+import { useActions } from '../../../../../hooks/useActions'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Input } from '../../../../../utils/types/input'
 import { updatePasswordSchema } from '../../../../../utils/helpers/validationSchemas'
@@ -13,6 +14,11 @@ const PasswordConfirm: FC = () => {
   const { search } = useLocation()
   const oobCode = new URLSearchParams(search).get('oobCode')
 
+  const { loading, error, success } = useTypedSelector((state) => state.user)
+  const {
+    user: { confirmPassword },
+  } = useActions()
+
   const {
     register,
     handleSubmit,
@@ -22,10 +28,6 @@ const PasswordConfirm: FC = () => {
     mode: 'onSubmit',
     resolver: yupResolver(updatePasswordSchema),
   })
-
-  const {
-    user: { confirmPassword },
-  } = useActions()
 
   const onSubmit = ({ password }: any) => {
     confirmPassword({ oobCode, password })
@@ -58,14 +60,19 @@ const PasswordConfirm: FC = () => {
         onSubmit={onSubmit}
         inputs={confPassInputs}
         bottom={
-          <UI.Form.FormBottom>
-            <UI.Form.BottomBtns
-              googleOnClick={() => {}}
-              linkPath='/authorization'
-              linkTitle='Авторизоваться'
-            />
-            <UI.Form.Button.Submit text='Задать новый пароль' />
-          </UI.Form.FormBottom>
+          <>
+            {loading && <UI.Loader />}
+            {error && <UI.Alert type='error' message={error} />}
+            {success && <UI.Alert message={success} />}
+            <UI.Form.FormBottom>
+              <UI.Form.BottomBtns
+                googleOnClick={() => {}}
+                linkPath='/authorization'
+                linkTitle='Авторизоваться'
+              />
+              <UI.Form.Button.Submit text='Задать новый пароль' />
+            </UI.Form.FormBottom>
+          </>
         }
       />
     </Layout>

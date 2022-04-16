@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useTypedSelector } from '../../../../hooks/useTypedSelector'
 import { useActions } from '../../../../hooks/useActions'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Input } from '../../../../utils/types/input'
 import { signInSchema } from '../../../../utils/helpers/validationSchemas'
@@ -9,6 +10,11 @@ import Layout from '../../../common/Layout/Layout'
 import UI from '../../../common/UI'
 
 const Authorization: FC = () => {
+  const { loading, error } = useTypedSelector((state) => state.user)
+  const {
+    user: { signIn },
+  } = useActions()
+
   const {
     register,
     handleSubmit,
@@ -20,10 +26,6 @@ const Authorization: FC = () => {
   })
 
   const [isRemember, setIsRemember] = useState<boolean>(false)
-
-  const {
-    user: { signIn },
-  } = useActions()
 
   const onSubmit = (data: any) => {
     signIn(data)
@@ -55,18 +57,22 @@ const Authorization: FC = () => {
         onSubmit={onSubmit}
         inputs={signInInputs}
         bottom={
-          <UI.Form.FormBottom>
-            <UI.Form.CheckBoxAndLink
-              isRemember={isRemember}
-              setIsRemember={setIsRemember}
-            />
-            <UI.Form.BottomBtns
-              googleOnClick={() => {}}
-              linkPath='/registration'
-              linkTitle='Регистрация'
-            />
-            <UI.Form.Button.Submit text='Войти' />
-          </UI.Form.FormBottom>
+          <>
+            {loading && <UI.Loader />}
+            {error && <UI.Alert type='error' message={error} />}
+            <UI.Form.FormBottom>
+              <UI.Form.CheckBoxAndLink
+                isRemember={isRemember}
+                setIsRemember={setIsRemember}
+              />
+              <UI.Form.BottomBtns
+                googleOnClick={() => {}}
+                linkPath='/registration'
+                linkTitle='Регистрация'
+              />
+              <UI.Form.Button.Submit text='Войти' />
+            </UI.Form.FormBottom>
+          </>
         }
       />
     </Layout>

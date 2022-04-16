@@ -1,21 +1,15 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { DialoguesPropTypes } from './DialoguesPropTypes'
-import { debounce } from 'lodash'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import { useActions } from '../../../hooks/useActions'
-import { Data, filter, sort, SortSettings } from '../../../utils/types/dialogue'
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
+import { useSearch } from '../../../hooks/useSearch'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { Data, filter, sort } from '../../../utils/types/dialogue'
 
 import UI from '../../common/UI'
 import List from '../../common/Dialogues/List/List'
 
 const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
-  const { loading, error, dialogues } = useTypedSelector(
-    (state) => state.dialogue
-  )
-  const {
-    dialogue: { getDialogues },
-  } = useActions()
+  const { error, dialogues } = useTypedSelector((state) => state.dialogue)
 
   const [dialoguesList, setDialoguesList] = useState<Data[]>([])
   const [filter, setFilter] = useState<filter>('createdAt')
@@ -23,14 +17,7 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   const [lastValue, setLastValue] = useState<string | number>(0)
   const [hasMore, setHasMore] = useState<boolean>(true)
 
-  useEffect(() => {
-    getDialogues({
-      group,
-      filter,
-      sort,
-      lastValue,
-    })
-  }, [])
+  const { fetchMoreData } = useSearch({ group, filter, sort, lastValue })
 
   useEffect(() => {
     if (dialogues) {
@@ -56,22 +43,6 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
     }
   }, [dialogues])
 
-  const searchData = useCallback(
-    debounce(({ group, filter, sort, lastValue }: SortSettings) => {
-      getDialogues({ group, filter, sort, lastValue })
-    }, 500),
-    []
-  )
-
-  const fetchMoreData = () => {
-    searchData({
-      group,
-      filter,
-      sort,
-      lastValue,
-    })
-  }
-
   return (
     <div>
       <header style={{ height: '60px' }}>header</header>
@@ -79,6 +50,7 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
         <div className='tools' style={{ height: '50px' }}>
           tools
         </div>
+        {error && <UI.Alert type='error' message={error} />}
         <InfiniteScroll
           dataLength={dialoguesList.length}
           next={fetchMoreData}

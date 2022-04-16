@@ -1,6 +1,7 @@
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { useTypedSelector } from '../../../../hooks/useTypedSelector'
 import { useActions } from '../../../../hooks/useActions'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Input } from '../../../../utils/types/input'
 import { signUpSchema } from '../../../../utils/helpers/validationSchemas'
@@ -9,6 +10,11 @@ import Layout from '../../../common/Layout/Layout'
 import UI from '../../../common/UI'
 
 const Registration: FC = () => {
+  const { loading, error } = useTypedSelector((state) => state.user)
+  const {
+    user: { signUp },
+  } = useActions()
+
   const {
     register,
     handleSubmit,
@@ -18,10 +24,6 @@ const Registration: FC = () => {
     mode: 'onSubmit',
     resolver: yupResolver(signUpSchema),
   })
-
-  const {
-    user: { signUp },
-  } = useActions()
 
   const onSubmit = (data: any) => {
     signUp(data)
@@ -59,14 +61,18 @@ const Registration: FC = () => {
         onSubmit={onSubmit}
         inputs={signUpInputs}
         bottom={
-          <UI.Form.FormBottom>
-            <UI.Form.BottomBtns
-              googleOnClick={() => {}}
-              linkPath='/authorization'
-              linkTitle='Войти'
-            />
-            <UI.Form.Button.Submit text='Зарегистрироваться' />
-          </UI.Form.FormBottom>
+          <>
+            {loading && <UI.Loader />}
+            {error && <UI.Alert type='error' message={error} />}
+            <UI.Form.FormBottom>
+              <UI.Form.BottomBtns
+                googleOnClick={() => {}}
+                linkPath='/authorization'
+                linkTitle='Войти'
+              />
+              <UI.Form.Button.Submit text='Зарегистрироваться' />
+            </UI.Form.FormBottom>
+          </>
         }
       />
     </Layout>

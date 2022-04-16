@@ -1,6 +1,7 @@
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { useTypedSelector } from '../../../../../hooks/useTypedSelector'
 import { useActions } from '../../../../../hooks/useActions'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Input } from '../../../../../utils/types/input'
 import { recoverySchema } from '../../../../../utils/helpers/validationSchemas'
@@ -9,6 +10,11 @@ import Layout from '../../../../common/Layout/Layout'
 import UI from '../../../../common/UI'
 
 const PasswordRecovery: FC = () => {
+  const { loading, error, success } = useTypedSelector((state) => state.user)
+  const {
+    user: { recoverPassword },
+  } = useActions()
+
   const {
     register,
     handleSubmit,
@@ -18,10 +24,6 @@ const PasswordRecovery: FC = () => {
     mode: 'onSubmit',
     resolver: yupResolver(recoverySchema),
   })
-
-  const {
-    user: { recoverPassword },
-  } = useActions()
 
   const onSubmit = ({ email }: any) => {
     recoverPassword(email)
@@ -47,14 +49,19 @@ const PasswordRecovery: FC = () => {
         onSubmit={onSubmit}
         inputs={emailInput}
         bottom={
-          <UI.Form.FormBottom>
-            <UI.Form.BottomBtns
-              googleOnClick={() => {}}
-              linkPath='/authorization'
-              linkTitle='Авторизоваться'
-            />
-            <UI.Form.Button.Submit text='Получить ссылку' />
-          </UI.Form.FormBottom>
+          <>
+            {loading && <UI.Loader />}
+            {error && <UI.Alert type='error' message={error} />}
+            {success && <UI.Alert message={success} />}
+            <UI.Form.FormBottom>
+              <UI.Form.BottomBtns
+                googleOnClick={() => {}}
+                linkPath='/authorization'
+                linkTitle='Авторизоваться'
+              />
+              <UI.Form.Button.Submit text='Получить ссылку' />
+            </UI.Form.FormBottom>
+          </>
         }
       />
     </Layout>
