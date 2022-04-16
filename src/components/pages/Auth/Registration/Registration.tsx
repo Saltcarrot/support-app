@@ -12,7 +12,7 @@ import UI from '../../../common/UI'
 const Registration: FC = () => {
   const { loading, error } = useTypedSelector((state) => state.user)
   const {
-    user: { signUp },
+    user: { signUp, signInWithGoogle },
   } = useActions()
 
   const {
@@ -66,7 +66,7 @@ const Registration: FC = () => {
             {error && <UI.Alert type='error' message={error} />}
             <UI.Form.FormBottom>
               <UI.Form.BottomBtns
-                googleOnClick={() => {}}
+                googleOnClick={() => signInWithGoogle()}
                 linkPath='/authorization'
                 linkTitle='Войти'
               />

@@ -1,4 +1,4 @@
-import * as ac from '../../utils/types/actionCreators/dialogueActionCreators'
+import * as ac from './actionCreators/dialogueActionCreators'
 import { dialogue as types } from '../../utils/enums/dialogue'
 
 const getDialoguesRequest: ac.getDialoguesRequestActionCreator = (args) => ({

@@ -4,7 +4,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 
 import { dialogue as types } from '../../utils/enums/dialogue'
 import { dialogueActions } from '../actions/dialogueActions'
-import * as actions from '../../utils/types/actionTypes/dialogueActionTypes'
+import * as actions from '../actions/actionTypes/dialogueActionTypes'
 import {
   getFirstDialogues,
   getNextDialogues,

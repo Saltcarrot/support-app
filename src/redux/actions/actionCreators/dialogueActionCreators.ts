@@ -1,5 +1,5 @@
 import * as actions from '../actionTypes/dialogueActionTypes'
-import { Data, SortSettings } from '../dialogue'
+import { Data, SortSettings } from '../../../utils/types/dialogue'
 
 export type getDialoguesRequestActionCreator = (
   args: SortSettings

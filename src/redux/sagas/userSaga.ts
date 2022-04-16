@@ -4,7 +4,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 
 import { userActionTypes as types } from '../../utils/enums/user'
 import { userActions } from '../actions/userActions'
-import * as actions from '../../utils/types/actionTypes/userActionTypes'
+import * as actions from '../actions/actionTypes/userActionTypes'
 import { Auth, ConfPass, User } from '../../utils/types/user'
 import { convertError } from '../../utils/helpers/convertError'
 import { Errors } from '../../utils/enums/errors'
@@ -29,8 +29,8 @@ const fetchSignIn = async ({ email, password, isRemember }: Auth) => {
       : firebase.auth.Auth.Persistence.SESSION
   )
   const provider = firebase.auth.EmailAuthProvider.credential(email, password)
-  const { user } = await auth.signInWithCredential(provider)
 
+  const { user } = await auth.signInWithCredential(provider)
   if (user) {
     const snapshot = await db
       .where(firebase.firestore.FieldPath.documentId(), '==', user.uid)
@@ -38,8 +38,32 @@ const fetchSignIn = async ({ email, password, isRemember }: Auth) => {
     const [role] = snapshot.docs.map((item) => {
       return item.data()['role']
     })
-
     return { user, role }
+  }
+
+  return user
+}
+
+const fetchSignInWithGoogle = async () => {
+  const provider = new firebase.auth.GoogleAuthProvider()
+  const db = firebase.firestore().collection('users')
+
+  const { user } = await firebase.auth().signInWithPopup(provider)
+  if (user) {
+    const snapshot = await db
+      .where(firebase.firestore.FieldPath.documentId(), '==', user.uid)
+      .get()
+    const [role] = snapshot.docs.map((item) => {
+      return item.data()['role']
+    })
+    if (!role) {
+      await db.doc(user.uid).set({
+        role: 'user',
+      })
+      return { user, role: 'user' }
+    } else {
+      return { user, role }
+    }
   }
 
   return user
@@ -55,7 +79,6 @@ const fetchSignUp = async ({ email, password }: Auth) => {
     await db.doc(user.uid).set({
       role: 'user',
     })
-
     return { user, role: 'user' }
   }
 
@@ -94,6 +117,16 @@ function* signInWithDataWorker({
       password,
       isRemember,
     })
+    yield put(userActions.signIn.success(user))
+  } catch (error: any) {
+    // По дефолту возвращает unknown
+    yield put(userActions.signIn.error(convertError(error)))
+  }
+}
+
+function* signInWithGoogleWorker() {
+  try {
+    const user: User = yield call(fetchSignInWithGoogle)
     yield put(userActions.signIn.success(user))
   } catch (error: any) {
     // По дефолту возвращает unknown
@@ -165,4 +198,5 @@ export function* userSaga() {
   yield takeLatest(types.SIGN_UP_REQUEST, signUpWorker)
   yield takeLatest(types.RECOVER_PASSWORD_REQUEST, recoverPasswordWorker)
   yield takeLatest(types.CONFIRM_PASSWORD_REQUEST, confirmPasswordWorker)
+  yield takeLatest(types.SIGN_IN_WITH_GOOGLE_REQUEST, signInWithGoogleWorker)
 }

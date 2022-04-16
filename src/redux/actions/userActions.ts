@@ -1,4 +1,4 @@
-import * as ac from '../../utils/types/actionCreators/userActionCreators'
+import * as ac from './actionCreators/userActionCreators'
 import { userActionTypes as types } from '../../utils/enums/user'
 
 // RESET MESSAGES
@@ -35,6 +35,12 @@ const signInError: ac.signInErrorActionCreator = (message) => ({
   type: types.SIGN_IN_ERROR,
   payload: message,
 })
+
+// SIGN IN WITH GOOGLE
+const signInWithGoogleRequest: ac.signInWithGoogleRequestActionCreator =
+  () => ({
+    type: types.SIGN_IN_WITH_GOOGLE_REQUEST,
+  })
 
 // SIGN UP
 const signUpRequest: ac.signUpRequestActionCreator = ({ email, password }) => ({
@@ -102,6 +108,7 @@ export const userActions = {
     success: signInSuccess,
     error: signInError,
   },
+  signInWithGoogle: signInWithGoogleRequest,
   signUp: {
     request: signUpRequest,
     success: signUpSuccess,

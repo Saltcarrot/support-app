@@ -1,5 +1,5 @@
-import { userActionTypes as types } from '../../enums/user'
-import { Auth, ConfPass, User } from '../user'
+import { userActionTypes as types } from '../../../utils/enums/user'
+import { Auth, ConfPass, User } from '../../../utils/types/user'
 // import { UserInfo } from 'firebase/auth'
 
 // RESET MESSAGES
@@ -34,6 +34,12 @@ export interface SignInSuccessAction {
 export interface SignInErrorAction {
   type: types.SIGN_IN_ERROR
   payload: string
+}
+
+// SIGN IN WITH GOOGLE
+export interface SignInWithGoogleRequestAction {
+  type: types.SIGN_IN_WITH_GOOGLE_REQUEST
+  payload?: undefined
 }
 
 // SIGN UP
@@ -86,6 +92,7 @@ export type UserActions =
   | SignInRequestAction
   | SignInSuccessAction
   | SignInErrorAction
+  | SignInWithGoogleRequestAction
   | SignUpRequestAction
   | SignUpSuccessAction
   | SignUpErrorAction

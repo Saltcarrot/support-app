@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux'
 import { Dispatch } from 'react'
-import { UserActions } from '../utils/types/actionTypes/userActionTypes'
+import { UserActions } from '../redux/actions/actionTypes/userActionTypes'
 import { userActions } from '../redux/actions/userActions'
 import { Auth, ConfPass } from '../utils/types/user'
-import { DialogueActions } from '../utils/types/actionTypes/dialogueActionTypes'
+import { DialogueActions } from '../redux/actions/actionTypes/dialogueActionTypes'
 import { dialogueActions } from '../redux/actions/dialogueActions'
 import { SortSettings } from '../utils/types/dialogue'
 
@@ -14,6 +14,7 @@ export const useActions = () => {
     user: {
       checkAuth: () => dispatch(userActions.checkAuth.request()),
       signIn: (payload: Auth) => dispatch(userActions.signIn.request(payload)),
+      signInWithGoogle: () => dispatch(userActions.signInWithGoogle()),
       signUp: (payload: Auth) => dispatch(userActions.signUp.request(payload)),
       recoverPassword: (email: string) =>
         dispatch(userActions.recoverPassword.request(email)),

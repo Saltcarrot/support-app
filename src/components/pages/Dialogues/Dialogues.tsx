@@ -22,7 +22,7 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   useEffect(() => {
     if (dialogues) {
       if (dialogues.length !== 0) {
-        setHasMore(true)
+        // setHasMore(true)
         if (dialoguesList.length === 0) {
           setDialoguesList(dialogues)
         } else if (
@@ -31,13 +31,7 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
         ) {
           setDialoguesList([...dialoguesList, ...dialogues])
         }
-
-        if (filter === 'createdAt') {
-          setLastValue(dialogues[dialogues.length - 1].itemData.createdAt)
-        }
-        if (filter === 'title') {
-          setLastValue(dialogues[dialogues.length - 1].itemData.title)
-        }
+        setLastValue(dialogues[dialogues.length - 1].itemData[`${filter}`])
       }
       if (dialogues.length < 5) setHasMore(false)
     }

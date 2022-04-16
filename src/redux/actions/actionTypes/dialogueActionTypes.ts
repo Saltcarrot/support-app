@@ -1,5 +1,5 @@
-import { dialogue as types } from '../../enums/dialogue'
-import { Data, SortSettings } from '../dialogue'
+import { dialogue as types } from '../../../utils/enums/dialogue'
+import { Data, SortSettings } from '../../../utils/types/dialogue'
 
 export interface GetDialoguesRequestAction {
   type: types.GET_DIALOGUES_REQUEST

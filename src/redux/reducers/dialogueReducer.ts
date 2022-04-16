@@ -1,5 +1,5 @@
 import { DialogueState } from '../../utils/types/dialogue'
-import { DialogueActions } from '../../utils/types/actionTypes/dialogueActionTypes'
+import { DialogueActions } from '../actions/actionTypes/dialogueActionTypes'
 import { dialogue as types } from '../../utils/enums/dialogue'
 
 const initialState: DialogueState = {

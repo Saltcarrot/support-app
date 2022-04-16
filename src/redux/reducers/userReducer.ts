@@ -1,5 +1,5 @@
 import { UserState } from '../../utils/types/user'
-import { UserActions } from '../../utils/types/actionTypes/userActionTypes'
+import { UserActions } from '../actions/actionTypes/userActionTypes'
 import { userActionTypes as types } from '../../utils/enums/user'
 
 const initialState: UserState = {
@@ -31,6 +31,9 @@ export const userReducer = (
       return { ...state, loading: false, user: { ...payload } }
     case types.SIGN_IN_ERROR:
       return { ...state, loading: false, error: payload }
+    // SIGN IN WITH GOOGLE
+    case types.SIGN_IN_WITH_GOOGLE_REQUEST:
+      return { ...state, loading: true }
     // SIGN UP
     case types.SIGN_UP_REQUEST:
       return { ...state, loading: true }
