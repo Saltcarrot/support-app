@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { EllipsisBtnPropTypes } from './EllipsisBtnPropTypes'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

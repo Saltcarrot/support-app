@@ -1,3 +1,8 @@
+import { status } from '../../../../../utils/types/dialogue'
+
 export interface ItemDropdownPropTypes {
-  id: string
+  itemKey: string
+  status: status
+  operatorID?: string
+  clientID: string
 }

@@ -1,13 +1,15 @@
 import { FC } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import SaveBtnWrapper from './SaveBtn.style'
 import { faBoxArchive } from '@fortawesome/free-solid-svg-icons'
 
-const SaveBtn: FC = () => {
+import { SaveBtnPropTypes } from './SaveBtnPropTypes'
+
+import SaveBtnWrapper from './SaveBtn.style'
+
+const SaveBtn: FC<SaveBtnPropTypes> = ({ onClick }) => {
   return (
-    <SaveBtnWrapper type='button'>
+    <SaveBtnWrapper type='button' onClick={onClick}>
       Сохранить
       <FontAwesomeIcon icon={faBoxArchive} />
     </SaveBtnWrapper>

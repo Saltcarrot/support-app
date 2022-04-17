@@ -6,6 +6,8 @@ const ItemDropdownStyle = styled.div<{ isVisible: boolean }>`
   .dropdown-item {
     display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
     position: absolute;
+    
+    width: 200px;
 
     top: 35px;
     right: 0;

@@ -1,17 +1,17 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 
-const LinkToDialogueWrapper = styled(Link)`
+const StartDialogueBtnWrapper = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  height: 40px;
   width: 100%;
 
   padding: 10px;
 
-  border-radius: 10px 0 0 0;
+  font-weight: normal;
+
+  border-radius: 10px 0 10px 10px;
   border: 2px solid transparent;
 
   &:hover {
@@ -21,4 +21,4 @@ const LinkToDialogueWrapper = styled(Link)`
   }
 `
 
-export default LinkToDialogueWrapper
+export default StartDialogueBtnWrapper

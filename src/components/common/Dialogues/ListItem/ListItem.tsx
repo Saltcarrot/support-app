@@ -21,7 +21,12 @@ const ListItem: FC<ListItemPropTypes> = ({ item: { itemKey, itemData } }) => {
             }
           />
         )}
-        <UI.Dropdown.ItemDropdown id={itemKey} />
+        <UI.Dropdown.ItemDropdown
+          itemKey={itemKey}
+          status={itemData.status}
+          operatorID={itemData.operator?.id}
+          clientID={itemData.client.id}
+        />
       </Item.HeaderWrapper>
       <Item.ContentWrapper>
         <h2>{itemData.title}</h2>
