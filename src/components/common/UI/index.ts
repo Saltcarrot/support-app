@@ -7,6 +7,7 @@ import Dropdown from './Dropdown'
 import Link from './Link'
 import Loader from './Loader/Loader'
 import EndList from './EndList/EndList'
+import Select from './Select'
 
 const UI = {
   Alert,
@@ -18,6 +19,7 @@ const UI = {
   Link,
   Loader,
   EndList,
+  Select,
 }
 
 export default UI

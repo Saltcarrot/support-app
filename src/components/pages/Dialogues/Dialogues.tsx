@@ -3,14 +3,17 @@ import { DialoguesPropTypes } from './DialoguesPropTypes'
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
 import { useSearch } from '../../../hooks/useSearch'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { Data, filter, sort } from '../../../utils/types/dialogue'
+import { Data, filter, PAGE_LIMIT, sort } from '../../../utils/types/dialogue'
 
 import UI from '../../common/UI'
-import List from '../../common/Dialogues/List/List'
+import Container from '../../common/Container/Container'
+import ListItem from '../../common/Dialogues/ListItem/ListItem'
 
 const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   const { user } = useTypedSelector((state) => state.user)
-  const { error, dialogues } = useTypedSelector((state) => state.dialogue)
+  const { loading, error, dialogues } = useTypedSelector(
+    (state) => state.dialogue
+  )
 
   const [dialoguesList, setDialoguesList] = useState<Data[]>([])
   const [filter, setFilter] = useState<filter>('createdAt')
@@ -27,6 +30,14 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
     UID: user?.user.uid,
   })
 
+  // Продумать изменение последнего значения
+  useEffect(() => {
+    if (dialoguesList.length !== 0) {
+      setLastValue(filter === 'createdAt' ? 0 : '')
+      setDialoguesList([])
+    }
+  }, [filter, sort])
+
   useEffect(() => {
     if (dialogues) {
       if (dialogues.length !== 0) {
@@ -41,7 +52,7 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
         }
         setLastValue(dialogues[dialogues.length - 1].itemData[`${filter}`])
       }
-      if (dialogues.length < 5) setHasMore(false)
+      if (dialogues.length < PAGE_LIMIT) setHasMore(false)
     }
   }, [dialogues])
 
@@ -49,8 +60,18 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
     <div>
       <header style={{ height: '60px' }}>header</header>
       <section className='dialogues-box'>
-        <div className='tools' style={{ height: '50px' }}>
-          tools
+        <div className='tools'>
+          <Container flow='row'>
+            {user?.role === 'user' && (
+              <UI.Button.CreateDialogue onClick={() => {}} />
+            )}
+            <UI.Select.Sort
+              filter={filter}
+              setFilter={setFilter}
+              sort={sort}
+              setSort={setSort}
+            />
+          </Container>
         </div>
         {error && <UI.Alert type='error' message={error} />}
         <InfiniteScroll
@@ -59,14 +80,24 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
           hasMore={hasMore}
           loader={<UI.Loader />}
           endMessage={
-            dialoguesList.length !== 0 ? (
+            loading ? (
+              <UI.Loader />
+            ) : dialoguesList.length !== 0 ? (
               <UI.EndList />
             ) : (
-              <div>Ой! Кажется, данных нет :с</div>
+              <Container>
+                <div style={{ margin: '0 auto' }}>
+                  Ой! Кажется, данных нет :с
+                </div>
+              </Container>
             )
           }
         >
-          <List list={dialoguesList} />
+          <Container>
+            {dialoguesList.map((item) => {
+              return <ListItem key={item.itemKey} item={item} />
+            })}
+          </Container>
         </InfiniteScroll>
       </section>
     </div>

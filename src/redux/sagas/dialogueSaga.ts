@@ -15,6 +15,8 @@ import { convertError } from '../../utils/helpers/convertError'
 const getDialogues = ({ lastValue, ...rest }: SortSettings) => {
   const db = firebase.firestore().collection('dialogues')
 
+  console.log(lastValue)
+
   if (lastValue === 0 || lastValue === '') {
     return getFirstDialogues({ db, ...rest })
   } else {

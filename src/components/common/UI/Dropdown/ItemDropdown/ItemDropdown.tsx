@@ -7,7 +7,10 @@ import { useTypedSelector } from '../../../../../hooks/useTypedSelector'
 
 import UI from '../../../UI'
 
-import ItemDropdownWrapper from './ItemDropdown.style'
+import {
+  ItemDropdownContainerWrapper,
+  ItemDropDownContent,
+} from './ItemDropdown.style'
 
 const ItemDropdown: FC<ItemDropdownPropTypes> = ({
   itemKey,
@@ -28,9 +31,9 @@ const ItemDropdown: FC<ItemDropdownPropTypes> = ({
       {(user?.user.uid === operatorID ||
         user?.user.uid === clientID ||
         status === 'opened') && (
-        <ItemDropdownWrapper ref={ref} isVisible={isComponentVisible}>
+        <ItemDropdownContainerWrapper ref={ref}>
           <UI.Button.Ellipsis onClick={toggleDropdown} />
-          <div className='dropdown-item'>
+          <ItemDropDownContent isVisible={isComponentVisible}>
             {(user?.user.uid === operatorID ||
               (user?.user.uid === clientID && status !== 'opened')) && (
               <>
@@ -41,8 +44,8 @@ const ItemDropdown: FC<ItemDropdownPropTypes> = ({
             {status === 'opened' && user?.user.uid !== clientID && (
               <UI.Button.StartDialogue onClick={() => {}} />
             )}
-          </div>
-        </ItemDropdownWrapper>
+          </ItemDropDownContent>
+        </ItemDropdownContainerWrapper>
       )}
     </>
   )

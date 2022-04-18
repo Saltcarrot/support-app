@@ -10,7 +10,7 @@ export const useSearch = (args: SortSettings) => {
 
   useEffect(() => {
     getDialogues(args)
-  }, [])
+  }, [args.filter, args.sort])
 
   const searchData = useCallback(
     debounce((args: SortSettings) => {
@@ -23,5 +23,5 @@ export const useSearch = (args: SortSettings) => {
     searchData(args)
   }
 
-  return { fetchMoreData }
+  return { searchData, fetchMoreData }
 }
