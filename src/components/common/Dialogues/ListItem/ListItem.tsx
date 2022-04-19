@@ -1,7 +1,8 @@
 import { FC } from 'react'
-import { ListItemPropTypes } from './ListItemPropTypes'
 
 import UI from '../../UI'
+
+import { ListItemPropTypes } from './ListItemPropTypes'
 
 import Item from './ListItem.style'
 

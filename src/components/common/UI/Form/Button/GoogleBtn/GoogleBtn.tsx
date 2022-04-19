@@ -1,8 +1,9 @@
 import { FC } from 'react'
-import { GoogleBtnPropTypes } from './GoogleBtnPropTypes'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+
+import { GoogleBtnPropTypes } from './GoogleBtnPropTypes'
 
 import GoogleBtnWrapper from './GoogleBtn.style'
 

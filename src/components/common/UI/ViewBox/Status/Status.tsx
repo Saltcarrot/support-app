@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { StatusPropTypes } from './StatusPropTypes'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -7,6 +6,8 @@ import {
   faLock,
   faNoteSticky,
 } from '@fortawesome/free-solid-svg-icons'
+
+import { StatusPropTypes } from './StatusPropTypes'
 
 import StatusWrapper from './Status.style'
 

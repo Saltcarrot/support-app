@@ -1,5 +1,5 @@
-import { Auth, ConfPass, User } from '../../../utils/types/user'
 import * as actions from '../actionTypes/userActionTypes'
+import { Auth, ConfPass, User } from '../../../utils/types/user'
 
 // RESET MESSAGES
 export type resetMessagesActionCreator = () => actions.ResetMessagesAction

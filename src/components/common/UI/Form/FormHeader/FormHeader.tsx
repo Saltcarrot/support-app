@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { FormHeaderPropTypes } from './FormHeaderPropTypes'
 
 import FormHeaderWrapper from './FormHeader.style'

@@ -1,8 +1,10 @@
 import { FC } from 'react'
+
 import CustomForm from '../../index'
 
-import CheckBoxAndLinkWrapper from './CheckBoxAndLink.style'
 import { CheckBoxAndLinkPropTypes } from './CheckBoxAndLinkPropTypes'
+
+import CheckBoxAndLinkWrapper from './CheckBoxAndLink.style'
 
 const CheckBoxAndLink: FC<CheckBoxAndLinkPropTypes> = ({
   isRemember,

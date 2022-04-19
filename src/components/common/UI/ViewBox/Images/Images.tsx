@@ -1,9 +1,10 @@
 import { FC } from 'react'
-import { ImagesPropTypes } from './ImagesPropTypes'
 import { countImages } from '../../../../../utils/helpers/getMessagesInfo'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImages } from '@fortawesome/free-solid-svg-icons'
+
+import { ImagesPropTypes } from './ImagesPropTypes'
 
 import ImagesWrapper from './Images.style'
 

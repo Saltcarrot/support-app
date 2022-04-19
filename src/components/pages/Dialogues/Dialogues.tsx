@@ -1,14 +1,15 @@
 import { FC, useState } from 'react'
-import { DialoguesPropTypes } from './DialoguesPropTypes'
-import { useTypedSelector } from '../../../hooks/useTypedSelector'
-import { useSearch } from '../../../hooks/useSearch'
 import InfiniteScroll from 'react-infinite-scroll-component'
+
+import { useTypedSelector } from '../../../hooks/useTypedSelector'
+import { useDialoguesList } from '../../../hooks/useDialoguesList'
+import { useSearch } from '../../../hooks/useSearch'
 import { filter, sort } from '../../../utils/types/dialogue'
 
+import { DialoguesPropTypes } from './DialoguesPropTypes'
+
 import UI from '../../common/UI'
-import Container from '../../common/Container/Container'
 import ListItem from '../../common/Dialogues/ListItem/ListItem'
-import { useDialoguesList } from '../../../hooks/useDialoguesList'
 
 const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   const { user } = useTypedSelector((state) => state.user)
@@ -39,7 +40,7 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
       <header style={{ height: '60px' }}>header</header>
       <section className='dialogues-box'>
         <div className='tools'>
-          <Container flow='row'>
+          <UI.Container flow='row'>
             {user?.role === 'user' && (
               <UI.Button.CreateDialogue onClick={() => {}} />
             )}
@@ -49,34 +50,39 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
               sort={sort}
               setSort={setSort}
             />
-          </Container>
+          </UI.Container>
         </div>
-        {error && <UI.Alert type='error' message={error} />}
-        <InfiniteScroll
-          dataLength={dialoguesList.length}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={<UI.Loader />}
-          endMessage={
-            loading ? (
-              <UI.Loader />
-            ) : dialoguesList.length !== 0 ? (
-              <UI.EndList />
-            ) : (
-              <Container>
-                <div style={{ margin: '0 auto' }}>
-                  Ой! Кажется, данных нет :с
-                </div>
-              </Container>
-            )
-          }
-        >
-          <Container>
-            {dialoguesList.map((item) => {
-              return <ListItem key={item.itemKey} item={item} />
-            })}
-          </Container>
-        </InfiniteScroll>
+        <div className='list'>
+          <UI.Container>
+            {error && <UI.Alert type='error' message={error} />}
+            <InfiniteScroll
+              // Обман контейнера, т.к. обрезаются тени карточек
+              style={{
+                padding: '15px',
+                margin: '-15px',
+              }}
+              dataLength={dialoguesList.length}
+              next={fetchMoreData}
+              hasMore={hasMore}
+              loader={<UI.Loader />}
+              endMessage={
+                loading ? (
+                  <UI.Loader />
+                ) : dialoguesList.length !== 0 ? (
+                  <UI.EndList />
+                ) : (
+                  <div style={{ margin: '0 auto' }}>
+                    Ой! Кажется, данных нет :с
+                  </div>
+                )
+              }
+            >
+              {dialoguesList.map((item) => {
+                return <ListItem key={item.itemKey} item={item} />
+              })}
+            </InfiniteScroll>
+          </UI.Container>
+        </div>
       </section>
     </div>
   )

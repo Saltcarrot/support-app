@@ -1,6 +1,7 @@
-import { UserState } from '../../utils/types/user'
-import { UserActions } from '../actions/actionTypes/userActionTypes'
 import { userActionTypes as types } from '../../utils/enums/user'
+import { UserState } from '../../utils/types/user'
+
+import { UserActions } from '../actions/actionTypes/userActionTypes'
 
 const initialState: UserState = {
   loading: false,

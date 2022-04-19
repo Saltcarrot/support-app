@@ -3,11 +3,12 @@ import 'firebase/compat/auth'
 import { call, put, takeLatest } from 'redux-saga/effects'
 
 import { userActionTypes as types } from '../../utils/enums/user'
-import { userActions } from '../actions/userActions'
-import * as actions from '../actions/actionTypes/userActionTypes'
 import { Auth, ConfPass, role } from '../../utils/types/user'
-import { convertError } from '../../utils/helpers/convertError'
 import { Errors } from '../../utils/enums/errors'
+import { convertError } from '../../utils/helpers/convertError'
+
+import * as actions from '../actions/actionTypes/userActionTypes'
+import { userActions } from '../actions/userActions'
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
 

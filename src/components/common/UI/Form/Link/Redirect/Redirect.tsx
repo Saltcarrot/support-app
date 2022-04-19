@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { RedirectPropTypes } from './RedirectPropTypes'
 
 import RedirectWrapper from './Redirect.style'

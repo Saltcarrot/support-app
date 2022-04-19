@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { AlertPropTypes } from './AlertPropTypes'
 
 import AlertWrapper from './Alert.style'

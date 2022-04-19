@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-import { ItemDropdownPropTypes } from './ItemDropdownPropTypes'
-
 import { useOutsideAlerter } from '../../../../../hooks/useOutsideAlerter'
 import { useTypedSelector } from '../../../../../hooks/useTypedSelector'
+
+import { ItemDropdownPropTypes } from './ItemDropdownPropTypes'
 
 import UI from '../../../UI'
 

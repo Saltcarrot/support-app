@@ -1,7 +1,9 @@
 import { useCallback, useEffect } from 'react'
 import { debounce } from 'lodash'
-import { SortSettings } from '../utils/types/dialogue'
+
 import { useActions } from './useActions'
+
+import { SortSettings } from '../utils/types/dialogue'
 
 export const useSearch = (args: SortSettings) => {
   const {

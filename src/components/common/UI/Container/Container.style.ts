@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { device } from '../../../utils/helpers/breakpoints'
+import { device } from '../../../../utils/helpers/breakpoints'
 
 const ContainerWrapper = styled.div`
   display: flex;
@@ -23,6 +23,11 @@ const ContainerWrapper = styled.div`
     max-width: 1320px;
   }
 
+  &.auth {
+    justify-content: center;
+
+    min-height: 100vh;
+  }
   &.column {
     flex-direction: column;
   }

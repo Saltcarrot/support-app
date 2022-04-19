@@ -8,6 +8,7 @@ import Link from './Link'
 import Loader from './Loader/Loader'
 import EndList from './EndList/EndList'
 import Select from './Select'
+import Container from './Container/Container'
 
 const UI = {
   Alert,
@@ -20,6 +21,7 @@ const UI = {
   Loader,
   EndList,
   Select,
+  Container,
 }
 
 export default UI

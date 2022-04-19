@@ -1,8 +1,9 @@
 import { FC } from 'react'
-import { FormPropTypes } from './FormPropTypes'
-import CustomForm from '../index'
 
+import CustomForm from '../index'
 import Alert from '../../Alert/Alert'
+
+import { FormPropTypes } from './FormPropTypes'
 
 import FormWrapper from './Form.style'
 

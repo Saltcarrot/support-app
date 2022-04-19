@@ -3,14 +3,15 @@ import 'firebase/compat/firestore'
 import { call, put, takeLatest } from 'redux-saga/effects'
 
 import { dialogue as types } from '../../utils/enums/dialogue'
-import { dialogueActions } from '../actions/dialogueActions'
-import * as actions from '../actions/actionTypes/dialogueActionTypes'
+import { Data, SortSettings } from '../../utils/types/dialogue'
 import {
   getFirstDialogues,
   getNextDialogues,
 } from '../../utils/helpers/searchDialogues'
-import { Data, SortSettings } from '../../utils/types/dialogue'
 import { convertError } from '../../utils/helpers/convertError'
+
+import * as actions from '../actions/actionTypes/dialogueActionTypes'
+import { dialogueActions } from '../actions/dialogueActions'
 
 const getDialogues = ({ lastValue, ...rest }: SortSettings) => {
   const db = firebase.firestore().collection('dialogues')

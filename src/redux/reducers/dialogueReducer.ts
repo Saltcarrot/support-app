@@ -1,6 +1,7 @@
-import { DialogueState } from '../../utils/types/dialogue'
-import { DialogueActions } from '../actions/actionTypes/dialogueActionTypes'
 import { dialogue as types } from '../../utils/enums/dialogue'
+import { DialogueState } from '../../utils/types/dialogue'
+
+import { DialogueActions } from '../actions/actionTypes/dialogueActionTypes'
 
 const initialState: DialogueState = {
   loading: false,

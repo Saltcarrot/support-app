@@ -1,13 +1,14 @@
 import { FC } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useTypedSelector } from '../../../../../hooks/useTypedSelector'
-import { useActions } from '../../../../../hooks/useActions'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+
+import { useTypedSelector } from '../../../../../hooks/useTypedSelector'
+import { useActions } from '../../../../../hooks/useActions'
+
 import { Input } from '../../../../../utils/types/input'
 import { updatePasswordSchema } from '../../../../../utils/helpers/validationSchemas'
 
-import Layout from '../../../../common/Layout/Layout'
 import UI from '../../../../common/UI'
 
 const PasswordConfirm: FC = () => {
@@ -50,7 +51,7 @@ const PasswordConfirm: FC = () => {
   ]
 
   return (
-    <Layout content='auth'>
+    <UI.Container flow='auth'>
       <UI.Form.Container
         title='Обновление пароля'
         tip='Задайте новый пароль для своей учетной записи'
@@ -75,7 +76,7 @@ const PasswordConfirm: FC = () => {
           </>
         }
       />
-    </Layout>
+    </UI.Container>
   )
 }
 

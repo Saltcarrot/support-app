@@ -1,11 +1,13 @@
-import { useDispatch } from 'react-redux'
 import { Dispatch } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { Auth, ConfPass } from '../utils/types/user'
+import { SortSettings } from '../utils/types/dialogue'
+
 import { UserActions } from '../redux/actions/actionTypes/userActionTypes'
 import { userActions } from '../redux/actions/userActions'
-import { Auth, ConfPass } from '../utils/types/user'
 import { DialogueActions } from '../redux/actions/actionTypes/dialogueActionTypes'
 import { dialogueActions } from '../redux/actions/dialogueActions'
-import { SortSettings } from '../utils/types/dialogue'
 
 export const useActions = () => {
   const dispatch = useDispatch<Dispatch<UserActions | DialogueActions>>()

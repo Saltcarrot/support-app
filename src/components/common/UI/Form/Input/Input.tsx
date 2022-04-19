@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { InputPropTypes } from './InputPropTypes'
 
 import InputWrapper from './Input.style'

@@ -1,6 +1,8 @@
 import { FC } from 'react'
-import { BottomBtnsPropTypes } from './BottomBtnPropTypes'
+
 import CustomForm from '../../index'
+
+import { BottomBtnsPropTypes } from './BottomBtnsPropTypes'
 
 import BottomBtnsWrapper from './BottomBtns.style'
 

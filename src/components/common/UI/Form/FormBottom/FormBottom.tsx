@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { FormBottomPropTypes } from './FormBottomPropTypes'
 
 import FormBottomWrapper from './FormBottom.style'

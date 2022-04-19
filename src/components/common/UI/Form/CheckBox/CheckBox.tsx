@@ -1,8 +1,9 @@
 import { FC } from 'react'
-import { CheckBoxPropTypes } from './CheckBoxPropTypes'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+
+import { CheckBoxPropTypes } from './CheckBoxPropTypes'
 
 import CheckBoxWrapper from './CheckBox.style'
 

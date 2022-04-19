@@ -1,12 +1,13 @@
 import { FC, useState } from 'react'
-import { useTypedSelector } from '../../../../hooks/useTypedSelector'
-import { useActions } from '../../../../hooks/useActions'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+
+import { useTypedSelector } from '../../../../hooks/useTypedSelector'
+import { useActions } from '../../../../hooks/useActions'
+
 import { Input } from '../../../../utils/types/input'
 import { signInSchema } from '../../../../utils/helpers/validationSchemas'
 
-import Layout from '../../../common/Layout/Layout'
 import UI from '../../../common/UI'
 
 const Authorization: FC = () => {
@@ -47,7 +48,7 @@ const Authorization: FC = () => {
   ]
 
   return (
-    <Layout content='auth'>
+    <UI.Container flow='auth'>
       <UI.Form.Container
         title='Авторизация'
         tip='Заполните все поля для авторизации'
@@ -75,7 +76,7 @@ const Authorization: FC = () => {
           </>
         }
       />
-    </Layout>
+    </UI.Container>
   )
 }
 

@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import Moment from 'react-moment'
 import 'moment/locale/ru'
+
 import { FullDatePropTypes } from './FullDatePropTypes'
 
 import FullDateWrapper from './FullDate.style'

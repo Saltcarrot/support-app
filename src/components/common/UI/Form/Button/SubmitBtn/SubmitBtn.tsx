@@ -1,7 +1,8 @@
 import { FC } from 'react'
-import { SubmitBtnPropTypes } from './SubmitBtnPropTypes'
 
 import SubmitBtnWrapper from './SubmitBtn.style'
+
+import { SubmitBtnPropTypes } from './SubmitBtnPropTypes'
 
 const SubmitBtn: FC<SubmitBtnPropTypes> = ({ text }) => {
   return (

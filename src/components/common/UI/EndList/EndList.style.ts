@@ -4,7 +4,7 @@ const EndListWrapper = styled.div`
   width: 300px;
 
   padding: 10px;
-  margin: 0 auto 20px;
+  margin: 10px auto 0;
 
   text-align: center;
   font-size: 16px;

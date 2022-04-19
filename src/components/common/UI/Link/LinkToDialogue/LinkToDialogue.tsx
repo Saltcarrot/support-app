@@ -1,8 +1,9 @@
 import { FC } from 'react'
-import { LinkToDialoguePropTypes } from './LinkToDialoguePropTypes'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons'
+
+import { LinkToDialoguePropTypes } from './LinkToDialoguePropTypes'
 
 import LinkToDialogueWrapper from './LinkToDialogue.style'
 

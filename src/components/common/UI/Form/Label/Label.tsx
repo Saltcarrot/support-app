@@ -1,4 +1,5 @@
 import { FC } from 'react'
+
 import { LabelPropTypes } from './LabelPropTypes'
 
 import LabelWrapper from './Label.style'

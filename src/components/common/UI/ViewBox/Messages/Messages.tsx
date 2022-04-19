@@ -1,8 +1,9 @@
 import { FC } from 'react'
-import { MessagesPropTypes } from './MessagesPropTypes'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMessage } from '@fortawesome/free-solid-svg-icons'
+
+import { MessagesPropTypes } from './MessagesPropTypes'
 
 import MessagesWrapper from './Messages.style'
 
