@@ -1,13 +1,14 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { DialoguesPropTypes } from './DialoguesPropTypes'
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
 import { useSearch } from '../../../hooks/useSearch'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { Data, filter, PAGE_LIMIT, sort } from '../../../utils/types/dialogue'
+import { filter, sort } from '../../../utils/types/dialogue'
 
 import UI from '../../common/UI'
 import Container from '../../common/Container/Container'
 import ListItem from '../../common/Dialogues/ListItem/ListItem'
+import { useDialoguesList } from '../../../hooks/useDialoguesList'
 
 const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   const { user } = useTypedSelector((state) => state.user)
@@ -15,11 +16,14 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
     (state) => state.dialogue
   )
 
-  const [dialoguesList, setDialoguesList] = useState<Data[]>([])
   const [filter, setFilter] = useState<filter>('createdAt')
   const [sort, setSort] = useState<sort>('desc')
-  const [lastValue, setLastValue] = useState<string | number>(0)
-  const [hasMore, setHasMore] = useState<boolean>(true)
+
+  const { dialoguesList, lastValue, hasMore } = useDialoguesList({
+    dialogues,
+    filter,
+    sort,
+  })
 
   const { fetchMoreData } = useSearch({
     group,
@@ -29,32 +33,6 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
     isOperator: user?.role === 'operator',
     UID: user?.user.uid,
   })
-
-  // Продумать изменение последнего значения
-  useEffect(() => {
-    if (dialoguesList.length !== 0) {
-      setLastValue(filter === 'createdAt' ? 0 : '')
-      setDialoguesList([])
-    }
-  }, [filter, sort])
-
-  useEffect(() => {
-    if (dialogues) {
-      if (dialogues.length !== 0) {
-        // setHasMore(true)
-        if (dialoguesList.length === 0) {
-          setDialoguesList(dialogues)
-        } else if (
-          dialoguesList[dialoguesList.length - 1].itemKey !==
-          dialogues[dialogues.length - 1].itemKey
-        ) {
-          setDialoguesList([...dialoguesList, ...dialogues])
-        }
-        setLastValue(dialogues[dialogues.length - 1].itemData[`${filter}`])
-      }
-      if (dialogues.length < PAGE_LIMIT) setHasMore(false)
-    }
-  }, [dialogues])
 
   return (
     <div>

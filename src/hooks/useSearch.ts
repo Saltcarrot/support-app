@@ -9,7 +9,7 @@ export const useSearch = (args: SortSettings) => {
   } = useActions()
 
   useEffect(() => {
-    getDialogues(args)
+    getDialogues({ ...args, lastValue: args.filter === 'createdAt' ? 0 : '' })
   }, [args.filter, args.sort])
 
   const searchData = useCallback(
