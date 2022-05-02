@@ -10,6 +10,7 @@ import { DialoguesPropTypes } from './DialoguesPropTypes'
 
 import UI from '../../common/UI'
 import ListItem from '../../common/Dialogues/ListItem/ListItem'
+import Tools from '../../common/Dialogues/Tools/Tools'
 
 const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
   const { user } = useTypedSelector((state) => state.user)
@@ -39,19 +40,13 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
     <div>
       <header style={{ height: '60px' }}>header</header>
       <section className='dialogues-box'>
-        <div className='tools'>
-          <UI.Container flow='row'>
-            {user?.role === 'user' && (
-              <UI.Button.CreateDialogue onClick={() => {}} />
-            )}
-            <UI.Select.Sort
-              filter={filter}
-              setFilter={setFilter}
-              sort={sort}
-              setSort={setSort}
-            />
-          </UI.Container>
-        </div>
+        <Tools
+          user={user}
+          filter={filter}
+          setFilter={setFilter}
+          sort={sort}
+          setSort={setSort}
+        />
         <div className='list'>
           <UI.Container>
             {error && <UI.Alert type='error' message={error} />}

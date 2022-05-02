@@ -9,7 +9,7 @@ import CreateDialogueBtnWrapper from './CreateDialogueBtn.style'
 
 const CreateDialogueBtn: FC<CreateDialogueBtnPropTypes> = ({ onClick }) => {
   return (
-    <CreateDialogueBtnWrapper type='button'>
+    <CreateDialogueBtnWrapper type='button' onClick={onClick}>
       <span>
         <FontAwesomeIcon icon={faPencil} />
       </span>

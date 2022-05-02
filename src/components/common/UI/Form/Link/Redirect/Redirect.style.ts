@@ -8,7 +8,7 @@ const RedirectWrapper = styled(Link)`
 
   height: 50px;
 
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1px solid var(--grey-blue);
 
   &:hover {

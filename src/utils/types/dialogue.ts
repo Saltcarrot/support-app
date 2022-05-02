@@ -4,7 +4,7 @@ export type filter = 'createdAt' | 'title'
 export type sort = 'asc' | 'desc'
 export type rate = 1 | 2 | 3 | 4 | 5
 
-export const PAGE_LIMIT = 5
+export const PAGE_LIMIT = 10
 
 export interface SortSettings {
   group: group

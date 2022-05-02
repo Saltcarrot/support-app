@@ -9,10 +9,12 @@ const CheckBoxWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
-    margin-right: 5px;
-
     width: 20px;
     height: 20px;
+
+    margin-right: 5px;
+
+    border-radius: 5px;
 
     background-color: var(--light-lavender);
 

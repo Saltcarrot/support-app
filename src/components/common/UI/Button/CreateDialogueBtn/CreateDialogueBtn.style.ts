@@ -6,8 +6,6 @@ const CreateDialogueBtnWrapper = styled.button`
 
   padding: 5px;
 
-  border-radius: 10px;
-
   background-color: #fff;
   color: var(--purple);
 
