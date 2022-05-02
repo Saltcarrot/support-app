@@ -1,16 +1,26 @@
 import styled from 'styled-components'
 
 const CreateDialogueBtnWrapper = styled.button`
+  display: flex;
+  align-items: center;
+
   padding: 5px;
 
   border-radius: 10px;
 
   background-color: #fff;
+  color: var(--purple);
 
   box-shadow: var(--card-box-opacity-1);
 
   span {
-    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
     margin-right: 5px;
 
     border-radius: 5px;
@@ -18,13 +28,6 @@ const CreateDialogueBtnWrapper = styled.button`
     background-color: var(--light-purple);
 
     transition: background-color 0.4s ease;
-  }
-
-  &:hover {
-    span {
-      background-color: var(--dark-blue);
-      color: #fff;
-    }
   }
 `
 
