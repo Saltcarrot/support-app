@@ -10,16 +10,16 @@ export const useSearch = (args: SortSettings) => {
     dialogue: { getDialogues },
   } = useActions()
 
-  useEffect(() => {
-    getDialogues({ ...args, lastValue: args.filter === 'createdAt' ? 0 : '' })
-  }, [args.filter, args.sort])
-
   const searchData = useCallback(
     debounce((args: SortSettings) => {
       getDialogues(args)
     }, 500),
     []
   )
+
+  useEffect(() => {
+    searchData({ ...args, lastValue: args.filter === 'createdAt' ? 0 : '' })
+  }, [args.filter, args.sort, args.dTitle, args.dMessage])
 
   const fetchMoreData = () => {
     searchData(args)

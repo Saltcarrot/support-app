@@ -1,13 +1,12 @@
 import { FC } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
+import ListWrapper from './List.style'
 import UI from '../../UI'
 import ListItem from '../ListItem/ListItem'
+import Alert from '../../UI/Alert/Alert'
 
 import { ListPropTypes } from './ListPropTypes'
-
-import ListWrapper from './List.style'
-import Alert from '../../UI/Alert/Alert'
 
 const List: FC<ListPropTypes> = ({
   list,

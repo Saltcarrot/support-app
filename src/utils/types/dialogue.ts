@@ -13,6 +13,8 @@ export interface SortSettings {
   lastValue: string | number
   isOperator: boolean
   UID?: string
+  dTitle: string | null
+  dMessage: string | null
 }
 
 export interface Chatmate {

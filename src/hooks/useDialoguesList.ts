@@ -6,12 +6,16 @@ interface DialoguesListArgs {
   dialogues: Data[] | null
   filter: filter
   sort: sort
+  title: string
+  message: string
 }
 
 export const useDialoguesList = ({
   dialogues,
   filter,
   sort,
+  title,
+  message,
 }: DialoguesListArgs) => {
   const [dialoguesList, setDialoguesList] = useState<Data[]>([])
   const [lastValue, setLastValue] = useState<string | number>(0)
@@ -20,7 +24,7 @@ export const useDialoguesList = ({
   useEffect(() => {
     if (dialogues) {
       if (dialogues.length !== 0) {
-        // setHasMore(true)
+        setHasMore(true)
         if (dialoguesList.length === 0) {
           setDialoguesList(dialogues)
         } else if (
@@ -39,7 +43,7 @@ export const useDialoguesList = ({
     if (dialoguesList.length !== 0) {
       setDialoguesList([])
     }
-  }, [filter, sort])
+  }, [filter, sort, title, message])
 
   return { dialoguesList, lastValue, hasMore }
 }

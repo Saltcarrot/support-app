@@ -3,6 +3,7 @@ import FormHeader from './FormHeader/FormHeader'
 import FormGroup from './FormGroup/FormGroup'
 import Label from './Label/Label'
 import Input from './Input/Input'
+import OutsideInput from './Input/OutsideInput/OutsideInput'
 import Link from './Link'
 import CheckBox from './CheckBox/CheckBox'
 import Button from './Button'
@@ -16,6 +17,7 @@ const CustomForm = {
   Group: FormGroup,
   Label,
   Input,
+  OutsideInput,
   Link,
   CheckBox,
   CheckBoxAndLink,

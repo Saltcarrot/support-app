@@ -54,6 +54,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 input, button {
+	height: 40px;
+
 	font-size: inherit;
 
 	background-color: transparent;
@@ -63,6 +65,10 @@ input, button {
 	border-radius: 5px;
 
 	transition: border-color .15s ease;
+}
+
+input {
+	padding: 10px;
 }
 
 button {

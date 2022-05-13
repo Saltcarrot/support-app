@@ -1,7 +1,12 @@
 import firebase from 'firebase/compat/app'
-import { Data, group, filter, PAGE_LIMIT, sort } from '../types/dialogue'
-
-const tuple = <T extends group[]>(...args: T) => args
+import {
+  Data,
+  group,
+  filter,
+  PAGE_LIMIT,
+  sort,
+  Dialogue,
+} from '../types/dialogue'
 
 interface SearchDialoguesPropTypes {
   db: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>
@@ -10,110 +15,212 @@ interface SearchDialoguesPropTypes {
   sort: sort
   isOperator: boolean
   UID?: string
+  dTitle: string | null
+  dMessage: string | null
 }
 
 interface SearchNextDialoguesPropTypes extends SearchDialoguesPropTypes {
   lastValue: string | number
 }
 
-export const getFirstDialogues = async (args: SearchDialoguesPropTypes) => {
-  // Оператор и клиент видят только свои диалоги по умолчанию
-  if (args.group === 'all') {
-    const snapshot = await args.db
-      .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
-      .orderBy(args.filter, args.sort)
-      .limit(PAGE_LIMIT)
-      .get()
-
-    return snapshot.docs.map((item) => {
-      return { itemKey: item.id, itemData: item.data() } as Data
-    })
-  } else if (args.group !== 'opened') {
-    const snapshot = await args.db
-      .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
-      .where('status', 'in', tuple(args.group))
-      .orderBy(args.filter, args.sort)
-      .limit(PAGE_LIMIT)
-      .get()
-
-    return snapshot.docs.map((item) => {
-      return { itemKey: item.id, itemData: item.data() } as Data
-    })
-    //  Открытые диалоги видит клиент и все операторы
-  } else {
-    if (args.isOperator) {
-      const snapshot = await args.db
-        .where('status', '==', args.group)
-        .orderBy(args.filter, args.sort)
-        .limit(PAGE_LIMIT)
-        .get()
-
-      return snapshot.docs.map((item) => {
-        return { itemKey: item.id, itemData: item.data() } as Data
-      })
-    } else {
-      const snapshot = await args.db
-        .where('status', '==', args.group)
-        .where('client.id', '==', args.UID)
-        .orderBy(args.filter, args.sort)
-        .limit(PAGE_LIMIT)
-        .get()
-
-      return snapshot.docs.map((item) => {
-        return { itemKey: item.id, itemData: item.data() } as Data
-      })
+const fillData = (
+  data: Data[],
+  snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>,
+  isOperator: boolean,
+  dTitle: string | null,
+  dMessage: string | null
+) => {
+  snapshot.docs.forEach((item) => {
+    const iBody = item.data() as Dialogue
+    if (data.length < PAGE_LIMIT) {
+      if (!dTitle && !dMessage) {
+        data.push({ itemKey: item.id, itemData: item.data() as Dialogue })
+      } else if (
+        dTitle &&
+        !dMessage &&
+        iBody.title.toLowerCase().includes(dTitle)
+      ) {
+        data.push({ itemKey: item.id, itemData: item.data() as Dialogue })
+      } else if (!dTitle && dMessage && iBody.messages) {
+        iBody.messages.forEach((m) => {
+          if (
+            m.content.toLowerCase().includes(dMessage.toLowerCase()) &&
+            data.filter((x) => x.itemKey === item.id).length === 0
+          ) {
+            data.push({ itemKey: item.id, itemData: item.data() as Dialogue })
+          }
+        })
+      } else if (
+        dTitle &&
+        dMessage &&
+        iBody.title.toLowerCase().includes(dTitle) &&
+        iBody.messages
+      ) {
+        iBody.messages.forEach((m) => {
+          if (
+            m.content.toLowerCase().includes(dMessage.toLowerCase()) &&
+            data.filter((x) => x.itemKey === item.id).length === 0
+          ) {
+            data.push({ itemKey: item.id, itemData: item.data() as Dialogue })
+          }
+        })
+      }
     }
+  })
+}
+
+export const getFirstDialogues = async (args: SearchDialoguesPropTypes) => {
+  let data: Data[] = []
+
+  let lastLoopValue: string | number | null = null
+  let prevDataLength: number = 0
+
+  while (data.length < PAGE_LIMIT) {
+    if (!lastLoopValue) {
+      if (args.group === 'all') {
+        const snapshot = await args.db
+          .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
+          .orderBy(args.filter, args.sort)
+          .limit(PAGE_LIMIT)
+          .get()
+        fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+      } else if (args.group !== 'opened') {
+        const snapshot = await args.db
+          .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
+          .where('status', '==', args.group)
+          .orderBy(args.filter, args.sort)
+          .limit(PAGE_LIMIT)
+          .get()
+
+        fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+      } else {
+        if (args.isOperator) {
+          const snapshot = await args.db
+            .where('status', '==', args.group)
+            .orderBy(args.filter, args.sort)
+            .limit(PAGE_LIMIT)
+            .get()
+
+          fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+        } else {
+          const snapshot = await args.db
+            .where('status', '==', args.group)
+            .where('client.id', '==', args.UID)
+            .orderBy(args.filter, args.sort)
+            .limit(PAGE_LIMIT)
+            .get()
+
+          fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+        }
+      }
+    } else {
+      if (args.group === 'all') {
+        const snapshot = await args.db
+          .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
+          .orderBy(args.filter, args.sort)
+          .startAfter(lastLoopValue)
+          .limit(PAGE_LIMIT)
+          .get()
+
+        fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+      } else if (args.group !== 'opened') {
+        const snapshot = await args.db
+          .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
+          .where('status', '==', args.group)
+          .orderBy(args.filter, args.sort)
+          .startAfter(lastLoopValue)
+          .limit(PAGE_LIMIT)
+          .get()
+
+        fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+      } else {
+        if (args.isOperator) {
+          const snapshot = await args.db
+            .where('status', '==', args.group)
+            .orderBy(args.filter, args.sort)
+            .startAfter(lastLoopValue)
+            .limit(PAGE_LIMIT)
+            .get()
+
+          fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+        } else {
+          const snapshot = await args.db
+            .where('status', '==', args.group)
+            .where('client.id', '==', args.UID)
+            .orderBy(args.filter, args.sort)
+            .startAfter(lastLoopValue)
+            .limit(PAGE_LIMIT)
+            .get()
+
+          fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+        }
+      }
+    }
+
+    if (data.length === 0) break
+
+    lastLoopValue = data[data.length - 1].itemData[args.filter]
+    if (prevDataLength !== data.length) prevDataLength = data.length
+    else break
   }
+
+  return data
 }
 
 export const getNextDialogues = async (args: SearchNextDialoguesPropTypes) => {
-  if (args.group === 'all') {
-    const snapshot = await args.db
-      .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
-      .orderBy(args.filter, args.sort)
-      .startAfter(args.lastValue)
-      .limit(PAGE_LIMIT)
-      .get()
+  let data: Data[] = []
 
-    return snapshot.docs.map((item) => {
-      return { itemKey: item.id, itemData: item.data() } as Data
-    })
-  } else if (args.group !== 'opened') {
-    const snapshot = await args.db
-      .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
-      .where('status', 'in', tuple(args.group))
-      .orderBy(args.filter, args.sort)
-      .startAfter(args.lastValue)
-      .limit(PAGE_LIMIT)
-      .get()
+  let lastLoopValue: string | number | null = null
+  let prevDataLength: number = 0
 
-    return snapshot.docs.map((item) => {
-      return { itemKey: item.id, itemData: item.data() } as Data
-    })
-  } else {
-    if (args.isOperator) {
+  while (data.length < PAGE_LIMIT) {
+    if (args.group === 'all') {
       const snapshot = await args.db
-        .where('status', 'in', tuple(args.group))
+        .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
         .orderBy(args.filter, args.sort)
-        .startAfter(args.lastValue)
+        .startAfter(lastLoopValue ? lastLoopValue : args.lastValue)
+        .limit(PAGE_LIMIT)
+        .get()
+      fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+    } else if (args.group !== 'opened') {
+      const snapshot = await args.db
+        .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
+        .where('status', '==', args.group)
+        .orderBy(args.filter, args.sort)
+        .startAfter(lastLoopValue ? lastLoopValue : args.lastValue)
         .limit(PAGE_LIMIT)
         .get()
 
-      return snapshot.docs.map((item) => {
-        return { itemKey: item.id, itemData: item.data() } as Data
-      })
+      fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
     } else {
-      const snapshot = await args.db
-        .where('status', 'in', tuple(args.group))
-        .where('client.id', '==', args.UID)
-        .orderBy(args.filter, args.sort)
-        .startAfter(args.lastValue)
-        .limit(PAGE_LIMIT)
-        .get()
+      if (args.isOperator) {
+        const snapshot = await args.db
+          .where('status', '==', args.group)
+          .orderBy(args.filter, args.sort)
+          .startAfter(lastLoopValue ? lastLoopValue : args.lastValue)
+          .limit(PAGE_LIMIT)
+          .get()
 
-      return snapshot.docs.map((item) => {
-        return { itemKey: item.id, itemData: item.data() } as Data
-      })
+        fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+      } else {
+        const snapshot = await args.db
+          .where('status', '==', args.group)
+          .where('client.id', '==', args.UID)
+          .orderBy(args.filter, args.sort)
+          .startAfter(lastLoopValue ? lastLoopValue : args.lastValue)
+          .limit(PAGE_LIMIT)
+          .get()
+
+        fillData(data, snapshot, args.isOperator, args.dTitle, args.dMessage)
+      }
     }
+
+    if (data.length === 0) break
+
+    lastLoopValue = data[data.length - 1].itemData[args.filter]
+    if (prevDataLength !== data.length) prevDataLength = data.length
+    else break
   }
+
+  return data
 }
