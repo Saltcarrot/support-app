@@ -9,13 +9,7 @@ const DialoguesWrapper = styled.div`
   margin: 0 auto;
 
   .dialogues-box {
-    //height: 100vh;
     width: 100%;
-
-    //overflow-x: hidden;
-    //overflow-y: hidden;
-    //scrollbar-width: none; /* For Firefox */
-    //-ms-overflow-style: none; /* For Internet Explorer and Edge */
   }
 
   @media (max-width: 767px) {

@@ -5,6 +5,14 @@ const SidebarContainerWrapper = styled.aside`
   max-width: 375px;
   width: 100%;
 
+  @media ${device.mobileL} {
+    max-width: 250px;
+  }
+
+  @media (max-width: 767px) {
+    max-width: 100%;
+  }
+
   .dropdown {
     &--header {
       display: flex;
@@ -20,10 +28,13 @@ const SidebarContainerWrapper = styled.aside`
     }
 
     &--content {
-      overflow: hidden;
-      transition: max-height 0.4s ease;
+      width: 100%;
       height: auto;
       max-height: 100vh;
+
+      overflow: hidden;
+
+      transition: max-height 0.4s ease;
 
       &.hidden {
         max-height: 0;

@@ -17,7 +17,7 @@ const List: FC<ListPropTypes> = ({
 }) => {
   return (
     <ListWrapper>
-      <UI.Container>
+      <UI.Container flow='column'>
         {error && <UI.Alert type='error' message={error} />}
         <InfiniteScroll
           dataLength={list.length}
