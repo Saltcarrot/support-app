@@ -1,12 +1,13 @@
 import { FC } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
-import ListWrapper from './List.style'
 import UI from '../../UI'
-import ListItem from '../ListItem/ListItem'
+import Dialogues from '../index'
 import Alert from '../../UI/Alert/Alert'
 
 import { ListPropTypes } from './ListPropTypes'
+
+import ListWrapper from './List.style'
 
 const List: FC<ListPropTypes> = ({
   list,
@@ -35,7 +36,7 @@ const List: FC<ListPropTypes> = ({
           }
         >
           {list.map((item) => {
-            return <ListItem key={item.itemKey} item={item} />
+            return <Dialogues.ListItem key={item.itemKey} item={item} />
           })}
         </InfiniteScroll>
       </UI.Container>

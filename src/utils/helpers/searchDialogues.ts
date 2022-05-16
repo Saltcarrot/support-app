@@ -87,7 +87,15 @@ export const getFirstDialogues = async (args: SearchDialoguesPropTypes) => {
       } else if (args.group !== 'opened') {
         const snapshot = await args.db
           .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
-          .where('status', '==', args.group)
+          .where(
+            args.group === 'saved'
+              ? args.isOperator
+                ? 'saved.byOperator'
+                : 'saved.byUser'
+              : 'status',
+            '==',
+            args.group === 'saved' ? true : args.group
+          )
           .orderBy(args.filter, args.sort)
           .limit(PAGE_LIMIT)
           .get()
@@ -126,7 +134,15 @@ export const getFirstDialogues = async (args: SearchDialoguesPropTypes) => {
       } else if (args.group !== 'opened') {
         const snapshot = await args.db
           .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
-          .where('status', '==', args.group)
+          .where(
+            args.group === 'saved'
+              ? args.isOperator
+                ? 'saved.byOperator'
+                : 'saved.byUser'
+              : 'status',
+            '==',
+            args.group === 'saved' ? true : args.group
+          )
           .orderBy(args.filter, args.sort)
           .startAfter(lastLoopValue)
           .limit(PAGE_LIMIT)
@@ -185,7 +201,15 @@ export const getNextDialogues = async (args: SearchNextDialoguesPropTypes) => {
     } else if (args.group !== 'opened') {
       const snapshot = await args.db
         .where(args.isOperator ? 'operator.id' : 'client.id', '==', args.UID)
-        .where('status', '==', args.group)
+        .where(
+          args.group === 'saved'
+            ? args.isOperator
+              ? 'saved.byOperator'
+              : 'saved.byUser'
+            : 'status',
+          '==',
+          args.group === 'saved' ? true : args.group
+        )
         .orderBy(args.filter, args.sort)
         .startAfter(lastLoopValue ? lastLoopValue : args.lastValue)
         .limit(PAGE_LIMIT)

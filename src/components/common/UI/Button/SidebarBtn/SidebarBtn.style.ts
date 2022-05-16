@@ -9,7 +9,7 @@ const SidebarBtnWrapper = styled.button`
   height: 30px;
 
   svg {
-    font-size: 18px;
+    font-size: 20px;
   }
 `
 

@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom'
+
 import { useActions } from './hooks/useActions'
 import { useTypedSelector } from './hooks/useTypedSelector'
 
@@ -26,7 +27,10 @@ const Routes: FC = () => {
     <Router>
       {user ? (
         <Switch>
-          <Route path='/dialogues' element={<Pages.Dialogues group='all' />} />
+          <Route
+            path='/dialogues/all'
+            element={<Pages.Dialogues group='all' />}
+          />
           <Route
             path='/dialogues/opened'
             element={<Pages.Dialogues group='opened' />}
@@ -45,7 +49,7 @@ const Routes: FC = () => {
           />
           <Route path='/dialogues/:id' element={<Pages.Chat />} />
           <Route path='/profile' element={<Pages.UserProfile />} />
-          <Route path='*' element={<Navigate to='/dialogues' />} />
+          <Route path='*' element={<Navigate to='/dialogues/all' />} />
         </Switch>
       ) : (
         <Switch>

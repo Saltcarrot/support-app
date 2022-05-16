@@ -3,6 +3,7 @@ import SaveBtn from './SaveBtn/SaveBtn'
 import StartDialogueBtn from './StartDialogueBtn/StartDialogueBtn'
 import CreateDialogueBtn from './CreateDialogueBtn/CreateDialogueBtn'
 import SidebarBtn from './SidebarBtn/SidebarBtn'
+import NavbarBtn from './NavbarBtn/NavbarBtn'
 
 const Button = {
   Ellipsis: EllipsisBtn,
@@ -10,6 +11,7 @@ const Button = {
   StartDialogue: StartDialogueBtn,
   CreateDialogue: CreateDialogueBtn,
   Sidebar: SidebarBtn,
+  Navbar: NavbarBtn,
 }
 
 export default Button

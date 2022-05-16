@@ -19,7 +19,7 @@ export const useSearch = (args: SortSettings) => {
 
   useEffect(() => {
     searchData({ ...args, lastValue: args.filter === 'createdAt' ? 0 : '' })
-  }, [args.filter, args.sort, args.dTitle, args.dMessage])
+  }, [args.group, args.filter, args.sort, args.dTitle, args.dMessage])
 
   const fetchMoreData = () => {
     searchData(args)

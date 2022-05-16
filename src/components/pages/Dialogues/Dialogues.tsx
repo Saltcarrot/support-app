@@ -5,9 +5,9 @@ import { useDialoguesList } from '../../../hooks/useDialoguesList'
 import { useSearch } from '../../../hooks/useSearch'
 import { filter, sort } from '../../../utils/types/dialogue'
 
+import Header from '../../common/Header/Header'
 import Sidebar from '../../common/Sidebar/Sidebar'
-import Tools from '../../common/Dialogues/Tools/Tools'
-import List from '../../common/Dialogues/List/List'
+import { default as DList } from '../../common/Dialogues/index'
 
 import { DialoguesPropTypes } from './DialoguesPropTypes'
 
@@ -26,6 +26,7 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
 
   const { dialoguesList, lastValue, hasMore } = useDialoguesList({
     dialogues,
+    group,
     filter,
     sort,
     title,
@@ -45,7 +46,7 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
 
   return (
     <>
-      <header style={{ height: '60px' }}>header</header>
+      <Header />
       <DialoguesWrapper>
         <Sidebar
           title={title}
@@ -54,14 +55,14 @@ const Dialogues: FC<DialoguesPropTypes> = ({ group }) => {
           setMessage={setMessage}
         />
         <section className='dialogues-box'>
-          <Tools
+          <DList.Tools
             user={user}
             filter={filter}
             setFilter={setFilter}
             sort={sort}
             setSort={setSort}
           />
-          <List
+          <DList.List
             list={dialoguesList}
             hasMore={hasMore}
             loading={loading}

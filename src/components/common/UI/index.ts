@@ -9,6 +9,7 @@ import Loader from './Loader/Loader'
 import EndList from './EndList/EndList'
 import Select from './Select'
 import Container from './Container/Container'
+import Navbar from './Navbar/Navbar'
 
 const UI = {
   Alert,
@@ -22,6 +23,7 @@ const UI = {
   EndList,
   Select,
   Container,
+  Navbar,
 }
 
 export default UI

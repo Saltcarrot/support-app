@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 const ListWrapper = styled.div`
   .infinite-scroll-component {
-    padding: 15px;
-    margin: -15px;
+    padding: 10px;
+    margin: -10px;
   }
 `
 

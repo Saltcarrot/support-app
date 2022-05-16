@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import { Data, filter, PAGE_LIMIT, sort } from '../utils/types/dialogue'
+import { Data, filter, group, PAGE_LIMIT, sort } from '../utils/types/dialogue'
 
 interface DialoguesListArgs {
   dialogues: Data[] | null
+  group: group
   filter: filter
   sort: sort
   title: string
@@ -12,6 +13,7 @@ interface DialoguesListArgs {
 
 export const useDialoguesList = ({
   dialogues,
+  group,
   filter,
   sort,
   title,
@@ -43,7 +45,7 @@ export const useDialoguesList = ({
     if (dialoguesList.length !== 0) {
       setDialoguesList([])
     }
-  }, [filter, sort, title, message])
+  }, [group, filter, sort, title, message])
 
   return { dialoguesList, lastValue, hasMore }
 }
