@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { device } from '../../../../../utils/helpers/breakpoints'
 
 const NavbarLinkWrapper = styled.li<{ isActive: boolean }>`
   display: flex;
@@ -12,22 +11,11 @@ const NavbarLinkWrapper = styled.li<{ isActive: boolean }>`
 
   color: ${({ isActive }) => (isActive ? 'var(--purple)' : 'inherit')};
 
-  @media ${device.tablet} {
-    border-radius: ${({ isActive }) => (isActive ? '10px 10px 0 0' : '10px')};
-  }
-
   @media (max-width: 767px) {
-    &:first-of-type {
-      border-radius: 10px 10px 0 0;
-    }
-    &:last-of-type {
-      border-radius: 0 0 10px 10px;
-      border-color: transparent;
-    }
+    border-bottom: none;
   }
 
   &:hover {
-    background-color: var(--light-lavender);
     color: ${({ isActive }) =>
       isActive ? 'var(--purple)' : 'var(--purple-opacity-6)'};
   }

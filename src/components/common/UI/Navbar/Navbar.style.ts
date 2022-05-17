@@ -8,15 +8,26 @@ export const NavbarContainerWrapper = styled.nav`
   position: relative;
 
   margin-left: auto;
+
+  border-bottom: 2px solid var(--light-lavender);
+
+  box-sizing: border-box;
+
+  @media (max-width: 767px) {
+    border-bottom: none;
+  }
 `
 
 export const NavbarContentWrapper = styled.ul<{ isVisible: boolean }>`
   display: ${({ isVisible }) => (isVisible ? 'flex' : 'none')};
   align-items: center;
 
+  margin-bottom: -2px;
+
   @media ${device.tablet} {
     display: flex;
   }
+
   @media (max-width: 767px) {
     display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
 
@@ -34,13 +45,5 @@ export const NavbarContentWrapper = styled.ul<{ isVisible: boolean }>`
     box-shadow: var(--card-box-opacity-1);
 
     z-index: 2;
-  }
-
-  li:not(:last-of-type) {
-    margin-right: 10px;
-
-    @media (max-width: 767px) {
-      margin-right: 0;
-    }
   }
 `
