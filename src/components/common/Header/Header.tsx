@@ -5,19 +5,18 @@ import { group } from '../../../utils/types/dialogue'
 
 import UI from '../UI'
 
-import HeaderWrapper from './Header.style'
-
 const Header: FC = () => {
   const { pathname } = useLocation()
 
   return (
-    <HeaderWrapper>
+    <header>
       <UI.Container flow='row'>
         <UI.Navbar
           path={pathname.split('/')[pathname.split('/').length - 1] as group}
         />
+        <UI.UserMenu />
       </UI.Container>
-    </HeaderWrapper>
+    </header>
   )
 }
 

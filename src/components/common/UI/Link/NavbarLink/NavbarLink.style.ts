@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { device } from '../../../../../utils/helpers/breakpoints'
 
 const NavbarLinkWrapper = styled.li<{ isActive: boolean }>`
   display: flex;

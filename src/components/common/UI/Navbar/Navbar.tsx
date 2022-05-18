@@ -12,15 +12,11 @@ const Navbar: FC<NavbarPropTypes> = ({ path }) => {
   const { ref, isComponentVisible, setIsComponentVisible } =
     useOutsideAlerter(false)
 
-  const toggleNavbar = () => {
-    setIsComponentVisible(!isComponentVisible)
-  }
-
   return (
     <NavbarContainerWrapper ref={ref}>
       <UI.Button.Navbar
         isNavbarVisible={isComponentVisible}
-        onClick={toggleNavbar}
+        onClick={() => setIsComponentVisible(!isComponentVisible)}
       />
       <NavbarContentWrapper isVisible={isComponentVisible}>
         <UI.Link.Navbar

@@ -22,17 +22,15 @@ const ItemDropdown: FC<ItemDropdownPropTypes> = ({
   const { ref, isComponentVisible, setIsComponentVisible } =
     useOutsideAlerter(false)
 
-  const toggleDropdown = () => {
-    setIsComponentVisible(!isComponentVisible)
-  }
-
   return (
     <>
       {(user?.user.uid === operatorID ||
         user?.user.uid === clientID ||
         status === 'opened') && (
         <ItemDropdownContainerWrapper ref={ref}>
-          <UI.Button.Ellipsis onClick={toggleDropdown} />
+          <UI.Button.Ellipsis
+            onClick={() => setIsComponentVisible(!isComponentVisible)}
+          />
           <ItemDropDownContent isVisible={isComponentVisible}>
             {(user?.user.uid === operatorID ||
               (user?.user.uid === clientID && status !== 'opened')) && (

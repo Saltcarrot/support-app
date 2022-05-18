@@ -9,9 +9,7 @@ const NavbarBtnWrapper = styled.button`
   height: 30px;
   width: 30px;
 
-  svg {
-    font-size: 20px;
-  }
+  font-size: 20px;
 
   @media ${device.tablet} {
     display: none;

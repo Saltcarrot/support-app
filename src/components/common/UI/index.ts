@@ -10,6 +10,7 @@ import EndList from './EndList/EndList'
 import Select from './Select'
 import Container from './Container/Container'
 import Navbar from './Navbar/Navbar'
+import UserMenu from './UserMenu/UserMenu'
 
 const UI = {
   Alert,
@@ -24,6 +25,7 @@ const UI = {
   Select,
   Container,
   Navbar,
+  UserMenu,
 }
 
 export default UI

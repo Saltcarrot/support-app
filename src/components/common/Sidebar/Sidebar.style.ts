@@ -49,8 +49,6 @@ const SidebarContainerWrapper = styled.aside`
 
         @media ${device.tablet} {
           display: inline-block;
-
-          margin-bottom: 20px;
         }
       }
 
