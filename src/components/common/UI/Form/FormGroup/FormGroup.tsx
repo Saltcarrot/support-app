@@ -1,13 +1,11 @@
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
 
-import Div from './FormGroup.style'
+import { FormGroupPropTypes } from './FormGroupPropTypes'
 
-interface FormGroupPropTypes {
-  children: ReactNode
-}
+import FormBottomWrapper from './FormGroup.style'
 
 const FormGroup: FC<FormGroupPropTypes> = ({ children }) => {
-  return <Div>{children}</Div>
+  return <FormBottomWrapper>{children}</FormBottomWrapper>
 }
 
 export default FormGroup

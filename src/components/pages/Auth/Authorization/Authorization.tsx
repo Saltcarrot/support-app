@@ -1,14 +1,21 @@
 import { FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useActions } from '../../../../hooks/useActions'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IInput } from '../../../../utils/types/input'
+
+import { useTypedSelector } from '../../../../hooks/useTypedSelector'
+import { useActions } from '../../../../hooks/useActions'
+
+import { Input } from '../../../../utils/types/input'
 import { signInSchema } from '../../../../utils/helpers/validationSchemas'
 
-import Container from '../../../common/Container/Container'
-import { CustomForm as Form } from '../../../common/UI/Form'
+import UI from '../../../common/UI'
 
 const Authorization: FC = () => {
+  const { loading, error } = useTypedSelector((state) => state.user)
+  const {
+    user: { signIn, signInWithGoogle },
+  } = useActions()
+
   const {
     register,
     handleSubmit,
@@ -21,16 +28,12 @@ const Authorization: FC = () => {
 
   const [isRemember, setIsRemember] = useState<boolean>(false)
 
-  const {
-    user: { signIn },
-  } = useActions()
-
   const onSubmit = (data: any) => {
     signIn(data)
     reset()
   }
 
-  const signInInputs: IInput[] = [
+  const signInInputs: Input[] = [
     {
       label: 'Введите Email',
       name: 'email',
@@ -45,8 +48,8 @@ const Authorization: FC = () => {
   ]
 
   return (
-    <Container content='auth'>
-      <Form.Container
+    <UI.Container flow='auth'>
+      <UI.Form.Container
         title='Авторизация'
         tip='Заполните все поля для авторизации'
         register={register}
@@ -55,21 +58,25 @@ const Authorization: FC = () => {
         onSubmit={onSubmit}
         inputs={signInInputs}
         bottom={
-          <Form.FormBottom>
-            <Form.CheckBoxAndLink
-              isRemember={isRemember}
-              setIsRemember={setIsRemember}
-            />
-            <Form.BottomBtns
-              googleOnClick={() => {}}
-              linkPath='/registration'
-              linkTitle='Регистрация'
-            />
-            <Form.Button.Submit text='Войти' />
-          </Form.FormBottom>
+          <>
+            {loading && <UI.Loader />}
+            {error && <UI.Alert type='error' message={error} />}
+            <UI.Form.FormBottom>
+              <UI.Form.CheckBoxAndLink
+                isRemember={isRemember}
+                setIsRemember={setIsRemember}
+              />
+              <UI.Form.BottomBtns
+                googleOnClick={() => signInWithGoogle()}
+                linkPath='/registration'
+                linkTitle='Регистрация'
+              />
+              <UI.Form.Button.Submit text='Войти' />
+            </UI.Form.FormBottom>
+          </>
         }
       />
-    </Container>
+    </UI.Container>
   )
 }
 

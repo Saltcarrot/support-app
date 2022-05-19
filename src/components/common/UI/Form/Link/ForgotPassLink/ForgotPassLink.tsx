@@ -1,9 +1,13 @@
 import { FC } from 'react'
 
-import LinkComponent from './ForgotPassLink.style'
+import ForgotPassLinkWrapper from './ForgotPassLink.style'
 
 const ForgotPassLink: FC = () => {
-  return <LinkComponent to='/password_recovery'>Забыли пароль?</LinkComponent>
+  return (
+    <ForgotPassLinkWrapper to='/password_recovery'>
+      Забыли пароль?
+    </ForgotPassLinkWrapper>
+  )
 }
 
 export default ForgotPassLink

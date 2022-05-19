@@ -1,12 +1,11 @@
-import { FC, ReactNode } from 'react'
-import Div from './FormBottom.style'
+import { FC } from 'react'
 
-interface FormBottomPropTypes {
-  children: ReactNode
-}
+import { FormBottomPropTypes } from './FormBottomPropTypes'
+
+import FormBottomWrapper from './FormBottom.style'
 
 const FormBottom: FC<FormBottomPropTypes> = ({ children }) => {
-  return <Div>{children}</Div>
+  return <FormBottomWrapper>{children}</FormBottomWrapper>
 }
 
 export default FormBottom

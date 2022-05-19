@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-const Div = styled.div`
+const FormBottomWrapper = styled.div`
   margin-top: 20px;
 `
 
-export default Div
+export default FormBottomWrapper

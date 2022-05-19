@@ -1,19 +1,26 @@
 import { UserInfo } from 'firebase/auth'
 
-export interface IAuth {
+export type role = 'operator' | 'user'
+
+export interface Auth {
   email: string
   password: string
   isRemember?: boolean
 }
 
-export interface IConfPass {
+export interface ConfPass {
   oobCode: string | null
   password: string
 }
 
-export interface IUserState {
+export interface User {
+  user: UserInfo
+  role: role
+}
+
+export interface UserState {
   loading: boolean
   error: string | null
   success: string | null
-  user: UserInfo | null
+  user: User | null
 }

@@ -1,14 +1,15 @@
 import { FC } from 'react'
-import { FormPropTypes } from './FormPropTypes'
-import { CustomForm } from '../index'
 
+import CustomForm from '../index'
 import Alert from '../../Alert/Alert'
 
-import { default as FormComponent } from './Form.style'
+import { FormPropTypes } from './FormPropTypes'
+
+import FormWrapper from './Form.style'
 
 const Form: FC<FormPropTypes> = (props) => {
   return (
-    <FormComponent onSubmit={props.handleSubmit(props.onSubmit)}>
+    <FormWrapper onSubmit={props.handleSubmit(props.onSubmit)}>
       <CustomForm.Header title={props.title} tip={props.tip} />
       {props.inputs.map((el) => {
         return (
@@ -22,7 +23,7 @@ const Form: FC<FormPropTypes> = (props) => {
         )
       })}
       <div>{props.bottom}</div>
-    </FormComponent>
+    </FormWrapper>
   )
 }
 

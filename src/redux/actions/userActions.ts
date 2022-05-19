@@ -1,4 +1,4 @@
-import * as ac from '../../utils/types/actionCreators/userActionCreators'
+import * as ac from './actionCreators/userActionCreators'
 import { userActionTypes as types } from '../../utils/enums/user'
 
 // RESET MESSAGES
@@ -10,12 +10,12 @@ const resetMessages: ac.resetMessagesActionCreator = () => ({
 const checkAuthRequest: ac.checkAuthRequestActionCreator = () => ({
   type: types.CHECK_AUTH_REQUEST,
 })
-const checkAuthReset: ac.checkAuthSuccessActionCreator = () => ({
-  type: types.CHECK_AUTH_RESET,
-})
 const checkAuthError: ac.checkAuthErrorActionCreator = (message) => ({
   type: types.CHECK_AUTH_ERROR,
   payload: message,
+})
+const checkAuthReset: ac.checkAuthResetActionCreator = () => ({
+  type: types.CHECK_AUTH_RESET,
 })
 
 // SIGN IN
@@ -36,6 +36,12 @@ const signInError: ac.signInErrorActionCreator = (message) => ({
   payload: message,
 })
 
+// SIGN IN WITH GOOGLE
+const signInWithGoogleRequest: ac.signInWithGoogleRequestActionCreator =
+  () => ({
+    type: types.SIGN_IN_WITH_GOOGLE_REQUEST,
+  })
+
 // SIGN UP
 const signUpRequest: ac.signUpRequestActionCreator = ({ email, password }) => ({
   type: types.SIGN_UP_REQUEST,
@@ -47,6 +53,18 @@ const signUpSuccess: ac.signUpSuccessActionCreator = (user) => ({
 })
 const signUpError: ac.signUpErrorActionCreator = (message) => ({
   type: types.SIGN_UP_ERROR,
+  payload: message,
+})
+
+// SIGN UP
+const signOutRequest: ac.signOutRequestActionCreator = () => ({
+  type: types.SIGN_OUT_REQUEST,
+})
+const signOutSuccess: ac.signOutSuccessActionCreator = () => ({
+  type: types.SIGN_OUT_SUCCESS,
+})
+const signOutError: ac.signOutErrorActionCreator = (message) => ({
+  type: types.SIGN_OUT_ERROR,
   payload: message,
 })
 
@@ -94,18 +112,24 @@ export const userActions = {
   resetMessages,
   checkAuth: {
     request: checkAuthRequest,
-    reset: checkAuthReset,
     error: checkAuthError,
+    reset: checkAuthReset,
   },
   signIn: {
     request: signInRequest,
     success: signInSuccess,
     error: signInError,
   },
+  signInWithGoogle: signInWithGoogleRequest,
   signUp: {
     request: signUpRequest,
     success: signUpSuccess,
     error: signUpError,
+  },
+  signOut: {
+    request: signOutRequest,
+    success: signOutSuccess,
+    error: signOutError,
   },
   recoverPassword: {
     request: recoverPasswordRequest,

@@ -1,14 +1,21 @@
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { useActions } from '../../../../../hooks/useActions'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IInput } from '../../../../../utils/types/input'
+
+import { useTypedSelector } from '../../../../../hooks/useTypedSelector'
+import { useActions } from '../../../../../hooks/useActions'
+
+import { Input } from '../../../../../utils/types/input'
 import { recoverySchema } from '../../../../../utils/helpers/validationSchemas'
 
-import Container from '../../../../common/Container/Container'
-import { CustomForm as Form } from '../../../../common/UI/Form'
+import UI from '../../../../common/UI'
 
 const PasswordRecovery: FC = () => {
+  const { loading, error, success } = useTypedSelector((state) => state.user)
+  const {
+    user: { recoverPassword },
+  } = useActions()
+
   const {
     register,
     handleSubmit,
@@ -19,16 +26,12 @@ const PasswordRecovery: FC = () => {
     resolver: yupResolver(recoverySchema),
   })
 
-  const {
-    user: { recoverPassword },
-  } = useActions()
-
   const onSubmit = ({ email }: any) => {
     recoverPassword(email)
     reset()
   }
 
-  const emailInput: IInput[] = [
+  const emailInput: Input[] = [
     {
       label: 'Введите Email',
       name: 'email',
@@ -37,8 +40,8 @@ const PasswordRecovery: FC = () => {
   ]
 
   return (
-    <Container content='auth'>
-      <Form.Container
+    <UI.Container flow='auth'>
+      <UI.Form.Container
         title='Восстановление пароля'
         tip='Введите Email, на который должна прийти ссылка для восстановления пароля'
         register={register}
@@ -47,17 +50,22 @@ const PasswordRecovery: FC = () => {
         onSubmit={onSubmit}
         inputs={emailInput}
         bottom={
-          <Form.FormBottom>
-            <Form.BottomBtns
-              googleOnClick={() => {}}
-              linkPath='/authorization'
-              linkTitle='Авторизоваться'
-            />
-            <Form.Button.Submit text='Получить ссылку' />
-          </Form.FormBottom>
+          <>
+            {loading && <UI.Loader />}
+            {error && <UI.Alert type='error' message={error} />}
+            {success && <UI.Alert message={success} />}
+            <UI.Form.FormBottom>
+              <UI.Form.BottomBtns
+                googleOnClick={() => {}}
+                linkPath='/authorization'
+                linkTitle='Авторизоваться'
+              />
+              <UI.Form.Button.Submit text='Получить ссылку' />
+            </UI.Form.FormBottom>
+          </>
         }
       />
-    </Container>
+    </UI.Container>
   )
 }
 

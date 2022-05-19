@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'animation';
 
 * {
 	margin: 0;
@@ -28,7 +29,15 @@ body {
 	min-width: 375px;
 	width: 100%;
 
-	background-color: var(--light-lavender);
+	background-color: var(--light-grey);
+	background: radial-gradient(circle at 20% 20%, rgb(229, 248, 252) 5%, transparent 20%),
+				radial-gradient(circle at 40% 20%, rgb(253, 246, 234) 5%, transparent 20%),
+				radial-gradient(circle at 20% 40%, rgb(238, 233, 255) 5%, transparent 20%),
+				radial-gradient(circle at 60% 80%, rgb(255, 223, 229) 5%, transparent 20%),
+				radial-gradient(circle at 80% 60%, rgb(239, 235, 255) 5%, transparent 20%),
+				radial-gradient(circle at 80% 80%, rgb(224, 246, 234) 5%, transparent 20%);
+	background-attachment: fixed;
+
 	color: var(--grey-blue);
 
 	font-family: var(--font-roboto);
@@ -45,6 +54,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 input, button {
+	height: 40px;
+
 	font-size: inherit;
 
 	background-color: transparent;
@@ -56,10 +67,17 @@ input, button {
 	transition: border-color .15s ease;
 }
 
+input {
+	padding: 10px;
+}
+
 button {
 	height: 40px;
 
+	font-family: var(--font-nunito);
 	font-weight: bold;
+
+	border-radius: 10px;
 
 	cursor: pointer;
 }
@@ -72,4 +90,8 @@ a {
 
 button, a {
 	transition: background-color .4s ease, color .4s ease;
+}
+
+ul, ol {
+	list-style: none;
 }

@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom'
+
 import { useActions } from './hooks/useActions'
 import { useTypedSelector } from './hooks/useTypedSelector'
 
@@ -26,14 +27,29 @@ const Routes: FC = () => {
     <Router>
       {user ? (
         <Switch>
-          <Route path='/dialogues' element={<Pages.Dialogues.Search />} />
-          <Route path='/dialogues/opened' element={<Pages.Dialogues.Group />} />
-          <Route path='/dialogues/active' element={<Pages.Dialogues.Group />} />
-          <Route path='/dialogues/closed' element={<Pages.Dialogues.Group />} />
-          <Route path='/dialogues/saved' element={<Pages.Dialogues.Group />} />
+          <Route
+            path='/dialogues/all'
+            element={<Pages.Dialogues group='all' />}
+          />
+          <Route
+            path='/dialogues/opened'
+            element={<Pages.Dialogues group='opened' />}
+          />
+          <Route
+            path='/dialogues/active'
+            element={<Pages.Dialogues group='active' />}
+          />
+          <Route
+            path='/dialogues/closed'
+            element={<Pages.Dialogues group='closed' />}
+          />
+          <Route
+            path='/dialogues/saved'
+            element={<Pages.Dialogues group='saved' />}
+          />
           <Route path='/dialogues/:id' element={<Pages.Chat />} />
           <Route path='/profile' element={<Pages.UserProfile />} />
-          <Route path='*' element={<Navigate to='/dialogues' />} />
+          <Route path='*' element={<Navigate to='/dialogues/all' />} />
         </Switch>
       ) : (
         <Switch>

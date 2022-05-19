@@ -1,17 +1,17 @@
 import styled from 'styled-components'
 
-const Div = styled.div`
+const FormHeaderWrapper = styled.div`
   margin-bottom: 70px;
 
   text-align: center;
 
-  .title {
+  h2 {
     font-size: 36px;
   }
 
-  .tip {
+  p {
     margin-top: 10px;
   }
 `
 
-export default Div
+export default FormHeaderWrapper

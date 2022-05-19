@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
-const Form = styled.form`
+const FormWrapper = styled.form`
   max-width: 500px;
   width: 100%;
 
-  padding: 10px;
+  padding: 20px;
 
   border-radius: 10px;
 
@@ -13,4 +13,4 @@ const Form = styled.form`
   box-shadow: var(--card-box-opacity-1);
 `
 
-export default Form
+export default FormWrapper

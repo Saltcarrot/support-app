@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Input = styled.input`
+const InputWrapper = styled.input`
   height: 40px;
   width: 100%;
 
@@ -8,7 +8,7 @@ const Input = styled.input`
 
   font-size: inherit;
 
-  background-color: var(--light-lavender);
+  background-color: var(--light-grey);
 
   border: 1px solid transparent;
   border-radius: 5px;
@@ -23,4 +23,4 @@ const Input = styled.input`
   }
 `
 
-export default Input
+export default InputWrapper

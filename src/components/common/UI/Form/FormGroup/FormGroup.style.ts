@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Div = styled.div`
+const FormBottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -9,4 +9,4 @@ const Div = styled.div`
   }
 `
 
-export default Div
+export default FormBottomWrapper

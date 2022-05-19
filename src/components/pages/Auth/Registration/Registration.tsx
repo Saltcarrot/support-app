@@ -1,14 +1,21 @@
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { useActions } from '../../../../hooks/useActions'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IInput } from '../../../../utils/types/input'
+
+import { useTypedSelector } from '../../../../hooks/useTypedSelector'
+import { useActions } from '../../../../hooks/useActions'
+
+import { Input } from '../../../../utils/types/input'
 import { signUpSchema } from '../../../../utils/helpers/validationSchemas'
 
-import Container from '../../../common/Container/Container'
-import { CustomForm as Form } from '../../../common/UI/Form'
+import UI from '../../../common/UI'
 
 const Registration: FC = () => {
+  const { loading, error } = useTypedSelector((state) => state.user)
+  const {
+    user: { signUp, signInWithGoogle },
+  } = useActions()
+
   const {
     register,
     handleSubmit,
@@ -19,16 +26,12 @@ const Registration: FC = () => {
     resolver: yupResolver(signUpSchema),
   })
 
-  const {
-    user: { signUp },
-  } = useActions()
-
   const onSubmit = (data: any) => {
     signUp(data)
     reset()
   }
 
-  const signUpInputs: IInput[] = [
+  const signUpInputs: Input[] = [
     {
       label: 'Введите Email',
       name: 'email',
@@ -49,8 +52,8 @@ const Registration: FC = () => {
   ]
 
   return (
-    <Container content='auth'>
-      <Form.Container
+    <UI.Container flow='auth'>
+      <UI.Form.Container
         title='Регистрация'
         tip='Для регистрации заполните все поля'
         register={register}
@@ -59,17 +62,21 @@ const Registration: FC = () => {
         onSubmit={onSubmit}
         inputs={signUpInputs}
         bottom={
-          <Form.FormBottom>
-            <Form.BottomBtns
-              googleOnClick={() => {}}
-              linkPath='/authorization'
-              linkTitle='Войти'
-            />
-            <Form.Button.Submit text='Зарегистрироваться' />
-          </Form.FormBottom>
+          <>
+            {loading && <UI.Loader />}
+            {error && <UI.Alert type='error' message={error} />}
+            <UI.Form.FormBottom>
+              <UI.Form.BottomBtns
+                googleOnClick={() => signInWithGoogle()}
+                linkPath='/authorization'
+                linkTitle='Войти'
+              />
+              <UI.Form.Button.Submit text='Зарегистрироваться' />
+            </UI.Form.FormBottom>
+          </>
         }
       />
-    </Container>
+    </UI.Container>
   )
 }
 

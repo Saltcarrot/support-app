@@ -1,16 +1,14 @@
 import { FC } from 'react'
 
-import Div from './SubmitBtn.style'
+import SubmitBtnWrapper from './SubmitBtn.style'
 
-interface ISubmitBtnProps {
-  text: string
-}
+import { SubmitBtnPropTypes } from './SubmitBtnPropTypes'
 
-const SubmitBtn: FC<ISubmitBtnProps> = ({ text }) => {
+const SubmitBtn: FC<SubmitBtnPropTypes> = ({ text }) => {
   return (
-    <Div>
+    <SubmitBtnWrapper>
       <button type='submit'>{text}</button>
-    </Div>
+    </SubmitBtnWrapper>
   )
 }
 

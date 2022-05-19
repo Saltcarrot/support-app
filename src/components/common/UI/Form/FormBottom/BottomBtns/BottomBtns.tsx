@@ -1,23 +1,20 @@
 import { FC } from 'react'
-import { CustomForm as Form } from '../../index'
 
-import Div from './BottomBtns.style'
+import CustomForm from '../../index'
 
-interface BottomBtnsPropTypes {
-  googleOnClick: () => void
-  linkPath: string
-  linkTitle: string
-}
+import { BottomBtnsPropTypes } from './BottomBtnsPropTypes'
+
+import BottomBtnsWrapper from './BottomBtns.style'
 
 const BottomBtns: FC<BottomBtnsPropTypes> = ({
   googleOnClick = () => {},
   ...rest
 }) => {
   return (
-    <Div>
-      <Form.Button.Google onClick={googleOnClick} />
-      <Form.Link.Redirect path={rest.linkPath} title={rest.linkTitle} />
-    </Div>
+    <BottomBtnsWrapper>
+      <CustomForm.Button.Goggle onClick={googleOnClick} />
+      <CustomForm.Link.Redirect path={rest.linkPath} title={rest.linkTitle} />
+    </BottomBtnsWrapper>
   )
 }
 

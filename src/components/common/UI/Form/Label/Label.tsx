@@ -1,14 +1,11 @@
 import { FC } from 'react'
 
-import { default as LabelComponent } from './Label.style'
+import { LabelPropTypes } from './LabelPropTypes'
 
-interface ILabelProps {
-  forHtml: string
-  text: string
-}
+import LabelWrapper from './Label.style'
 
-const Label: FC<ILabelProps> = ({ forHtml, text }) => {
-  return <LabelComponent htmlFor={forHtml}>{text}</LabelComponent>
+const Label: FC<LabelPropTypes> = ({ forHtml, text }) => {
+  return <LabelWrapper htmlFor={forHtml}>{text}</LabelWrapper>
 }
 
 export default Label

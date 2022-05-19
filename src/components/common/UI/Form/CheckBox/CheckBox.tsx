@@ -1,21 +1,20 @@
-import { FC, MouseEvent } from 'react'
-import { FaCheck } from 'react-icons/fa'
+import { FC } from 'react'
 
-import Div from './CheckBox.style'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
-interface ICheckBoxProps {
-  isChecked: boolean
-  onClick: (event: MouseEvent<HTMLButtonElement>) => void
-}
+import { CheckBoxPropTypes } from './CheckBoxPropTypes'
 
-const CheckBox: FC<ICheckBoxProps> = ({ isChecked, onClick }) => {
+import CheckBoxWrapper from './CheckBox.style'
+
+const CheckBox: FC<CheckBoxPropTypes> = ({ isChecked, onClick }) => {
   return (
-    <Div>
+    <CheckBoxWrapper>
       <button onClick={onClick} type='button'>
-        {isChecked && <FaCheck />}
+        {isChecked && <FontAwesomeIcon icon={faCheck} />}
       </button>
       <p>Запомнить меня</p>
-    </Div>
+    </CheckBoxWrapper>
   )
 }
 

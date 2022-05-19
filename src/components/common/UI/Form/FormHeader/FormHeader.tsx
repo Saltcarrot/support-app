@@ -1,18 +1,15 @@
 import { FC } from 'react'
 
-import Div from './FormHeader.style'
+import { FormHeaderPropTypes } from './FormHeaderPropTypes'
 
-interface IFormHeaderProps {
-  title: string
-  tip: string
-}
+import FormHeaderWrapper from './FormHeader.style'
 
-const FormHeader: FC<IFormHeaderProps> = ({ title, tip }) => {
+const FormHeader: FC<FormHeaderPropTypes> = ({ title, tip }) => {
   return (
-    <Div>
-      <h1 className='title'>{title}</h1>
-      <p className='tip'>{tip}</p>
-    </Div>
+    <FormHeaderWrapper>
+      <h2>{title}</h2>
+      <p>{tip}</p>
+    </FormHeaderWrapper>
   )
 }
 

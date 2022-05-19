@@ -1,17 +1,24 @@
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
-import { useActions } from '../../../../../hooks/useActions'
 import { useLocation } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IInput } from '../../../../../utils/types/input'
+
+import { useTypedSelector } from '../../../../../hooks/useTypedSelector'
+import { useActions } from '../../../../../hooks/useActions'
+
+import { Input } from '../../../../../utils/types/input'
 import { updatePasswordSchema } from '../../../../../utils/helpers/validationSchemas'
 
-import Container from '../../../../common/Container/Container'
-import { CustomForm as Form } from '../../../../common/UI/Form'
+import UI from '../../../../common/UI'
 
 const PasswordConfirm: FC = () => {
   const { search } = useLocation()
   const oobCode = new URLSearchParams(search).get('oobCode')
+
+  const { loading, error, success } = useTypedSelector((state) => state.user)
+  const {
+    user: { confirmPassword },
+  } = useActions()
 
   const {
     register,
@@ -23,16 +30,12 @@ const PasswordConfirm: FC = () => {
     resolver: yupResolver(updatePasswordSchema),
   })
 
-  const {
-    user: { confirmPassword },
-  } = useActions()
-
   const onSubmit = ({ password }: any) => {
     confirmPassword({ oobCode, password })
     reset()
   }
 
-  const confPassInputs: IInput[] = [
+  const confPassInputs: Input[] = [
     {
       label: 'Введите пароль',
       type: 'password',
@@ -48,8 +51,8 @@ const PasswordConfirm: FC = () => {
   ]
 
   return (
-    <Container content='auth'>
-      <Form.Container
+    <UI.Container flow='auth'>
+      <UI.Form.Container
         title='Обновление пароля'
         tip='Задайте новый пароль для своей учетной записи'
         register={register}
@@ -58,17 +61,22 @@ const PasswordConfirm: FC = () => {
         onSubmit={onSubmit}
         inputs={confPassInputs}
         bottom={
-          <Form.FormBottom>
-            <Form.BottomBtns
-              googleOnClick={() => {}}
-              linkPath='/authorization'
-              linkTitle='Авторизоваться'
-            />
-            <Form.Button.Submit text='Задать новый пароль' />
-          </Form.FormBottom>
+          <>
+            {loading && <UI.Loader />}
+            {error && <UI.Alert type='error' message={error} />}
+            {success && <UI.Alert message={success} />}
+            <UI.Form.FormBottom>
+              <UI.Form.BottomBtns
+                googleOnClick={() => {}}
+                linkPath='/authorization'
+                linkTitle='Авторизоваться'
+              />
+              <UI.Form.Button.Submit text='Задать новый пароль' />
+            </UI.Form.FormBottom>
+          </>
         }
       />
-    </Container>
+    </UI.Container>
   )
 }
 
