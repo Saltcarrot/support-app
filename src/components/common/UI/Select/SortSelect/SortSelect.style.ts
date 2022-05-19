@@ -45,5 +45,5 @@ export const SortSelectDropdownWrapper = styled.ul<{ isVisible: boolean }>`
 
   box-shadow: var(--card-box-opacity-1);
 
-  z-index: 9;
+  z-index: 2;
 `

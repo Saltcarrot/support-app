@@ -9,6 +9,7 @@ const DialoguesWrapper = styled.div`
   margin: 0 auto;
 
   .dialogues-box {
+    min-height: 500px;
     height: 100%;
     max-height: calc(100vh - 61px);
     width: 100%;
