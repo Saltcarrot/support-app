@@ -51,6 +51,12 @@ const fetchSignUp = async ({ email, password }: Auth) => {
   return user
 }
 
+const fetchSignOut = async () => {
+  const auth = firebase.auth()
+
+  return await auth.signOut()
+}
+
 const fetchUserRole = async (uid: string) => {
   const db = firebase.firestore().collection('users')
 
@@ -136,6 +142,15 @@ function* signUpWorker({
   }
 }
 
+function* signOutWorker() {
+  try {
+    yield call(fetchSignOut)
+    yield put(userActions.signOut.success())
+  } catch (error: any) {
+    yield put(userActions.signOut.error(convertError(error)))
+  }
+}
+
 function* recoverPasswordWorker({
   payload: email,
 }: actions.RecoverPasswordRequestAction) {
@@ -184,6 +199,7 @@ export function* userSaga() {
   yield takeLatest(types.SIGN_IN_REQUEST, signInWithDataWorker)
   yield takeLatest(types.CHECK_AUTH_REQUEST, checkAuthWorker)
   yield takeLatest(types.SIGN_UP_REQUEST, signUpWorker)
+  yield takeLatest(types.SIGN_OUT_REQUEST, signOutWorker)
   yield takeLatest(types.RECOVER_PASSWORD_REQUEST, recoverPasswordWorker)
   yield takeLatest(types.CONFIRM_PASSWORD_REQUEST, confirmPasswordWorker)
   yield takeLatest(types.SIGN_IN_WITH_GOOGLE_REQUEST, signInWithGoogleWorker)

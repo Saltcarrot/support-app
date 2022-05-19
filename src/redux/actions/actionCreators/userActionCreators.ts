@@ -39,6 +39,13 @@ export type signUpErrorActionCreator = (
   message: string
 ) => actions.SignUpErrorAction
 
+// SIGN UP
+export type signOutRequestActionCreator = () => actions.SignOutRequestAction
+export type signOutSuccessActionCreator = () => actions.SignOutSuccessAction
+export type signOutErrorActionCreator = (
+  message: string
+) => actions.SignOutErrorAction
+
 // RECOVER PASSWORD
 export type recoverPasswordRequestActionCreator = (
   email: string

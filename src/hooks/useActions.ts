@@ -18,6 +18,7 @@ export const useActions = () => {
       signIn: (payload: Auth) => dispatch(userActions.signIn.request(payload)),
       signInWithGoogle: () => dispatch(userActions.signInWithGoogle()),
       signUp: (payload: Auth) => dispatch(userActions.signUp.request(payload)),
+      signOut: () => dispatch(userActions.signOut.request()),
       recoverPassword: (email: string) =>
         dispatch(userActions.recoverPassword.request(email)),
       confirmPassword: (payload: ConfPass) =>

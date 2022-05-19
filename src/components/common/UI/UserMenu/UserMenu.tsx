@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useOutsideAlerter } from '../../../../hooks/useOutsideAlerter'
+import { useActions } from '../../../../hooks/useActions'
 
 import UI from '../index'
 
@@ -14,6 +15,10 @@ const UserMenu: FC = () => {
   const { ref, isComponentVisible, setIsComponentVisible } =
     useOutsideAlerter(false)
 
+  const {
+    user: { signOut },
+  } = useActions()
+
   return (
     <UserMenuContainerWrapper ref={ref}>
       <UI.Button.UserMenu
@@ -22,7 +27,7 @@ const UserMenu: FC = () => {
       />
       <UserMenuContentWrapper isVisible={isComponentVisible}>
         <li>
-          <UI.Button.Logout onClick={() => {}} />
+          <UI.Button.Logout onClick={() => signOut()} />
         </li>
         <li>
           <Link to='/profile'>Профиль</Link>

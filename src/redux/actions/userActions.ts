@@ -56,6 +56,18 @@ const signUpError: ac.signUpErrorActionCreator = (message) => ({
   payload: message,
 })
 
+// SIGN UP
+const signOutRequest: ac.signOutRequestActionCreator = () => ({
+  type: types.SIGN_OUT_REQUEST,
+})
+const signOutSuccess: ac.signOutSuccessActionCreator = () => ({
+  type: types.SIGN_OUT_SUCCESS,
+})
+const signOutError: ac.signOutErrorActionCreator = (message) => ({
+  type: types.SIGN_OUT_ERROR,
+  payload: message,
+})
+
 // RECOVER PASSWORD
 const recoverPasswordRequest: ac.recoverPasswordRequestActionCreator = (
   email
@@ -113,6 +125,11 @@ export const userActions = {
     request: signUpRequest,
     success: signUpSuccess,
     error: signUpError,
+  },
+  signOut: {
+    request: signOutRequest,
+    success: signOutSuccess,
+    error: signOutError,
   },
   recoverPassword: {
     request: recoverPasswordRequest,

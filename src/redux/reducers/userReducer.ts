@@ -42,6 +42,13 @@ export const userReducer = (
       return { ...state, loading: false, user: payload }
     case types.SIGN_UP_ERROR:
       return { ...state, loading: false, error: payload }
+    // SIGN OUT
+    case types.SIGN_OUT_REQUEST:
+      return { ...state, loading: true }
+    case types.SIGN_OUT_SUCCESS:
+      return { ...state, loading: false, user: null }
+    case types.SIGN_OUT_ERROR:
+      return { ...state, loading: false, error: payload }
     // RECOVER PASSWORD
     case types.RECOVER_PASSWORD_REQUEST:
       return { ...state, loading: true }

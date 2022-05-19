@@ -55,6 +55,20 @@ export interface SignUpErrorAction {
   payload: string
 }
 
+// SIGN OUT
+export interface SignOutRequestAction {
+  type: types.SIGN_OUT_REQUEST
+  payload?: undefined
+}
+export interface SignOutSuccessAction {
+  type: types.SIGN_OUT_SUCCESS
+  payload?: undefined
+}
+export interface SignOutErrorAction {
+  type: types.SIGN_OUT_ERROR
+  payload: string
+}
+
 // RECOVER PASSWORD
 export interface RecoverPasswordRequestAction {
   type: types.RECOVER_PASSWORD_REQUEST
@@ -95,6 +109,9 @@ export type UserActions =
   | SignUpRequestAction
   | SignUpSuccessAction
   | SignUpErrorAction
+  | SignOutRequestAction
+  | SignOutSuccessAction
+  | SignOutErrorAction
   | RecoverPasswordRequestAction
   | RecoverPasswordSuccessAction
   | RecoverPasswordErrorAction
