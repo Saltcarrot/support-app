@@ -65,6 +65,7 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
     "@types/redux-actions": "^2.6.2",
-    "@types/styled-components": "^5.1.24"
+    "@types/styled-components": "^5.1.24",
+    "sass": "^1.52.1"
   }
 }

@@ -51,3 +51,46 @@ export const updatePasswordSchema = Yup.object().shape({
       .required('Подтвердите пароль'),
   }),
 })
+
+export const profileSchema = Yup.object().shape(
+  {
+    nickname: Yup.string()
+      .nullable()
+      .notRequired()
+      .when('nickname', {
+        is: (val: string) => !!(val && val.length > 0),
+        then: Yup.string()
+          .min(6, 'Никнейм должен состоять из 6 символов и более')
+          .matches(
+            /^(?=[a-zA-Z0-9._])(?!.*[_.]{2})[^_.].*[^_.]$/,
+            'Неверный формат никнейма'
+          ),
+      }),
+    password: Yup.string()
+      .nullable()
+      .notRequired()
+      .when('password', {
+        is: (val: string) => !!(val && val.length > 0),
+        then: Yup.string()
+          .min(8, 'Пароль должен состоять из 8 символов и более')
+          .matches(
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
+            'Пароль должен содержать как минимум одну цифру, а также иметь буквы в верхнем и нижнем регистре'
+          ),
+      }),
+    confirmPassword: Yup.string()
+      .nullable()
+      .notRequired()
+      .when('confirmPassword', {
+        is: (val: string) => !!(val && val.length > 0),
+        then: Yup.string()
+          .oneOf([Yup.ref('password')], 'Пароли не совпадают')
+          .required('Подтвердите пароль'),
+      }),
+  },
+  [
+    ['nickname', 'nickname'],
+    ['password', 'password'],
+    ['confirmPassword', 'confirmPassword'],
+  ]
+)

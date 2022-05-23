@@ -13,8 +13,14 @@ const Form: FC<FormPropTypes> = (props) => {
       <CustomForm.Header title={props.title} tip={props.tip} />
       {props.inputs.map((el) => {
         return (
-          <CustomForm.Group key={el.name}>
+          <CustomForm.Group
+            key={el.name}
+            flow={el.type === 'file' ? 'row' : 'column'}
+          >
             <CustomForm.Label forHtml={el.name} text={el.label} />
+            {props.imageSrc && el.type === 'file' && (
+              <img src={props.imageSrc} alt='Аватар' />
+            )}
             <CustomForm.Input register={props.register} {...el} />
             {props.errors[el.name] && (
               <Alert type='error' message={props.errors[el.name].message} />

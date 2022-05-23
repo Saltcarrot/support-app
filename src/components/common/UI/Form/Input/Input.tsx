@@ -10,6 +10,8 @@ const Input: FC<InputPropTypes> = ({ type = 'text', ...rest }) => {
       {...rest.register(rest.name)}
       type={type}
       placeholder={rest.placeholder ? rest.placeholder : ''}
+      accept={rest.accept}
+      onChange={rest.onChange}
     />
   )
 }
