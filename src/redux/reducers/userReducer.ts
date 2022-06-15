@@ -53,16 +53,29 @@ export const userReducer = (
     case types.RECOVER_PASSWORD_REQUEST:
       return { ...state, loading: true }
     case types.RECOVER_PASSWORD_SUCCESS:
-      return { ...state, loading: false, success: payload }
+      return { ...state, loading: false, success: payload, error: null }
     case types.RECOVER_PASSWORD_ERROR:
-      return { ...state, loading: false, error: payload }
+      return { ...state, loading: false, error: payload, success: null }
     // CONFIRM PASSWORD
     case types.CONFIRM_PASSWORD_REQUEST:
       return { ...state, loading: true }
     case types.CONFIRM_PASSWORD_SUCCESS:
-      return { ...state, loading: false, success: payload }
+      return { ...state, loading: false, success: payload, error: null }
     case types.CONFIRM_PASSWORD_ERROR:
-      return { ...state, loading: false, error: payload }
+      return { ...state, loading: false, error: payload, success: null }
+    // UPDATE PROFILE
+    case types.UPDATE_USER_PROFILE_REQUEST:
+      return { ...state, loading: true }
+    case types.UPDATE_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: payload.message,
+        user: payload.userData,
+        error: null,
+      }
+    case types.UPDATE_USER_PROFILE_ERROR:
+      return { ...state, loading: false, error: payload, success: null }
     default:
       return state
   }

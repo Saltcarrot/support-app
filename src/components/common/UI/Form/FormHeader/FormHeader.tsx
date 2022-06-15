@@ -8,7 +8,7 @@ const FormHeader: FC<FormHeaderPropTypes> = ({ title, tip }) => {
   return (
     <FormHeaderWrapper>
       <h2>{title}</h2>
-      <p>{tip}</p>
+      {tip && <p>{tip}</p>}
     </FormHeaderWrapper>
   )
 }

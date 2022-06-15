@@ -108,6 +108,29 @@ const confirmPasswordError: ac.confirmPasswordErrorActionCreator = (
   payload: message,
 })
 
+// UPDATE PROFILE
+const updateUserProfileRequest: ac.updateUserProfileRequestActionCreator = (
+  userData
+) => ({
+  type: types.UPDATE_USER_PROFILE_REQUEST,
+  payload: {
+    ...userData,
+  },
+})
+const updateUserProfileSuccess: ac.updateUserProfileSuccessActionCreator = ({
+  userData,
+  message,
+}) => ({
+  type: types.UPDATE_USER_PROFILE_SUCCESS,
+  payload: { userData, message },
+})
+const updateUserProfileError: ac.updateUserProfileErrorActionCreator = (
+  message
+) => ({
+  type: types.UPDATE_USER_PROFILE_ERROR,
+  payload: message,
+})
+
 export const userActions = {
   resetMessages,
   checkAuth: {
@@ -140,5 +163,12 @@ export const userActions = {
     request: confirmPasswordRequest,
     success: confirmPasswordSuccess,
     error: confirmPasswordError,
+  },
+  updateProfile: {
+    user: {
+      request: updateUserProfileRequest,
+      success: updateUserProfileSuccess,
+      error: updateUserProfileError,
+    },
   },
 }

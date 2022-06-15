@@ -9,7 +9,7 @@ import { ReactNode } from 'react'
 
 export interface FormPropTypes {
   title: string
-  tip: string
+  tip?: string
   register: UseFormRegister<FieldValues>
   errors: {
     [x: string]: any
@@ -18,4 +18,5 @@ export interface FormPropTypes {
   onSubmit: SubmitHandler<FieldValues>
   inputs: Input[]
   bottom?: ReactNode
+  imageSrc?: string
 }

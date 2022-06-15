@@ -1,5 +1,11 @@
 import { userActionTypes as types } from '../../../utils/enums/user'
-import { Auth, ConfPass, User } from '../../../utils/types/user'
+import {
+  Auth,
+  ConfPass,
+  NewUserData,
+  User,
+  UserData,
+} from '../../../utils/types/user'
 
 // RESET MESSAGES
 export interface ResetMessagesAction {
@@ -97,6 +103,20 @@ export interface ConfirmPasswordErrorAction {
   payload: string
 }
 
+// UPDATE PROFILE
+export interface UpdateUserProfileRequestAction {
+  type: types.UPDATE_USER_PROFILE_REQUEST
+  payload: UserData
+}
+export interface UpdateUserProfileSuccessAction {
+  type: types.UPDATE_USER_PROFILE_SUCCESS
+  payload: NewUserData
+}
+export interface UpdateUserProfileErrorAction {
+  type: types.UPDATE_USER_PROFILE_ERROR
+  payload: string
+}
+
 export type UserActions =
   | ResetMessagesAction
   | CheckAuthRequestAction
@@ -118,3 +138,6 @@ export type UserActions =
   | ConfirmPasswordRequestAction
   | ConfirmPasswordSuccessAction
   | ConfirmPasswordErrorAction
+  | UpdateUserProfileRequestAction
+  | UpdateUserProfileSuccessAction
+  | UpdateUserProfileErrorAction
