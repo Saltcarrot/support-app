@@ -1,7 +1,7 @@
 import { Dispatch } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { Auth, ConfPass } from '../utils/types/user'
+import { Auth, ConfPass, UserData } from '../utils/types/user'
 import { SortSettings } from '../utils/types/dialogue'
 
 import { UserActions } from '../redux/actions/actionTypes/userActionTypes'
@@ -23,6 +23,8 @@ export const useActions = () => {
         dispatch(userActions.recoverPassword.request(email)),
       confirmPassword: (payload: ConfPass) =>
         dispatch(userActions.confirmPassword.request(payload)),
+      updateUserProfile: (payload: UserData) =>
+        dispatch(userActions.updateProfile.user.request(payload)),
     },
     dialogue: {
       getDialogues: (args: SortSettings) =>

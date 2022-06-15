@@ -1,5 +1,11 @@
 import * as actions from '../actionTypes/userActionTypes'
-import { Auth, ConfPass, User } from '../../../utils/types/user'
+import {
+  Auth,
+  ConfPass,
+  NewUserData,
+  User,
+  UserData,
+} from '../../../utils/types/user'
 
 // RESET MESSAGES
 export type resetMessagesActionCreator = () => actions.ResetMessagesAction
@@ -38,6 +44,18 @@ export type signUpSuccessActionCreator = (
 export type signUpErrorActionCreator = (
   message: string
 ) => actions.SignUpErrorAction
+
+// UPDATE PROFILE
+export type updateUserProfileRequestActionCreator = (
+  userData: UserData
+) => actions.UpdateUserProfileRequestAction
+export type updateUserProfileSuccessActionCreator = ({
+  userData,
+  message,
+}: NewUserData) => actions.UpdateUserProfileSuccessAction
+export type updateUserProfileErrorActionCreator = (
+  message: string
+) => actions.UpdateUserProfileErrorAction
 
 // SIGN UP
 export type signOutRequestActionCreator = () => actions.SignOutRequestAction

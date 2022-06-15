@@ -11,11 +11,16 @@ import Header from '../../common/Header/Header'
 import UI from '../../common/UI'
 
 import UserProfileWrapper from './UserProfile.style'
+import { useActions } from '../../../hooks/useActions'
 
 const UserProfile: FC = () => {
   const { loading, error, success, user } = useTypedSelector(
     (state) => state.user
   )
+  const {
+    user: { updateUserProfile },
+  } = useActions()
+
   const {
     register,
     handleSubmit,
@@ -30,7 +35,7 @@ const UserProfile: FC = () => {
 
   useEffect(() => {
     if (user) {
-      if (user.user.displayName) setValue('nickname', user.user.displayName)
+      if (user.user.displayName) setValue('displayName', user.user.displayName)
       if (user.user.photoURL) setImageSrc(user.user.photoURL)
     }
   }, [user])
@@ -46,7 +51,7 @@ const UserProfile: FC = () => {
   }
 
   const profileInputs: Input[] = [
-    { label: 'Никнейм', name: 'nickname', type: 'text', placeholder: '' },
+    { label: 'Никнейм', name: 'displayName', type: 'text', placeholder: '' },
     {
       label: 'Аватар',
       name: 'avatar',
@@ -69,7 +74,12 @@ const UserProfile: FC = () => {
   ]
 
   const onSubmit = (data: any) => {
-    console.log(data)
+    if (user) {
+      updateUserProfile({
+        ...data,
+      })
+    }
+
     setValue('password', '')
     setValue('confirmPassword', '')
   }

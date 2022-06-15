@@ -1,9 +1,10 @@
 import firebase from 'firebase/compat/app'
+import 'firebase/compat/storage'
 import 'firebase/compat/auth'
 import { call, put, takeLatest } from 'redux-saga/effects'
 
 import { userActionTypes as types } from '../../utils/enums/user'
-import { Auth, ConfPass, role } from '../../utils/types/user'
+import { Auth, ConfPass, role, User, UserData } from '../../utils/types/user'
 import { Errors } from '../../utils/enums/errors'
 import { convertError } from '../../utils/helpers/convertError'
 
@@ -18,6 +19,20 @@ const fetchCheckAuth = async () => {
   const isUser = await auth.onAuthStateChanged((user) => !!user)
 
   return isUser
+}
+
+const getUserRole = async (
+  db: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>,
+  uid?: string
+) => {
+  const snapshot = await db
+    .where(firebase.firestore.FieldPath.documentId(), '==', uid)
+    .get()
+  const [role] = snapshot.docs.map((item) => {
+    return item.data()['role']
+  })
+
+  return role
 }
 
 const fetchSignIn = async ({ email, password, isRemember }: Auth) => {
@@ -60,12 +75,7 @@ const fetchSignOut = async () => {
 const fetchUserRole = async (uid: string) => {
   const db = firebase.firestore().collection('users')
 
-  const snapshot = await db
-    .where(firebase.firestore.FieldPath.documentId(), '==', uid)
-    .get()
-  const [role] = snapshot.docs.map((item) => {
-    return item.data()['role']
-  })
+  const role = getUserRole(db, uid)
 
   if (!role) {
     await db.doc(uid).set({
@@ -86,6 +96,47 @@ const fetchConfirmPassword = async ({ oobCode, password }: ConfPass) => {
   if (oobCode != null) {
     await auth.confirmPasswordReset(oobCode, password)
   }
+}
+
+const uploadImage = async (
+  storage: firebase.storage.Storage,
+  imageFile: File
+) => {
+  const imgID = new Date().valueOf()
+  const task = storage.ref('images').child(imgID + '')
+
+  await task.put(imageFile)
+
+  return await task.getDownloadURL().then((url) => {
+    return url
+  })
+}
+
+const fetchUserProfile = async (params: UserData) => {
+  const user = firebase.auth().currentUser
+  const db = firebase.firestore().collection('users')
+
+  const role = getUserRole(db, user?.uid)
+
+  if (params.avatar) {
+    const storage = firebase.storage()
+    const imageURL = await uploadImage(storage, params.avatar)
+
+    await user?.updateProfile({
+      displayName: params.displayName !== '' ? params.displayName : null,
+      photoURL: imageURL,
+    })
+  } else {
+    await user?.updateProfile({
+      displayName: params.displayName !== '' ? params.displayName : null,
+    })
+  }
+
+  if (params.password) {
+    await user?.updatePassword(params.password)
+  }
+
+  return { user, role }
 }
 
 function* checkAuthWorker() {
@@ -195,6 +246,27 @@ function* confirmPasswordWorker({
   }
 }
 
+function* updateUserProfileWorker({
+  payload,
+}: actions.UpdateUserProfileRequestAction) {
+  try {
+    const user: User | null = yield call(fetchUserProfile, payload)
+    if (user) {
+      yield put(
+        userActions.updateProfile.user.success({
+          userData: user,
+          message: 'Профиль успешно обновлен',
+        })
+      )
+    }
+  } catch (error: any) {
+    yield put(userActions.updateProfile.user.error(convertError(error)))
+  } finally {
+    yield call(delay, 5000)
+    yield put(userActions.resetMessages())
+  }
+}
+
 export function* userSaga() {
   yield takeLatest(types.SIGN_IN_REQUEST, signInWithDataWorker)
   yield takeLatest(types.CHECK_AUTH_REQUEST, checkAuthWorker)
@@ -203,4 +275,5 @@ export function* userSaga() {
   yield takeLatest(types.RECOVER_PASSWORD_REQUEST, recoverPasswordWorker)
   yield takeLatest(types.CONFIRM_PASSWORD_REQUEST, confirmPasswordWorker)
   yield takeLatest(types.SIGN_IN_WITH_GOOGLE_REQUEST, signInWithGoogleWorker)
+  yield takeLatest(types.UPDATE_USER_PROFILE_REQUEST, updateUserProfileWorker)
 }

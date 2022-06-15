@@ -13,6 +13,17 @@ export interface ConfPass {
   password: string
 }
 
+export interface UserData {
+  displayName: string | null
+  avatar: File | null
+  password: string | null
+}
+
+export interface NewUserData {
+  userData: User
+  message: string
+}
+
 export interface User {
   user: UserInfo
   role: role

@@ -54,10 +54,10 @@ export const updatePasswordSchema = Yup.object().shape({
 
 export const profileSchema = Yup.object().shape(
   {
-    nickname: Yup.string()
+    displayName: Yup.string()
       .nullable()
       .notRequired()
-      .when('nickname', {
+      .when('displayName', {
         is: (val: string) => !!(val && val.length > 0),
         then: Yup.string()
           .min(6, 'Никнейм должен состоять из 6 символов и более')
@@ -89,7 +89,7 @@ export const profileSchema = Yup.object().shape(
       }),
   },
   [
-    ['nickname', 'nickname'],
+    ['displayName', 'displayName'],
     ['password', 'password'],
     ['confirmPassword', 'confirmPassword'],
   ]
